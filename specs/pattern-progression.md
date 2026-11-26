@@ -30,6 +30,21 @@ User decision: what counts as completion depends on the stage.
 - An instance whose follow-through is still pending can count for Seen but not yet toward later stages. It is not a miss.
 - An instance whose follow-through finished outside the four-week window does not count toward Forming or Established in that window.
 - A follow-through that visibly failed (agent ignored the redirect, change reverted) counts for Seen only if the deliberate act itself qualifies, and never toward later stages.
+- “Most” and other coverage thresholds use the provisional defaults in [pattern parameters](pattern-parameters.md).
+
+### Stage-dependent completion
+
+User decision: what counts as completion depends on the stage.
+
+| Stage | What counts |
+| --- | --- |
+| Seen | The first qualifying event: the person's deliberate act inside the window (a brief sent, a breakdown with its first sub-task finished, a challenge issued, a review requested, an explained redirect, a lean-up change requested). |
+| Forming, Established | Only instances whose follow-through also finished: every sub-task done, the agent's response addressed the challenge, review findings acted on, course changed after a redirect, the change kept for `kept_window`. Each instance is credited to the week its follow-through finished. |
+| Continuous | A mechanism in place, applied and holding, as before. Completion of individual instances is not enough. |
+
+- An instance whose follow-through is still pending can count for Seen but not yet toward later stages. It is not a miss.
+- An instance whose follow-through finished outside the four-week window does not count toward Forming or Established in that window.
+- A follow-through that visibly failed (agent ignored the redirect, change reverted) counts for Seen only if the deliberate act itself qualifies, and never toward later stages.
 
 ## Acceptance Criteria
 
