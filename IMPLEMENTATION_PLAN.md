@@ -58,16 +58,16 @@ Build the declarative `glenngillen/core` Dram pack containing all 41 coaching pa
 
 ### Foundation
 
-- [ ] Set up project infrastructure for declarative packs and Python authoring tools.
+- [x] Set up project infrastructure for declarative packs and Python authoring tools.
   - Add `pyproject.toml` and reproducible development dependency constraints for YAML parsing, JSON Schema validation and pytest; keep tooling outside the packaged `core/` tree.
   - Preserve the license and existing specs. Document local environment setup without adding a CLI application, executable detector or deployment workflow.
 
-- [ ] Configure pytest around safe local pack-content validation.
+- [x] Configure pytest around safe local pack-content validation.
   - Provide reusable readers and synthetic temporary fixtures for YAML/JSONL diagnostics, duplicate YAML keys, contained relative references, missing files and symlink rejection.
   - Test the validator's rejection behavior; do not invent Dram schema or fixture fields. Keep structural checks separate from detector evaluations and their verdicts.
   - Support explicitly tracked incremental catalogue coverage until final acceptance requires all 41; missing or pending content must remain visible rather than silently excluded.
 
-- [ ] Create specs/README.md with the architecture overview and topic index.
+- [x] Create specs/README.md with the architecture overview and topic index.
   - Index all 50 existing specifications, the eight groups, shared requirements and source evidence; describe the proposed root index, `core/` pack, authoring tools and tests.
   - Distinguish pack content from external CLI capabilities. Use topic-only kebab-case spec names and omit originating tracker identifiers and checkout paths from spec content.
 
