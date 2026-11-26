@@ -1,11 +1,11 @@
 ---
 id: dram-packs-d2e
 title: Build initial dram packs
-status: open
+status: in_progress
 type: feature
 priority: 2
 created_at: 2026-11-26T12:44:00Z
-updated_at: 2026-11-26T12:44:06Z
+updated_at: 2026-11-26T17:21:52Z
 closed_at: ~
 close_reason: ~
 external_ref: gh-glenngillen/dram-packs#1
