@@ -62,6 +62,6 @@ def test_catalogue_coverage_has_no_unknown_or_required_missing_patterns(catalogu
 
 def test_packaged_tree_has_no_symlinks_or_executables():
     if not PACK.exists():
-        pytest.skip("core/ pack tree not created yet (blocked on compatibility inputs)")
+        pytest.skip("core/ pack tree not created yet (compatible-baseline slice pending)")
     assert find_symlinks(PACK) == []
     assert find_executables(PACK) == []

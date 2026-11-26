@@ -33,7 +33,7 @@ A pattern that is authored and structurally valid is **not** a working detector.
 | `tests/content/` | Present | Read-only structural checks of this repository's real content. |
 | `scripts/run-tests.sh` | Present | Runs both test tiers through `uv`. |
 
-The `core/` files follow the current Dram conventions recorded in [requirements evidence](requirements-evidence.md). Creating them is blocked until a pinned schema, block registry, loader and evaluator contract and a runnable released CLI are available inside this repository; no schema is invented in the meantime.
+The `core/` files follow the current Dram conventions recorded in [requirements evidence](requirements-evidence.md). Their compatibility source is the Dram CLI revision pinned in requirements evidence (read-only: its pack schema, block registry, loader and built-in packs), with the community example pack as the layout reference. No schema field is invented; anything that revision cannot express stays in prose with the pattern disabled.
 
 ### Authoring tools and tests
 
@@ -147,7 +147,7 @@ Source IDs equal spec file names. Order within a group is the rung order.
 
 ## Open questions
 
-- Which released Dram CLI version should be the pack's `min_cli`, and which revision is pinned for compatibility?
-  - evidence: The inspected CLI revision is recorded in requirements evidence, but no released version or runnable CLI is available in this repository; a `dev` build bypasses version refusal.
-  - options: Supply a pinned schema/loader/evaluator bundle and a verified release; keep the compatible-baseline slice blocked until then.
+- Which released Dram CLI version should be the pack's `min_cli`?
+  - evidence: The compatibility revision is pinned in requirements evidence, but a build from that revision reports `dev`, which bypasses version refusal and cannot prove a released minimum.
+  - options: Use the earliest tagged release whose schema accepts every field used; if none does, record the pinned revision and the reason, and confirm with a maintainer.
   - location: specs/README.md / Repository layout
