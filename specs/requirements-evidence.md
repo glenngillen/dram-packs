@@ -34,6 +34,10 @@ Answers received in conversation on 2026-11-27, in addition to the earlier “op
 | Progression | Keep stages with automation gating (three Continuous patterns across two groups) | [Pattern progression](pattern-progression.md) |
 | Thresholds with source examples | Use the source examples as provisional, tunable defaults | [Pattern parameters](pattern-parameters.md) |
 | Thresholds without source examples | Accept proposed defaults: long session = 150k tokens or compaction; substantial work = at least 6 person prompts; harness fix follow-up = at least 2 later applicable sessions within 14 days with no recurrence | [Pattern parameters](pattern-parameters.md) |
+| Mind the cache denominator | All returns to the same work after a qualifying gap, both fresh starts and cold resumes | [Mind the cache](mind-the-cache.md) |
+| Isolation | Only a separate working copy counts (worktree, clone, container, VM); branch-only in a shared directory does not | [Isolate the run](isolate-the-run.md), [Two at once](two-at-once.md) |
+| Sandboxed bypass | Counts for Sandbox autonomy only; neutral for Scope permissions | [Scope permissions](scope-permissions.md), [Sandbox autonomy](sandbox-autonomy.md) |
+| Sandbox evidence | Intent is system isolation. Seen needs an observable container, devcontainer, VM or remote sandbox; a credential-free host or separate OS user is unassessed until the CLI exposes it as a fact | [Sandbox autonomy](sandbox-autonomy.md) |
 | Completion | Depends on the stage. Seen counts on the first qualifying event; Forming and Established count only instances whose follow-through finished, credited to the week it finished; Continuous needs a holding mechanism | [Pattern progression](pattern-progression.md#stage-dependent-completion) and the six affected pattern specs |
 
 ### Searches and limitations
@@ -50,8 +54,6 @@ Identity, progression, thresholds and completion are now decided (see Recorded u
 | Decision area | Specific unresolved behavior | Affected specification |
 | --- | --- | --- |
 | Attribution | Whether opportunities are exempt from the person-authored citation rule; whether held cases must cite the originating configuration | [Pattern evidence](pattern-evidence.md) |
-| Applicability | Cache management's denominator includes resumes but its positive act avoids resuming | [Mind the cache](mind-the-cache.md) |
-| Isolation | Branch-only isolation; sandboxed bypass versus scoped permissions; credential-free host versus explicit sandbox requirement | [Isolate the run](isolate-the-run.md), [Scope permissions](scope-permissions.md), [Sandbox autonomy](sandbox-autonomy.md) |
 | Classification | Non-trivial instruction files, routine work beyond the example list, meaningful configuration refresh and repeated-correction equivalence | The corresponding pattern's Edge Cases section |
 | Parameters with no value | "Several" in Fan out, waiting duration in Two at once, "fast" in Gate each step | [Pattern parameters](pattern-parameters.md) |
 | Outcomes | Cost allocation across changes and fix-up matching | [Outcome content](outcome-content.md) |

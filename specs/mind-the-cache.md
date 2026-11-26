@@ -19,10 +19,11 @@ Source ID `mind-the-cache`; Economics, rung 2. Avoid rebuilding large cold conte
 - [ ] Recognize an end-of-day handoff used next morning; reject resuming a large 150k-token context after lunch as successful cache management.
 - [ ] Guided handoff creation without the later qualifying fresh start is incomplete.
 - [ ] Unknown cache lifetime/context size produces no fabricated recognition or cost.
+- [ ] A fresh start after a qualifying gap counts in the applicable denominator, alongside cold resumes.
 
 ## Edge Cases
 
-- The source's applicability says “sessions resumed” while Seen avoids resuming. This denominator inconsistency needs an explicit future contract.
+- Decided: the applicable denominator is every return to the same work after a gap over `cache_gap` from a context over `large_context_tokens`. A fresh start from a handoff or `/clear` is a hit; continuing the cold context is a miss. The source's narrower “sessions resumed” wording is superseded.
 - Cache lifetime and “large” use `cache_gap` (more than 1 hour) and `large_context_tokens` (150,000) from [pattern parameters](pattern-parameters.md). Both are provisional and tunable.
 
 ## Dependencies

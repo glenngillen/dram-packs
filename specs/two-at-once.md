@@ -7,8 +7,8 @@ Source ID `two-at-once`; Delegation, rung 6. Use waiting time for independent wo
 ## Requirements
 
 - Applies to turns running for several minutes while the person waits; the source supplies no exact duration threshold.
-- Seen requires two sessions in distinct working directories or branches doing real editing in overlapping minutes, with at least one interactive session.
-- Exclude idle overlap, the same directory and branch, and a parent with its own subagent.
+- Seen requires two sessions in separate working copies (as defined in [Isolate the run](isolate-the-run.md)) doing real editing in overlapping minutes, with at least one interactive session.
+- Exclude idle overlap, sessions sharing one directory (whatever their branches), and a parent with its own subagent.
 - Cite each session's person prompt starting work during the overlap and an edit in each; completion requires the paired evidence.
 - Continuous requires an owned command/script starting isolated parallel sessions, used and holding in the window.
 - Suggest only after Isolate the run is at least Seen. Guide: select two independent real tasks and have the person run them in isolated sessions.
@@ -24,7 +24,7 @@ Source ID `two-at-once`; Delegation, rung 6. Use waiting time for independent wo
 ## Edge Cases
 
 - Session start/end intervals alone overcount idle overlap; edit/turn evidence is required.
-- Branch-only separation inherits the unresolved working-copy isolation question in Isolate the run.
+- Branch-only separation in a shared directory does not qualify, per the isolation decision in Isolate the run.
 
 ## Dependencies
 
