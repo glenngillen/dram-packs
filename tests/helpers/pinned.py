@@ -125,6 +125,7 @@ SCHEMA = {
             "properties": {
                 "pattern": {"$ref": "#/$defs/patternFile"},
                 "text": {"$ref": "#/$defs/textFile"},
+                "effects": {"$ref": "#/$defs/effectsFile"},
                 "cases": {"type": "array", "items": {"$ref": "#/$defs/caseLine"}},
             },
         },
@@ -169,6 +170,11 @@ REGISTRY = {
         },
         "propose": {"kind": "model", "params": {"type": "object", "additionalProperties": False}},
         "shell": {"kind": "signal", "params": {"type": "object", "additionalProperties": False}},
+        "reverted_within": {
+            "kind": "measure",
+            "params": {"type": "object", "additionalProperties": False, "properties": {"days": {"type": "integer", "minimum": 1}}},
+        },
+        "saved_turns": {"kind": "savings", "params": {"type": "object", "additionalProperties": False}},
     }
 }
 

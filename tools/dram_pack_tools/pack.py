@@ -170,28 +170,61 @@ def assemble(pack_dir: Path) -> Assembled:
     return Assembled(data, patterns, prose)
 
 
+def _lookup(pinned: Pinned, field: str, name: str, kind: str, source: str) -> tuple[dict[str, Any] | None, list[Diagnostic]]:
+    """Find a registry block, refusing an unknown name or the wrong kind (``registry.block``)."""
+    b = pinned.registry["blocks"].get(name)
+    if not isinstance(b, dict):
+        return None, [Diagnostic(source, "block-unknown", f"{field} names block {name!r}, which the pinned CLI does not have")]
+    if b.get("kind") != kind:
+        return None, [Diagnostic(source, "block-kind", f"{field} names {name!r}, a {b.get('kind')} block, not a {kind} block")]
+    return b, []
+
+
+def _check_params(block: dict[str, Any], field: str, name: str, params: dict[str, Any], source: str, *, slot_keys: bool = True) -> list[Diagnostic]:
+    """Validate parameters against a block's schema, as the loader's resolved schema does."""
+    schema = dict(_dict(block.get("params")))
+    props: dict[str, Any] = {"id": {"type": "string"}, "block": {"type": "string"}, "signal": {"type": "string"}} if slot_keys else {}
+    props.update(_dict(schema.get("properties")))
+    schema["properties"] = props
+    errs = list(jsonschema.Draft202012Validator(schema).iter_errors(params))
+    if errs:
+        return [Diagnostic(source, "block-params", f"{field} ({name}): {errs[0].message}")]
+    return []
+
+
 def _check_blocks(pinned: Pinned, pattern: dict[str, Any], source: str) -> list[Diagnostic]:
-    blocks = pinned.registry["blocks"]
     out = []
     for ref in block_refs(pattern):
-        b = blocks.get(ref.name)
-        if not isinstance(b, dict):
-            out.append(Diagnostic(source, "block-unknown", f"{ref.field} names block {ref.name!r}, which the pinned CLI does not have"))
+        b, problems = _lookup(pinned, ref.field, ref.name, ref.kind, source)
+        out += problems
+        if b is None or ref.params is None:
             continue
-        if b.get("kind") != ref.kind:
-            out.append(Diagnostic(source, "block-kind", f"{ref.field} names {ref.name!r}, a {b.get('kind')} block, not a {ref.kind} block"))
-            continue
-        if ref.params is None:
-            continue
-        params = dict(_dict(b.get("params")))
-        props = {"id": {"type": "string"}, "block": {"type": "string"}, "signal": {"type": "string"}}
-        if ref.field.startswith("detection.model.may_cite"):
-            props = {}
-        props.update(_dict(params.get("properties")))
-        params["properties"] = props
-        errs = list(jsonschema.Draft202012Validator(params).iter_errors(ref.params))
-        if errs:
-            out.append(Diagnostic(source, "block-params", f"{ref.field} ({ref.name}): {errs[0].message}"))
+        out += _check_params(b, ref.field, ref.name, ref.params, source, slot_keys=not ref.field.startswith("detection.model.may_cite"))
+    return out
+
+
+def _check_effects(pinned: Pinned, effects: Any, source: str) -> list[Diagnostic]:
+    """``registry.checkEffects``: each effect names a savings block and, optionally, a signal."""
+    out = []
+    for i, e in enumerate(_list(_dict(effects).get("effects"))):
+        e = _dict(e)
+        for key, kind in (("block", "savings"), ("signal", "signal")):
+            if isinstance(e.get(key), str):
+                out += _lookup(pinned, f"effects[{i}].{key}", e[key], kind, source)[1]
+    return out
+
+
+def _check_outcomes(pinned: Pinned, outcomes: Any, source: str) -> list[Diagnostic]:
+    """``registry.checkOutcomes``: each outcome names a measure block and passes it parameters it takes."""
+    out = []
+    for i, o in enumerate(_list(_dict(outcomes).get("outcomes"))):
+        o = _dict(o)
+        field = f"outcomes[{i}].measure"
+        name = o.get("measure") if isinstance(o.get("measure"), str) else ""
+        b, problems = _lookup(pinned, field, name, "measure", source)
+        out += problems
+        if b is not None and isinstance(o.get("params"), dict):
+            out += _check_params(b, field, name, o["params"], source)
     return out
 
 
@@ -260,8 +293,12 @@ def validate_pack(pack_dir: Path, pinned: Pinned) -> list[Diagnostic]:
             if isinstance(ref, str) and f"{name}/{ref}" not in a.prose:
                 out.append(Diagnostic(src, "ref-prose", f"detection.model.{key} names {ref}, which is not in the pattern"))
         out += _check_blocks(pinned, pattern, src)
+        if "effects" in one:
+            out += _check_effects(pinned, one["effects"], str(pdir / "effects.yaml"))
         if "text" in one:
             out += _check_text(one["text"], str(pdir / "text.yaml"))
+    if "outcomes" in a.data:
+        out += _check_outcomes(pinned, a.data["outcomes"], str(pack_dir / "outcomes.yaml"))
     announcement = _dict(a.data["pack"]).get("announcement")
     if announcement and announcement not in a.prose:
         out.append(Diagnostic(str(pack_dir / "pack.yaml"), "ref-prose", f"announcement names {announcement}, which is not in the pack"))

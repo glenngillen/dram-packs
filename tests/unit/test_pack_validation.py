@@ -110,6 +110,58 @@ def test_case_lines_are_validated_with_line_numbers(tmp_path):
     assert diags[0].line == 1
 
 
+def outcomes(body):
+    return {"core__outcomes.yaml": "outcomes:\n  - id: survival\n" + body}
+
+
+def test_known_outcome_measure_with_valid_params_is_accepted(tmp_path):
+    root = make(tmp_path, **outcomes("    measure: reverted_within\n    params: {days: 14}\n"))
+    assert validate_pack(root / "core", pinned()) == []
+
+
+def test_unknown_outcome_measure_is_rejected(tmp_path):
+    root = make(tmp_path, **outcomes("    measure: imaginary_measure\n"))
+    diags = validate_pack(root / "core", pinned())
+    assert codes(diags) == ["block-unknown"]
+    assert "outcomes[0].measure" in diags[0].message and "outcomes.yaml" in diags[0].path
+
+
+def test_outcome_measure_of_the_wrong_kind_is_rejected(tmp_path):
+    root = make(tmp_path, **outcomes("    measure: saved_turns\n"))
+    assert codes(validate_pack(root / "core", pinned())) == ["block-kind"]
+
+
+@pytest.mark.parametrize("params", ["{weeks: 2}", "{days: 0}", "{days: two}"])
+def test_outcome_params_the_measure_does_not_take_are_rejected(tmp_path, params):
+    root = make(tmp_path, **outcomes(f"    measure: reverted_within\n    params: {params}\n"))
+    assert codes(validate_pack(root / "core", pinned())) == ["block-params"]
+
+
+def effects(body):
+    return {"core__patterns__give-it__effects.yaml": "effects:\n  - id: e\n" + body}
+
+
+def test_known_effect_block_and_signal_are_accepted(tmp_path):
+    root = make(tmp_path, **effects("    block: saved_turns\n    signal: shell\n"))
+    assert validate_pack(root / "core", pinned()) == []
+
+
+@pytest.mark.parametrize(
+    ("body", "code", "field"),
+    [
+        ("    block: imaginary_savings\n", "block-unknown", "effects[0].block"),
+        ("    block: saved_turns\n    signal: imaginary_signal\n", "block-unknown", "effects[0].signal"),
+        ("    block: shell\n", "block-kind", "effects[0].block"),
+        ("    block: saved_turns\n    signal: saved_turns\n", "block-kind", "effects[0].signal"),
+    ],
+)
+def test_unknown_or_misplaced_effect_blocks_are_rejected(tmp_path, body, code, field):
+    root = make(tmp_path, **effects(body))
+    diags = validate_pack(root / "core", pinned())
+    assert codes(diags) == [code]
+    assert field in diags[0].message and "effects.yaml" in diags[0].path
+
+
 def test_missing_pack_yaml_is_reported(tmp_path):
     root = make(tmp_path, **{"core__pack.yaml": None})
     assert codes(validate_pack(root / "core", pinned())) == ["missing-file"]
