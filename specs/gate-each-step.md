@@ -23,7 +23,7 @@ Source ID `gate-each-step`; Checking the work, rung 6. Catch issues through fast
 ## Edge Cases
 
 - Successful quiet runs may establish execution but the Seen definition specifically requires a blocking or feedback instance.
-- “Fast” is not given a universal duration. Do not impose a new performance threshold in the pack.
+- “Fast” uses `fast_check` in [pattern parameters](pattern-parameters.md): a per-step check usually finishing within 60 seconds (provisional). A slower check is not this pattern's fast gate, but may still count toward Gate "done".
 
 ## Dependencies
 

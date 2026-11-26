@@ -6,7 +6,7 @@ Source ID `fan-out`; Delegation, rung 3. Run independent parts through parallel 
 
 ## Requirements
 
-- Applies to work with several independent parts.
+- Applies to work with several independent parts (`several_parallel` in [pattern parameters](pattern-parameters.md): 3 or more, provisional).
 - Seen requires a person request for parallel subagents, concurrent execution and use of the combined result.
 - Exclude a single subagent and discarded parallel results. Cite the request and used combined result as completion.
 - Continuous requires a saved command/workflow causing fan-out in the window, applied and holding.
@@ -22,7 +22,7 @@ Source ID `fan-out`; Delegation, rung 3. Run independent parts through parallel 
 
 ## Edge Cases
 
-- The source gives no universal number for “several”; at least distinguish one from multiple without fabricating a stronger threshold.
+- “Several” uses the provisional `several_parallel` default: 3 or more independent parts run in parallel. Two parallel subagents do not meet it.
 - Independent investigations need not edit files, unlike Two at once's explicit edit requirement.
 
 ## Dependencies

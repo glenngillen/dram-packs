@@ -6,7 +6,7 @@ Source ID `two-at-once`; Delegation, rung 6. Use waiting time for independent wo
 
 ## Requirements
 
-- Applies to turns running for several minutes while the person waits; the source supplies no exact duration threshold.
+- Applies to turns running for at least 5 minutes while the person waits (`long_turn` in [pattern parameters](pattern-parameters.md), provisional).
 - Seen requires two sessions in separate working copies (as defined in [Isolate the run](isolate-the-run.md)) doing real editing in overlapping minutes, with at least one interactive session.
 - Exclude idle overlap, sessions sharing one directory (whatever their branches), and a parent with its own subagent.
 - Cite each session's person prompt starting work during the overlap and an edit in each; completion requires the paired evidence.

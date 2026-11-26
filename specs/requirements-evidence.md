@@ -38,6 +38,8 @@ Answers received in conversation on 2026-11-27, in addition to the earlier “op
 | Isolation | Only a separate working copy counts (worktree, clone, container, VM); branch-only in a shared directory does not | [Isolate the run](isolate-the-run.md), [Two at once](two-at-once.md) |
 | Sandboxed bypass | Counts for Sandbox autonomy only; neutral for Scope permissions | [Scope permissions](scope-permissions.md), [Sandbox autonomy](sandbox-autonomy.md) |
 | Sandbox evidence | Intent is system isolation. Seen needs an observable container, devcontainer, VM or remote sandbox; a credential-free host or separate OS user is unassessed until the CLI exposes it as a fact | [Sandbox autonomy](sandbox-autonomy.md) |
+| Opportunity citation | Opportunities must cite a person-authored moment, like recognitions (overrides the source exemption) | [Pattern evidence](pattern-evidence.md) |
+| Remaining thresholds | Fan out several = 3+ parallel parts; Two at once long turn = 5+ minutes; Gate each step fast = within 60 seconds | [Pattern parameters](pattern-parameters.md) |
 | Completion | Depends on the stage. Seen counts on the first qualifying event; Forming and Established count only instances whose follow-through finished, credited to the week it finished; Continuous needs a holding mechanism | [Pattern progression](pattern-progression.md#stage-dependent-completion) and the six affected pattern specs |
 
 ### Searches and limitations
@@ -53,9 +55,8 @@ Identity, progression, thresholds and completion are now decided (see Recorded u
 
 | Decision area | Specific unresolved behavior | Affected specification |
 | --- | --- | --- |
-| Attribution | Whether opportunities are exempt from the person-authored citation rule; whether held cases must cite the originating configuration | [Pattern evidence](pattern-evidence.md) |
+| Attribution | Whether held cases must cite the originating configuration | [Pattern evidence](pattern-evidence.md) |
 | Classification | Non-trivial instruction files, routine work beyond the example list, meaningful configuration refresh and repeated-correction equivalence | The corresponding pattern's Edge Cases section |
-| Parameters with no value | "Several" in Fan out, waiting duration in Two at once, "fast" in Gate each step | [Pattern parameters](pattern-parameters.md) |
 | Outcomes | Cost allocation across changes and fix-up matching | [Outcome content](outcome-content.md) |
 | Release | Minimum released CLI version and maintainer identity | [Pack compatibility](pack-compatibility.md) |
 

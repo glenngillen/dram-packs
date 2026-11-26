@@ -26,8 +26,11 @@ One table of the tunable defaults that pattern definitions depend on. The user d
 | `handoff_pairing` | Previous main session in the same repository ending within 24 hours | Source | [Hand it off](hand-it-off.md) |
 | `unattended_gap` | Headless, or 15 minutes or more of agent work without a person prompt | Source | [Pattern evidence](pattern-evidence.md) |
 | `kept_window` | 14 days in the default branch | Source | [Outcome content](outcome-content.md) |
+| `several_parallel` | 3 or more independent parts run in parallel | Approved proposal | [Fan out](fan-out.md) |
+| `long_turn` | Agent turn running 5 minutes or more while the person waits | Approved proposal | [Two at once](two-at-once.md) |
+| `fast_check` | Per-step check usually finishing within 60 seconds | Approved proposal | [Gate each step](gate-each-step.md) |
 
-- Parameters still without a value remain unresolved and keep their detection disabled: "several" in [Fan out](fan-out.md) beyond distinguishing one from multiple, the waiting duration in [Two at once](two-at-once.md), "fast" in [Gate each step](gate-each-step.md), and "non-trivial" instruction files in [Give it instructions](give-it-instructions.md).
+- “Non-trivial” instruction files in [Give it instructions](give-it-instructions.md) still have no value; it stays unresolved and keeps that detection disabled.
 
 ## Acceptance Criteria
 
