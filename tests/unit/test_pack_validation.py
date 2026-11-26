@@ -9,6 +9,8 @@ from __future__ import annotations
 import json
 
 import pytest
+from hypothesis import given
+from hypothesis import strategies as st
 
 from dram_pack_tools.pack import (
     IMPLEMENTED_CHECKS,
@@ -177,3 +179,31 @@ def test_index_lists_a_pack_once(tmp_path):
 def test_index_must_be_a_supported_format_version(tmp_path):
     root = make(tmp_path, **{"dram.yaml": INDEX.replace("index: 1", "index: 2")})
     assert codes(validate_index(root, pinned())) == ["index-version"]
+
+
+class TestProperties:
+    """Synthetic block-bearing slots: block_refs preserves names, kinds and order."""
+
+    name = st.from_regex(r"[a-z][a-z0-9_]{0,12}", fullmatch=True)
+    names = st.lists(name, max_size=4)
+    cites = st.lists(st.tuples(name, st.booleans()), max_size=4)
+
+    @given(st.one_of(st.none(), name), names, st.one_of(st.none(), name), cites, names, names)
+    def test_block_refs_preserve_names_kinds_and_order(self, gate, code, model, cites, mechanisms, moments):
+        raw: dict = {"detection": {"code": [{"block": n} for n in code]}}
+        expected = []
+        if gate is not None:
+            raw["applies_to"] = {"block": gate}
+            expected.append(("applies_to", gate, "check"))
+        expected += [(f"detection.code[{i}]", n, "check") for i, n in enumerate(code)]
+        m: dict = {"may_cite": [n if bare else {n: {}} for n, bare in cites]}
+        if model is not None:
+            m["block"] = model
+            expected.append(("detection.model", model, "model"))
+        raw["detection"]["model"] = m
+        expected += [(f"detection.model.may_cite[{i}]", n, "signal") for i, (n, _) in enumerate(cites)]
+        raw["continuous"] = {"mechanisms": [{"block": n} for n in mechanisms]}
+        expected += [(f"continuous.mechanisms[{i}]", n, "check") for i, n in enumerate(mechanisms)]
+        raw["moments"] = [{"signal": n} for n in moments]
+        expected += [(f"moments[{i}]", n, "moment") for i, n in enumerate(moments)]
+        assert [(r.field, r.name, r.kind) for r in block_refs(raw)] == expected

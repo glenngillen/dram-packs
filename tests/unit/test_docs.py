@@ -97,3 +97,40 @@ class TestProperties:
     def test_placeholders_are_found_inside_single_braces(self, text):
         for name in placeholders(text):
             assert "{" + name + "}" in text
+
+    # Synthetic generators for the parser/transformer properties below.
+    param_name = st.from_regex(r"[a-z0-9_]{1,12}", fullmatch=True)
+    cell = st.from_regex(r"[A-Za-z0-9%.,]([A-Za-z0-9%., ]{0,10}[A-Za-z0-9%.,])?", fullmatch=True)
+    row = st.tuples(cell, cell, cell, cell)
+    heading_text = st.from_regex(r"[A-Za-z0-9]([A-Za-z0-9 _-]{0,15}[A-Za-z0-9])?", fullmatch=True)
+    anchor = st.from_regex(r"[a-z0-9_-]{1,12}", fullmatch=True)
+    param_path = st.sampled_from(["parameters.md", "../reference/parameters.md", "../../reference/parameters.md"])
+
+    @given(st.dictionaries(param_name, row, min_size=1, max_size=8))
+    def test_parameter_table_preserves_names_values_and_order(self, table):
+        lines = ["| Parameter | Default | Origin | Used by | Status |", "| --- | --- | --- | --- | --- |"]
+        lines += [f"| `{n}` | {d} | {o} | {u} | {s} |" for n, (d, o, u, s) in table.items()]
+        rows = parse_parameter_table("\n".join(lines) + "\n", "p.md")
+        assert list(rows) == list(table)
+        for n, (d, o, u, s) in table.items():
+            assert (rows[n].name, rows[n].default, rows[n].origin, rows[n].used_by, rows[n].status) == (n, d, o, u, s)
+
+    @given(st.lists(param_name, min_size=1, max_size=6), st.data())
+    def test_parameter_table_rejects_any_repeated_name(self, names, data):
+        dup = data.draw(st.sampled_from(names))
+        lines = [f"| `{n}` | a | b | c |" for n in names + [dup]]
+        with pytest.raises(PackContentError) as err:
+            parse_parameter_table("\n".join(lines) + "\n", "p.md")
+        assert err.value.diagnostics[0].code == "parameter-duplicate"
+
+    @given(heading_text, st.integers(min_value=1, max_value=8), st.integers(min_value=1, max_value=6))
+    def test_repeated_identical_headings_get_distinct_anchors(self, title, repeats, level):
+        text = "\n\n".join("#" * level + " " + title for _ in range(repeats)) + "\n"
+        slugs = heading_slugs(text)
+        assert len(slugs) == repeats
+        assert slugify(title) in slugs
+
+    @given(st.lists(st.tuples(param_name, anchor, param_path), max_size=6))
+    def test_parameter_links_preserve_names_anchors_and_order(self, links):
+        text = " and ".join(f"[`{n}`]({p}#{a})" for n, a, p in links)
+        assert parameter_links(f"Uses {text}.") == [(n, a) for n, a, _ in links]
