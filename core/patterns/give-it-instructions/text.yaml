@@ -1,0 +1,36 @@
+name: Give it instructions
+summary: Keep build commands and conventions in an instruction file the agent loads.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    The agent loaded meaningful instructions in {cases} of {applicable}
+    repositories you work in regularly.
+  not_seen: >
+    {count} repositories you work in regularly had no meaningful instructions
+    for the agent to load.
+  continuous: >
+    Every repository you work in regularly starts with instructions the agent
+    loads.
+  slipped: >
+    A session in a repository you use regularly ran without instructions, in
+    {session}.
+
+next_step: >
+  Pick the repository you use most that has no instruction file. Generate a
+  starting file, then add the one convention you correct most often.
+
+advice: >
+  An agent starts each session knowing nothing about the project. A short
+  instruction file with how to build, how to test and the conventions you
+  care about saves you repeating them, and saves the agent guessing.
+
+fix_prompt: >
+  Look at this repository and draft an instruction file for coding agents:
+  how to build it, how to run its tests, and the conventions its code
+  follows. Use the instruction file this agent actually reads. Show me the
+  draft before writing it, and ask me which convention I most often have to
+  correct so we can add it.

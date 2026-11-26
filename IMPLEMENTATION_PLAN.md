@@ -73,14 +73,14 @@ Build the declarative `glenngillen/core` Dram pack containing all 41 coaching pa
 
 ### Shared authoring contract and compatible baseline
 
-- [ ] Document shared evidence, progression, parameter and outcome contracts inside the pack.
+- [x] Document shared evidence, progression, parameter and outcome contracts inside the pack.
   - Add linked Markdown authoring references under `core/` for attribution, opportunities, completion windows, mechanisms in place/applied/held, privacy and insufficient evidence.
   - Keep every provisional parameter and its origin in one pack reference; patterns link to it. Preserve strict cache gap/context boundaries, inclusive coverage thresholds and pattern-specific overrides.
   - Preserve stage-dependent follow-through, guided Seen-only limits, the three-Continuous/two-group automation gate, safety prerequisites and next-step ordering as prose, not runtime fields.
   - Include all five outcomes and group mappings, including fourteen-day survival and seven-day rework; retain unresolved attribution, classification, stage-engine and outcome semantics explicitly.
   - Define a per-pattern authoring/scenario checklist and readiness vocabulary that separates authored, structurally valid, evaluable, preview and stable. Check links and parameter-reference consistency locally.
 
-- [ ] Establish a schema-valid disabled pack using Give it instructions as the complete reference pattern.
+- [x] Establish a schema-valid disabled pack using Give it instructions as the complete reference pattern.
   - **Compatibility inputs (supplied by the issue):** read them from the Dram CLI checkout at `/Volumes/Development/infracost/dram`, pinned at `bdea6f678399b3684519d41cc65645b4a42d53ef`. Use `internal/pack/schema.json`, `blocks.json`, `registry.go`, `pack.go`, `set.go`, `schema.go`, `docs/pack-schema.md` and the built-in packs under `packs/iac` and `packs/recommend` as the schema, block registry, loader contract and fixtures. Build a runnable CLI from that checkout with `mkdir -p <worktree>/.tmp/gotmp && GOTMPDIR=<worktree>/.tmp/gotmp TMPDIR=<worktree>/.tmp/gotmp go build -buildvcs=false -o <worktree>/.tmp/dram ./cmd/dram` (the default temp dir is not writable for the loop user, and git VCS stamping fails on the checkout's ownership). Treat the checkout as read-only: never edit, commit to or clean it. Use [owenrumney/dram-packs](https://github.com/owenrumney/dram-packs) as the reference pack layout (`dram.yaml`, pack dir, `pattern.yaml` + `text.yaml`).
   - Record the pinned revision. Set `min_cli` to the earliest tagged Dram version (`v0.1.0-preview.4` or earlier) whose schema supports the fields used; if no tag supports them, use the pinned revision, record why, and keep going rather than blocking. Resolve any schema-required maintainer metadata without claiming official status.
   - Create `dram.yaml`, `core/pack.yaml`, `core/groups.yaml` and the first complete `core/patterns/give-it-instructions/` tree using supported fields and references. Preserve final catalogue ordering as subsequent patterns are added.

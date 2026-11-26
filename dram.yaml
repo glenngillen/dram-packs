@@ -1,0 +1,11 @@
+# Repository index read by `dram pack registry add` and `dram pack install`.
+# The id must equal core/pack.yaml's id; install refuses one that disagrees.
+index: 1
+name: glenngillen dram packs
+description: >
+  Coaching packs about how a person works with coding agents. Content only:
+  every pattern is disabled until the Dram CLI can detect it.
+packs:
+  - id: glenngillen/core
+    path: core
+    description: 41 coaching patterns in eight groups; all disabled (content preview)
