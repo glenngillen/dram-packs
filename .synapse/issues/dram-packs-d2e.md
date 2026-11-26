@@ -5,10 +5,10 @@ status: open
 type: feature
 priority: 2
 created_at: 2026-11-26T12:44:00Z
-updated_at: 2026-11-26T12:44:00Z
+updated_at: 2026-11-26T12:44:06Z
 closed_at: ~
 close_reason: ~
-external_ref: ~
+external_ref: gh-glenngillen/dram-packs#1
 worker: ai
 persona: software-engineer
 ---
