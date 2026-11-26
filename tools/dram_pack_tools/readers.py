@@ -33,8 +33,23 @@ class _StrictLoader(yaml.SafeLoader):
                 "while constructing a timestamp", node.start_mark, str(err), node.start_mark
             ) from None
 
-    def flatten_mapping(self, node):
+    def __init__(self, stream):
+        super().__init__(stream)
+        self._key_checked: set[int] = set()
+
+    def _check_keys(self, node: yaml.MappingNode) -> None:
+        """Reject repeated keys among a mapping's own (pre-merge) entries.
+
+        Runs once per node, before PyYAML flattens merges into ``node.value``:
+        a flattened node legitimately holds merged keys beside their overrides,
+        so re-checking it (an anchored merge source reused later) would report
+        a false duplicate.
+        """
+        if id(node) in self._key_checked:
+            return
+        self._key_checked.add(id(node))
         merge_node = None
+        seen: dict[Any, yaml.Node] = {}
         for key_node, _ in node.value:
             if key_node.tag == _MERGE_TAG:
                 if merge_node is not None:
@@ -43,27 +58,31 @@ class _StrictLoader(yaml.SafeLoader):
                         problem_mark=key_node.start_mark,
                     )
                 merge_node = key_node
+                continue
+            key = self.construct_object(key_node, deep=True)
+            try:
+                hash(key)
+            except TypeError:
+                raise yaml.constructor.ConstructorError(
+                    "while constructing a mapping", node.start_mark, "found unhashable key", key_node.start_mark
+                ) from None
+            if key in seen:
+                raise _DuplicateKey(
+                    problem=f"duplicate key {key!r} (first defined on line {seen[key].start_mark.line + 1})",
+                    problem_mark=key_node.start_mark,
+                )
+            seen[key] = key_node
+
+    def flatten_mapping(self, node):
+        # PyYAML recurses into every merge source (inline mapping, alias or
+        # merge-list item) through this hook, so each source's own keys are
+        # validated before they are flattened into the merging mapping.
+        self._check_keys(node)
         return super().flatten_mapping(node)
 
     def construct_mapping(self, node, deep=False):  # noqa: D401 - PyYAML hook
         if isinstance(node, yaml.MappingNode):
-            seen: dict[Any, yaml.Node] = {}
-            for key_node, _ in node.value:
-                if key_node.tag == _MERGE_TAG:
-                    continue
-                key = self.construct_object(key_node, deep=True)
-                try:
-                    hash(key)
-                except TypeError:
-                    raise yaml.constructor.ConstructorError(
-                        "while constructing a mapping", node.start_mark, "found unhashable key", key_node.start_mark
-                    ) from None
-                if key in seen:
-                    raise _DuplicateKey(
-                        problem=f"duplicate key {key!r} (first defined on line {seen[key].start_mark.line + 1})",
-                        problem_mark=key_node.start_mark,
-                    )
-                seen[key] = key_node
+            self._check_keys(node)
         return super().construct_mapping(node, deep=deep)
 
 

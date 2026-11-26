@@ -54,6 +54,34 @@ class TestParseYaml:
         assert diag.code == "yaml-duplicate-key"
         assert (diag.path, diag.line, diag.column) == ("f.yaml", line, column)
 
+    @pytest.mark.parametrize("text, line, column", [
+        ("x: {<<: {a: 1, a: 2}}", 1, 16),
+        ("x: {<<: [{a: 1, a: 2}, {b: 1}]}", 1, 17),
+        ("x: {<<: [{b: 1}, {a: 1, a: 2}]}", 1, 25),
+        ("base: &b {k: 1, k: 2}\nx: {<<: *b}\n", 1, 17),
+    ])
+    def test_given_duplicate_key_inside_merge_source_when_parsed_then_rejected(self, text, line, column):
+        with pytest.raises(PackContentError) as exc:
+            parse_yaml(text, "f.yaml")
+        [diag] = exc.value.diagnostics
+        assert diag.code == "yaml-duplicate-key"
+        assert "'a'" in diag.message or "'k'" in diag.message
+        assert (diag.path, diag.line, diag.column) == ("f.yaml", line, column)
+
+    @pytest.mark.parametrize("text, expected", [
+        ("x: {<<: [{a: 1}, {a: 2}], b: 1}", {"x": {"a": 1, "b": 1}}),
+        ("x: {<<: {a: 1}, a: 2}", {"x": {"a": 2}}),
+    ])
+    def test_given_legitimate_merge_override_when_parsed_then_accepted(self, text, expected):
+        assert parse_yaml(text, "f.yaml") == expected
+
+    def test_given_reused_anchored_merge_source_when_parsed_then_no_false_duplicate(self):
+        # PyYAML flattens a merge source in place; reusing it later must not be
+        # mistaken for repeated keys. (Merged values follow PyYAML's own rules.)
+        data = parse_yaml("c: {<<: &b {<<: {k: 1}, k: 2}}\nd: *b\ne: {<<: *b}\n", "f.yaml")
+        assert data["d"] == {"k": 2}
+        assert set(data) == {"c", "d", "e"}
+
     @pytest.mark.parametrize("timestamp", ["2026-99-99", "2026-02-30", "2026-11-27T25:00:00Z"])
     def test_given_invalid_timestamp_when_parsed_then_reports_position(self, timestamp):
         with pytest.raises(PackContentError) as exc:
@@ -176,4 +204,10 @@ class TestProperties:
     def test_repeated_key_is_always_rejected(self, key, v1, v2):
         with pytest.raises(PackContentError) as exc:
             parse_yaml(f"{key}: {v1}\n{key}: {v2}\n", "f.yaml")
+        assert codes(exc.value) == ["yaml-duplicate-key"]
+
+    @given(st.from_regex(r"[a-z][a-z_]{0,7}", fullmatch=True), st.integers(), st.integers())
+    def test_repeated_key_inside_merge_source_is_always_rejected(self, key, v1, v2):
+        with pytest.raises(PackContentError) as exc:
+            parse_yaml(f"x: {{<<: {{{key}: {v1}, {key}: {v2}}}}}\n", "f.yaml")
         assert codes(exc.value) == ["yaml-duplicate-key"]
