@@ -43,6 +43,30 @@ class TestParseYaml:
         text = "base: &b {k: 1, j: 2}\nchild:\n  <<: *b\n  k: 3\n"
         assert parse_yaml(text, "f.yaml")["child"] == {"k": 3, "j": 2}
 
+    @pytest.mark.parametrize("text, line, column", [
+        ("x:\n  <<: {a: 1}\n  <<: {b: 2}\n", 3, 3),
+        ("x: {<<: {<<: {a: 1}, <<: {b: 2}}}", 1, 22),
+    ])
+    def test_given_duplicate_merge_keys_when_parsed_then_rejected(self, text, line, column):
+        with pytest.raises(PackContentError) as exc:
+            parse_yaml(text, "f.yaml")
+        [diag] = exc.value.diagnostics
+        assert diag.code == "yaml-duplicate-key"
+        assert (diag.path, diag.line, diag.column) == ("f.yaml", line, column)
+
+    @pytest.mark.parametrize("timestamp", ["2026-99-99", "2026-02-30", "2026-11-27T25:00:00Z"])
+    def test_given_invalid_timestamp_when_parsed_then_reports_position(self, timestamp):
+        with pytest.raises(PackContentError) as exc:
+            parse_yaml(f"date: {timestamp}\n", "f.yaml")
+        [diag] = exc.value.diagnostics
+        assert diag.code == "yaml-syntax"
+        assert (diag.path, diag.line, diag.column) == ("f.yaml", 1, 7)
+
+    def test_given_valid_timestamp_when_parsed_then_accepted(self):
+        from datetime import date
+
+        assert parse_yaml("date: 2026-11-27\n", "f.yaml") == {"date": date(2026, 11, 27)}
+
     def test_given_syntax_error_when_parsed_then_reports_position(self):
         with pytest.raises(PackContentError) as exc:
             parse_yaml("a: [1, 2\nb: 3\n", "f.yaml")

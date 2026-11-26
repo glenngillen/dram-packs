@@ -45,7 +45,14 @@ def resolve_reference(root: Path, ref: object, *, base: Path | None = None) -> P
         raise _fail(ref, "reference-escapes-root", "reference leaves the pack root")
 
     current = root
-    for part in joined.split("/"):
+    for part in posixpath.join(start_rel, ref).split("/"):
+        if part in ("", "."):
+            continue
+        if part == "..":
+            if current == root:
+                raise _fail(ref, "reference-escapes-root", "reference leaves the pack root")
+            current = current.parent
+            continue
         current = current / part
         if current.is_symlink():
             raise _fail(ref, "reference-symlink", f"path passes through symlink {current.relative_to(root).as_posix()}")

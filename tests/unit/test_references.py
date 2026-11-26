@@ -73,6 +73,16 @@ class TestResolveReference:
             resolve_reference(pack, "patterns/q/text.yaml")
         assert code_of(exc) == "reference-symlink"
 
+    @pytest.mark.parametrize("target", ["patterns/p", "pack.yaml", "missing"])
+    @pytest.mark.parametrize("use_base", [False, True])
+    def test_given_canceled_symlink_component_when_resolved_then_rejected(self, pack, target, use_base):
+        os.symlink(pack / target, pack / "patterns/p/link")
+        base = pack / "patterns/p/pattern.yaml" if use_base else None
+        ref = "link/../../p/text.yaml" if use_base else "patterns/p/link/../../../pack.yaml"
+        with pytest.raises(PackContentError) as exc:
+            resolve_reference(pack, ref, base=base)
+        assert code_of(exc) == "reference-symlink"
+
     def test_given_symlink_escaping_root_when_resolved_then_rejected(self, pack):
         (pack.parent / "secret.txt").write_text("s")
         os.symlink(pack.parent / "secret.txt", pack / "inside.txt")

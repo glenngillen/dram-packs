@@ -41,7 +41,7 @@ class TestParseCatalogue:
             cat(groups=[{"name": "A", "patterns": ["x"]}, {"name": "A", "patterns": ["y"]}])
         assert [d.code for d in exc.value.diagnostics] == ["catalogue-duplicate-group"]
 
-    @pytest.mark.parametrize("bad", ["Upper", "has space", "-lead", "trail-", "a--b", "", "a/b"])
+    @pytest.mark.parametrize("bad", ["Upper", "has space", "-lead", "trail-", "a--b", "", "a/b", "x\n"])
     def test_given_non_kebab_id_when_parsed_then_rejected(self, bad):
         with pytest.raises(PackContentError) as exc:
             cat(groups=[{"name": "A", "patterns": [bad]}])

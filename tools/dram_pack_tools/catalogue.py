@@ -74,7 +74,7 @@ def parse_catalogue(data: Any, source: str) -> Catalogue:
         if not isinstance(patterns, list) or not patterns:
             raise bad("catalogue-shape", f"group {name!r} needs a non-empty patterns list")
         for pid in patterns:
-            if not isinstance(pid, str) or not _ID.match(pid):
+            if not isinstance(pid, str) or not _ID.fullmatch(pid):
                 raise bad("catalogue-invalid-id", f"{pid!r} is not a kebab-case source ID")
             if pid in seen_ids:
                 raise bad("catalogue-duplicate-id", f"{pid!r} appears in more than one place")

@@ -25,6 +25,26 @@ class _DuplicateKey(yaml.MarkedYAMLError):
 class _StrictLoader(yaml.SafeLoader):
     """SafeLoader that rejects repeated keys within one mapping."""
 
+    def construct_yaml_timestamp(self, node):
+        try:
+            return super().construct_yaml_timestamp(node)
+        except (ValueError, OverflowError) as err:
+            raise yaml.constructor.ConstructorError(
+                "while constructing a timestamp", node.start_mark, str(err), node.start_mark
+            ) from None
+
+    def flatten_mapping(self, node):
+        merge_node = None
+        for key_node, _ in node.value:
+            if key_node.tag == _MERGE_TAG:
+                if merge_node is not None:
+                    raise _DuplicateKey(
+                        problem=f"duplicate key '<<' (first defined on line {merge_node.start_mark.line + 1})",
+                        problem_mark=key_node.start_mark,
+                    )
+                merge_node = key_node
+        return super().flatten_mapping(node)
+
     def construct_mapping(self, node, deep=False):  # noqa: D401 - PyYAML hook
         if isinstance(node, yaml.MappingNode):
             seen: dict[Any, yaml.Node] = {}
@@ -48,6 +68,7 @@ class _StrictLoader(yaml.SafeLoader):
 
 
 _StrictLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, _StrictLoader.construct_mapping)
+_StrictLoader.add_constructor("tag:yaml.org,2002:timestamp", _StrictLoader.construct_yaml_timestamp)
 
 
 def _read_text(path: Path) -> str:
