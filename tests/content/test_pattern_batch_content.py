@@ -736,3 +736,14 @@ def test_harness_carries_it_failed_lighter_trials_are_not_opportunities():
     opportunities = _section(_read("harness-carries-it", "definition.md"), "Opportunities and coaching")
     assert re.search(r"[Ff]ailed lighter trials are not an opportunity", opportunities)
     assert re.search(r"never tried on the lighter model", opportunities)
+
+
+# Review F1 (mind-the-cache): a supplied cache lifetime replaces the one-hour
+# default, so the guide's non-completion branch must not hard-code one hour.
+def test_mind_the_cache_guide_uses_the_applicable_cache_lifetime():
+    guide = (PATTERNS / "mind-the-cache" / "guide.md").read_text(encoding="utf-8")
+    not_done = guide.split("**Not done yet:**", 1)[1].split("\n\n", 1)[0]
+    assert not re.search(r"hour or less", not_done)
+    assert re.search(r"no longer than the cache lasts", not_done)
+    assert re.search(r"one hour (is only )?the default|default.{0,40}one hour", not_done)
+    assert re.search(r"(known|supplied).{0,40}lifetime", not_done)

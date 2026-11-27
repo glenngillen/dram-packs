@@ -27,7 +27,7 @@ When you come back, start a new session (or `/clear` the old one) and point the 
 
 **Done:** after a break longer than the cache lasts, you started fresh from the handoff instead of continuing the large session.
 
-**Not done yet:** if you wrote the handoff but continued the old session when you came back, or your break was an hour or less, or you only read this guide, the pattern has not happened yet. That is fine. Nothing is recorded against you; try it before your next long break.
+**Not done yet:** if you wrote the handoff but continued the old session when you came back, or your break was no longer than the cache lasts (the model's known cache lifetime when one is supplied; one hour is only the default when no lifetime is known), or you only read this guide, the pattern has not happened yet. That is fine. Nothing is recorded against you; try it before your next long break.
 
 ## Later
 
