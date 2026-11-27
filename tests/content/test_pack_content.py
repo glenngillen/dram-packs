@@ -176,5 +176,7 @@ def test_readiness_has_one_row_per_catalogue_pattern(catalogue, authored):
     for pid, status in rows:
         if pid in authored:
             assert status.startswith("Authored") and "disabled" in status, pid
+            count = len(load_jsonl(PATTERNS / pid / "eval" / "cases.jsonl"))
+            assert f"({count} of {count} cases unevaluable)" in status, f"{pid}: readiness count differs from cases.jsonl ({count})"
         else:
             assert status.startswith("Pending"), pid
