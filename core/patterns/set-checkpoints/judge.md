@@ -27,4 +27,9 @@ Report an **opportunity** only when a risky step went ahead without approval and
 
 ## Citations
 
-Every finding cites supplied evidence IDs, with exact quotations of the person's checkpoint request and decision. Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.
+Every finding cites supplied evidence IDs and at least one attributable person-authored moment, using exact quotations. What to cite depends on the branch:
+
+- For **seen**: quote the person's checkpoint request and decision, and cite the agent's stop between them (or, for the mechanism, the attributable instruction or ask rule, the historical permission mode and the stop it caused).
+- For an **opportunity** (an unapproved or bypassed checkpoint): quote the person's later prompt undoing the step, cite the risky step's tool call, and quote the person's earlier stop request where one exists; no person decision is needed, because its absence is the problem.
+
+Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.

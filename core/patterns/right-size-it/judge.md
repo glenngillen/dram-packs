@@ -24,4 +24,9 @@ Report an **opportunity** only when a long stretch of routine work ran on the pe
 
 ## Citations
 
-Every finding cites supplied evidence IDs, with exact quotations of the person's model command or setting change and the first edit's tool call. Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.
+Every finding cites supplied evidence IDs and at least one attributable person-authored moment, using exact quotations. What to cite depends on the branch:
+
+- For **seen**: quote the person's model command, launch flag or attributable setting change, and cite the first edit's tool call on the lighter model.
+- For an **opportunity**: quote the person prompt that started the routine work on the premium usual model, and cite the supplied model provenance for those turns; no model command or setting change is needed.
+
+Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.

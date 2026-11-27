@@ -26,4 +26,10 @@ Report an **opportunity** only when the main session did a distracting side task
 
 ## Citations
 
-Every finding cites supplied evidence IDs, with exact quotations of the person's request. Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.
+Every finding cites supplied evidence IDs and at least one attributable person-authored moment, using exact quotations. What to cite depends on the branch:
+
+- For **seen** by person request: quote the person's delegation request and cite the subagent start (tool call and child-session link).
+- For **seen** by the own-agent route: cite the person/team-defined agent definition with its attribution (configuration evidence supplies the person-authored attribution) and the subagent start; no delegation request is needed.
+- For an **opportunity**: quote the person prompt that introduced the side task or restated the lost goal; no delegation request or subagent start is needed.
+
+Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.

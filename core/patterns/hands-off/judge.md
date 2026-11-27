@@ -27,4 +27,9 @@ Report an **opportunity** only when supplied facts show the owned command repeat
 
 ## Citations
 
-Every finding cites supplied evidence IDs, with exact quotations of the invocation and of the person prompt or step that used the output. Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.
+Every finding cites supplied evidence IDs and at least one attributable person-authored moment, using exact quotations. What to cite depends on the branch:
+
+- For **seen**: quote the invocation (a person prompt or attributable configured trigger) and cite the person prompt or step that used the output.
+- For an **opportunity** (an owned command repeated interactively): quote the person's invoking prompt in the latest session and cite the supplied interactive-run history and prerequisite flag; no output-use evidence is needed.
+
+Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.

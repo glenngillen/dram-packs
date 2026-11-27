@@ -775,3 +775,35 @@ def test_mind_the_cache_short_gap_follows_applicable_lifetime():
     assert re.search(r"applicable cache lifetime", exclusion)
     assert re.search(r"by default", exclusion)
     assert re.search(r"five-minute lifetime, a twenty-minute return is applicable", text)
+
+
+# Review F1 (two-at-once Evidence): the citation requirement must match the
+# corrected overlap rule; the first initiating prompt may precede the overlap.
+def test_two_at_once_evidence_allows_initiating_prompt_before_overlap():
+    evidence = " ".join(_section(_read("two-at-once", "definition.md"), "Evidence").split())
+    assert not re.search(r"starting work in the overlap", evidence)
+    assert re.search(r"may (come before|precede) the overlap", evidence)
+    assert re.search(r"edit (from|in) each (session )?during the overlap", evidence)
+
+
+# Review F2: judge citation clauses are branch-specific, so recognition
+# evidence is never demanded of a branch (own-agent route, opportunities)
+# that does not require it. Shared guarantees stay in every Citations section.
+BRANCH_CITATIONS = {
+    "split-it-up": [r"own-agent", r"no delegation request is needed", r"introduced the side task"],
+    "right-size-it": [r"For \*\*seen\*\*.{0,200}model command", r"no model command or setting change is needed", r"started the routine work"],
+    "set-checkpoints": [r"For \*\*seen\*\*.{0,200}checkpoint request", r"bypassed", r"no person decision is needed"],
+    "hands-off": [r"For \*\*seen\*\*.{0,200}used the output", r"no output-use evidence is needed", r"invoking prompt"],
+    "two-at-once": [r"For \*\*seen\*\*.{0,300}both sessions", r"may precede the overlap", r"one session"],
+}
+
+
+@pytest.mark.parametrize("pid", sorted(BRANCH_CITATIONS))
+def test_judge_citations_are_branch_specific(pid):
+    citations = " ".join(_section(_read(pid, "judge.md"), "Citations").split())
+    assert re.search(r"For an \*\*opportunity\*\*", citations), f"{pid}: no opportunity citation branch"
+    for pattern in BRANCH_CITATIONS[pid]:
+        assert re.search(pattern, citations), f"{pid}: missing {pattern!r}"
+    assert not re.search(r"^Every finding cites .*? with exact quotations of", citations)
+    for shared in (r"exact quot", r"never cite an ID not in the packet", r"outside the analysis window", r"person-authored"):
+        assert re.search(shared, citations, re.I), f"{pid}: lost shared rule {shared!r}"

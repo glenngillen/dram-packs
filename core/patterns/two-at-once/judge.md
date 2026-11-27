@@ -23,4 +23,9 @@ Report an **opportunity** only when a supplied flag says Isolate the run is at l
 
 ## Citations
 
-Every finding cites supplied evidence IDs from both sessions, with exact quotations of each person prompt. Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.
+Every finding cites supplied evidence IDs and at least one attributable person-authored moment, using exact quotations. What to cite depends on the branch:
+
+- For **seen**: cite both sessions: quote each session's initiating person prompt (the first may precede the overlap) and cite an edit from each during the overlap, the long-turn duration and the separate working copies.
+- For an **opportunity**: cite one session: quote the person prompt that started the long turn or the person's next prompt, and cite the turn duration and the prerequisite flag; no second session is needed, because its absence is the problem.
+
+Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.

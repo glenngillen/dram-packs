@@ -37,7 +37,7 @@ Session start and end intervals alone overcount: two sessions open at the same t
 
 ## Evidence
 
-- **Cite** each session's person prompt starting work in the overlap (exact quotes) and an edit in each, with timestamps showing the overlap, plus each session's environment facts showing separate working copies.
+- **Cite** each session's initiating person prompt (exact quotes; the first session's prompt may precede the overlap, as in pos-1) and an edit from each session during the overlap, with timestamps showing the overlap, plus each session's environment facts showing separate working copies.
 - Missing or excluded history for either session is [insufficient](../../reference/evidence.md#insufficient-evidence): one side's evidence cannot complete the pair, and the gap is not a miss.
 - **Evidence the pinned CLI does not supply**: cross-session pairing; per-turn timing and waiting classification against `long_turn`; active-edit timestamps in each session; historical environment facts; parent/subagent linkage; interactive versus headless launch facts.
 
