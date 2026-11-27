@@ -17,6 +17,8 @@ from dram_pack_tools.pack import (
     IMPLEMENTED_GATES,
     PLACEHOLDERS,
     _check_text,
+    _schema_errors,
+    _validator,
     _entry_path_problem,
     block_refs,
     executable_refs,
@@ -305,3 +307,38 @@ class TestProperties:
         allowed = sorted(PLACEHOLDERS.get(path, set()))
         text = self._nest(path, " ".join("{" + n + "}" for n in allowed) or "plain text")
         assert _check_text(text, "text.yaml") == []
+
+    # _schema_errors is the transformer pack validation actually uses for
+    # pack, pattern, case and index files. Synthetic schema only.
+    json_values = st.recursive(
+        st.none() | st.booleans() | st.integers() | st.text(max_size=6),
+        lambda inner: st.lists(inner, max_size=3) | st.dictionaries(st.text(max_size=6), inner, max_size=3),
+        max_leaves=8,
+    )
+    definitions = st.sampled_from(["packFile", "groupsFile", "check"])
+
+    @given(definitions, json_values, st.text(min_size=1, max_size=20), st.one_of(st.none(), st.integers(1, 500)))
+    def test_schema_errors_preserve_count_source_code_and_line(self, definition, value, source, line):
+        import json as _json
+
+        p = pinned()
+        expected = list(_validator(_json.dumps(p.schema, sort_keys=True), definition).iter_errors(value))
+        diags = _schema_errors(p, definition, value, source, line)
+        assert len(diags) == len(expected)
+        assert all(d.path == source and d.code == "schema" and d.line == line for d in diags)
+        messages = sorted(f'{".".join(map(str, e.absolute_path)) or "<root>"}: {e.message}' for e in expected)
+        assert sorted(d.message for d in diags) == messages
+
+    @given(st.dictionaries(st.sampled_from(["id", "name", "version"]), st.text(max_size=8)))
+    def test_schema_errors_empty_exactly_when_valid(self, value):
+        import json as _json
+
+        p = pinned()
+        valid = _validator(_json.dumps(p.schema, sort_keys=True), "packFile").is_valid(value)
+        assert (_schema_errors(p, "packFile", value, "pack.yaml") == []) == valid
+
+
+def test_schema_errors_report_a_missing_definition():
+    diags = _schema_errors(pinned(), "noSuchFile", {}, "x.yaml", 3)
+    assert [(d.path, d.code, d.line) for d in diags] == [("x.yaml", "schema", 3)]
+    assert "noSuchFile" in diags[0].message

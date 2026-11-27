@@ -357,4 +357,10 @@ def test_hand_it_off_guide_states_the_24_hour_window():
     assert "expect: none" in _scenario("hand-it-off", "neg-5")
     guide = (PATTERNS / "hand-it-off" / "guide.md").read_text(encoding="utf-8")
     assert "ideally soon" not in guide
-    assert len(re.findall(r"within 24 hours", guide)) >= 2
+    # handoff_pairing measures from the prior main session's end, not from when
+    # the handoff was written: written Mon 09:00, session ends Mon 11:00, fresh
+    # session Tue 10:00 is 23 hours and qualifies.
+    assert len(re.findall(r"within 24 hours of the long session ending", guide)) == 2
+    assert not re.search(r"within 24 hours of (writing|the handoff)", guide)
+    params = (PATTERNS.parent / "reference" / "parameters.md").read_text(encoding="utf-8")
+    assert re.search(r"ended within 24 hours", params)

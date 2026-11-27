@@ -173,5 +173,5 @@ Every following slice delivers complete pattern directories, their synthetic sce
 
 ### Human follow-up
 
-- Confirm maintainer identity for `dram.yaml`/`pack.yaml`; until then use a neutral placeholder and record it as open.
-- Review final coaching copy and resolve applicable semantic decisions; undertake private staff evaluation against the recorded stable-quality bars only when detectors are executable. Keep personal histories outside repository artifacts and retain only non-sensitive aggregate readiness evidence.
+- Maintainer identity confirmed by the issue owner: `glenngillen`. Use it wherever the schema needs maintainer metadata, without claiming official Infracost status.
+- (human: after all 41 patterns are authored) Review final coaching copy and resolve applicable semantic decisions; undertake private staff evaluation against the recorded stable-quality bars only when detectors are executable. Keep personal histories outside repository artifacts and retain only non-sensitive aggregate readiness evidence.
