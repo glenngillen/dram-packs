@@ -1,0 +1,48 @@
+# Guard Destructive Commands (Safety, rung 3). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over deny or ask rules
+# and PreToolUse guards that were actually effective for a session (given its
+# permission mode), the destructive commands they cover in that repository,
+# and invocation and approval records showing whether they blocked or asked.
+# The pinned permission block is declared deny-only, has no ask-rule, hook or
+# mode contract and no fixed-pattern execution, and hook_configured is
+# declared but not implemented. So no detection, applies_to or mechanism
+# block is named.
+id: glenngillen/guard-destructive
+version: 1
+status: preview
+group: safety
+rung: 3
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a repository with deploy, migration or infrastructure commands, or in
+    an unattended run, a deny rule, ask rule or pre-tool-use guard that the
+    person or their team configured was actually effective in a session for
+    the destructive commands relevant there (for example force pushes,
+    recursive removal or an infrastructure apply). Effective means the
+    session's permission mode did not skip it and it covers the commands the
+    repository really uses. Trusting the agent to ask does not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person runs unattended or parallel work, or works in repositories
+      with deploy, migration or infrastructure commands, in the window.
+    holds_when: >
+      Effective guards covered every place where unattended or parallel work
+      ran, and when a covered destructive command was attempted it was
+      blocked, or the agent stopped to ask and the person decided.
+    not_holding_when: >
+      While a guard was in place, a destructive command it was meant to cover
+      ran without approval: the session's mode skipped it, or a spelling,
+      alias, wrapper or compound command got past it.
+
+automate: >
+  Keep guards for the destructive commands you use in user-level or team
+  settings, so unattended and parallel runs are covered wherever they start.
+  This is a later step, offered once several patterns already happen on
+  their own. A pattern-matching guard narrows the risk; it never blocks
+  every way of spelling a command.

@@ -1,0 +1,42 @@
+name: Sandbox Autonomy
+summary: Run unattended or broadly permissioned work in a contained environment, away from your credentials.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    {cases} of {applicable} unattended or permission-bypassed runs ran
+    inside a container, devcontainer, VM or remote sandbox.
+  not_seen: >
+    {count} unattended or permission-bypassed runs ran directly on a
+    machine with your credentials.
+  continuous: >
+    Your unattended and permission-bypassed runs start inside a contained
+    environment, not on your own machine.
+  slipped: >
+    An unattended or permission-bypassed run ran on your credentialed host,
+    in {session}.
+
+next_step: >
+  For your next real unattended task, ask your agent to set up the
+  project's supported devcontainer or sandbox and run the task inside it.
+
+advice: >
+  A broadly permissioned or unattended run can make a mistake, or follow
+  instructions hidden in something it reads. Running it inside a container,
+  devcontainer, VM or remote sandbox keeps that away from your credentials,
+  production access and the rest of your machine. Containment depends on
+  what the environment can reach: mounting your credentials or running it
+  privileged undoes most of the benefit. A separate user account or a
+  machine without credentials also helps, though Dram cannot recognize
+  those yet.
+
+fix_prompt: >
+  Look at this project and at what container, devcontainer or sandbox
+  tooling this machine actually supports. Propose an environment for
+  unattended runs of this repository that has its own checkout and does not
+  mount my credentials, cloud configuration or SSH keys, and does not run
+  privileged. Explain what it can still reach over the network. Show me the
+  configuration before writing it, and do not change my permission settings.

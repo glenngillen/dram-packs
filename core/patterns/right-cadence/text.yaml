@@ -1,0 +1,40 @@
+name: Check at the Right Cadence
+summary: Match how often checks run to the work and the model, and keep the final gate.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    Your step checks ran on lighter-model work and less often on premium
+    work, with the final gate kept, in {cases} of {applicable} repositories
+    where you use more than one model.
+  not_seen: >
+    In {count} repositories, the same heavy step checks ran after every edit
+    on every model. They may still be worth it; the outcomes show whether
+    they caught anything.
+  continuous: >
+    Each model's work runs with the check cadence you set for it, and the
+    final gate runs on all of it.
+  slipped: >
+    Work ran with the wrong cadence for its model, or without the final
+    gate, in {session}.
+
+next_step: >
+  Look at which step checks ran on your premium-model work recently and
+  what they caught. Decide for yourself whether to keep them, and keep the
+  final gate either way.
+
+advice: >
+  Per-step checks help most where mistakes are more likely; on some work
+  they may run often and catch little. Changing their cadence is your
+  decision. Whatever you choose, a final gate keeps every change checked
+  before it is done. Quiet checks are not proof of quality, and no model is
+  beyond checking.
+
+fix_prompt: >
+  Show me the step checks and final gate this repository runs, which ran on
+  my recent work and what each caught. Then check whether this harness
+  actually supports running hooks differently by model; if it does not, say
+  so. Do not change anything: I will decide, and the final gate stays.

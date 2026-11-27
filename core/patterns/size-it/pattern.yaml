@@ -1,0 +1,40 @@
+# Size it (Delegation, rung 1). Full definition: definition.md.
+#
+# Disabled: recognition needs model judgement that work was large, that the
+# person deliberately broke it into smaller tasks, and that those tasks were
+# then worked on and finished, linked to the plan across sessions. The pinned
+# CLI runs no block that can express intent, task/plan linkage or task
+# completion, and the active recommendation prompt is built inside the CLI,
+# so no detection, applies_to or mechanism block is named here.
+id: glenngillen/size-it
+version: 1
+status: preview
+group: delegation
+rung: 1
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    Facing large work, the person asked for it to be broken into smaller
+    tasks (or wrote the breakdown themselves) and used that breakdown: work
+    began on one sub-task on its own and that first sub-task was finished.
+    A request that was simply small to begin with is not sizing.
+
+continuous:
+  held:
+    applies_when: >
+      The person starts substantial work in the window.
+    holds_when: >
+      A planning command or sub-task template the person or their team owns
+      was used to begin substantial work in the window, and the work then
+      proceeded one sub-task at a time to completion.
+    not_holding_when: >
+      The planning command or template was in place and used, but the work
+      was still done all together anyway, or its sub-tasks were abandoned.
+
+automate: >
+  Save the way you break work down as a command or template you own, so
+  substantial work starts from a plan of session-sized tasks every time.
+  This is a later step, offered once several patterns already happen on
+  their own; it does not replace finishing each piece.

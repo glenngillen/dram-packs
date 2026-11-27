@@ -1,0 +1,36 @@
+name: Steer, Don't Stop
+summary: When the agent goes wrong, say what is wrong and why, not just stop it.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You explained what was wrong, or why, when redirecting the agent in
+    {cases} of {applicable} moments it went off course.
+  not_seen: >
+    {count} times the agent kept retrying an approach that was not working
+    before it was redirected, or was stopped without a reason it could use.
+  continuous: >
+    Your explained corrections are turning into instructions the agent
+    starts from; that is recognized under Fix the harness.
+  slipped: >
+    The agent was stopped or told to try again without a reason it could
+    use, in {session}.
+
+next_step: >
+  The next time the agent heads the wrong way, before you interrupt or say
+  "try again", tell it in one sentence what is wrong or why, and what to
+  do instead.
+
+advice: >
+  "No" or "try again" tells the agent only that it failed, so it often
+  retries the same idea. A short reason ("the slow part is the query, not
+  the schema") gives it something to change. Stopping is fine; explaining
+  is what turns a stop into a steer.
+
+fix_prompt: >
+  Stop the current approach. Before trying again, tell me in a sentence what
+  you think went wrong. Then wait: I will tell you what is actually wrong
+  and what I want instead, and you change course based on that.

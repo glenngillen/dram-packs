@@ -1,0 +1,47 @@
+# Hands off (Delegation, rung 4). Full definition: definition.md.
+#
+# Disabled: recognition needs owned-command provenance and interactive run
+# history, unattended classification (headless, or the unattended_gap of
+# continued agent work), launch provenance (person versus software acting on
+# its own behalf) and model judgement that the output was actually used. The
+# pinned CLI runs no block that expresses these, and a tool_call_matches on a
+# command name cannot tell an owned workflow from an ad-hoc prompt or a used
+# result from a discarded one. So no detection, applies_to, requires or
+# mechanism block is named. The Scope permissions prerequisite is run-scoped
+# (unattended work), which a bare requires ID cannot encode; it stays in prose.
+id: glenngillen/hands-off
+version: 1
+status: preview
+group: delegation
+rung: 4
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    The person ran one of their own commands or skills, already run
+    interactively at least three times, as an unattended run (headless, or at
+    least fifteen minutes of agent work without a person prompt), and then
+    actually used its output: the notes were published, the labels applied,
+    the result merged or acted on. An ad-hoc headless prompt, a run whose
+    output was discarded, or a launch by software acting on its own behalf
+    does not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person has an owned command or skill they run repeatedly, with a
+      schedule or trigger they or their team configured to run it unattended.
+    holds_when: >
+      The configured schedule or trigger ran the owned workflow in the window
+      and its output was used each time it was produced.
+    not_holding_when: >
+      The trigger ran but its output went unused or was redone by hand, or
+      runs failed without anyone acting on them, while the trigger was in
+      place.
+
+automate: >
+  When an owned command runs unattended reliably and its output keeps being
+  used, a schedule or trigger you configure can run it for you, with the same
+  scoped unattended permissions. This is a later step, offered once several
+  patterns already happen on their own.

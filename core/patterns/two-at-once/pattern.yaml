@@ -1,0 +1,43 @@
+# Two at once (Delegation, rung 6). Full definition: definition.md.
+#
+# Disabled: recognition needs paired evidence across two main sessions:
+# separate working copies, person prompts starting work and edits in each
+# during overlapping minutes, at least one interactive, plus model judgement
+# that the work was independent and real. The pinned CLI evaluates one
+# session at a time and has no environment, overlap or turn-duration facts,
+# so no detection, applies_to, requires or mechanism block is named. The
+# Isolate the run prerequisite for suggesting this pattern is stage-specific
+# (Seen), which a bare requires ID cannot encode; it stays in prose.
+id: glenngillen/two-at-once
+version: 1
+status: preview
+group: delegation
+rung: 6
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    Two of the person's main sessions, each in its own separate working copy
+    and at least one of them interactive, did real editing in overlapping
+    minutes: the person started work in each with a prompt and each made an
+    edit during the overlap. An idle second session, two sessions sharing
+    one directory, or a session with its own subagent does not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person has a command or script they own that starts isolated
+      parallel sessions, and has agent turns long enough to wait on.
+    holds_when: >
+      The owned command or script started isolated parallel sessions in the
+      window, and both sessions did real editing in their own working copies.
+    not_holding_when: >
+      While in place, the command or script started sessions that shared a
+      working copy, or one of them sat idle while the person waited.
+
+automate: >
+  Once running two isolated sessions is a habit, a command or script you own
+  can create the working copies and start both sessions, so the setup is the
+  same each time. This is a later step, offered once several patterns
+  already happen on their own.

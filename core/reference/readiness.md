@@ -33,19 +33,19 @@ The eight code-checked patterns named as the first activation candidates are Giv
 | `test-behaviour` | [Test Behaviour](../patterns/test-behaviour/definition.md) | Checking the work | 9 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
 | `schedule-the-clean-up` | [Schedule the Clean-up](../patterns/schedule-the-clean-up/definition.md) | Checking the work | 10 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
 | `learn-from-production` | [Learn From Production](../patterns/learn-from-production/definition.md) | Checking the work | 11 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
-| `steer` | Steer, Don't Stop | Correcting course | 1 | Pending: not authored |
-| `set-checkpoints` | Set Checkpoints | Correcting course | 2 | Pending: not authored |
-| `size-it` | Size It | Delegation | 1 | Pending: not authored |
-| `split-it-up` | Split It Up | Delegation | 2 | Pending: not authored |
-| `fan-out` | Fan Out | Delegation | 3 | Pending: not authored |
-| `hands-off` | Hands Off | Delegation | 4 | Pending: not authored |
-| `isolate-the-run` | Isolate the Run | Delegation | 5 | Pending: not authored |
-| `two-at-once` | Two at Once | Delegation | 6 | Pending: not authored |
-| `right-size-it` | Right-size It | Economics | 1 | Pending: not authored |
-| `mind-the-cache` | Mind the Cache | Economics | 2 | Pending: not authored |
-| `harness-carries-it` | Let the Harness Carry It | Economics | 3 | Pending: not authored |
-| `right-cadence` | Check at the Right Cadence | Economics | 4 | Pending: not authored |
-| `keep-secrets-out` | Keep Secrets Out | Safety | 1 | Pending: not authored |
-| `scope-permissions` | Scope Permissions | Safety | 2 | Pending: not authored |
-| `guard-destructive` | Guard Destructive Commands | Safety | 3 | Pending: not authored |
-| `sandbox-autonomy` | Sandbox Autonomy | Safety | 4 | Pending: not authored |
+| `steer` | [Steer, Don't Stop](../patterns/steer/definition.md) | Correcting course | 1 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `set-checkpoints` | [Set Checkpoints](../patterns/set-checkpoints/definition.md) | Correcting course | 2 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `size-it` | [Size It](../patterns/size-it/definition.md) | Delegation | 1 | Authored; structurally valid; not evaluable (13 of 13 cases unevaluable); disabled |
+| `split-it-up` | [Split It Up](../patterns/split-it-up/definition.md) | Delegation | 2 | Authored; structurally valid; not evaluable (13 of 13 cases unevaluable); disabled |
+| `fan-out` | [Fan Out](../patterns/fan-out/definition.md) | Delegation | 3 | Authored; structurally valid; not evaluable (13 of 13 cases unevaluable); disabled |
+| `hands-off` | [Hands Off](../patterns/hands-off/definition.md) | Delegation | 4 | Authored; structurally valid; not evaluable (17 of 17 cases unevaluable); disabled |
+| `isolate-the-run` | [Isolate the Run](../patterns/isolate-the-run/definition.md) | Delegation | 5 | Authored; structurally valid; not evaluable (18 of 18 cases unevaluable); disabled |
+| `two-at-once` | [Two at Once](../patterns/two-at-once/definition.md) | Delegation | 6 | Authored; structurally valid; not evaluable (17 of 17 cases unevaluable); disabled |
+| `right-size-it` | [Right-size It](../patterns/right-size-it/definition.md) | Economics | 1 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `mind-the-cache` | [Mind the Cache](../patterns/mind-the-cache/definition.md) | Economics | 2 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `harness-carries-it` | [Let the Harness Carry It](../patterns/harness-carries-it/definition.md) | Economics | 3 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `right-cadence` | [Check at the Right Cadence](../patterns/right-cadence/definition.md) | Economics | 4 | Authored; structurally valid; not evaluable (13 of 13 cases unevaluable); disabled |
+| `keep-secrets-out` | [Keep Secrets Out](../patterns/keep-secrets-out/definition.md) | Safety | 1 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `scope-permissions` | [Scope Permissions](../patterns/scope-permissions/definition.md) | Safety | 2 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `guard-destructive` | [Guard Destructive Commands](../patterns/guard-destructive/definition.md) | Safety | 3 | Authored; structurally valid; not evaluable (13 of 13 cases unevaluable); disabled |
+| `sandbox-autonomy` | [Sandbox Autonomy](../patterns/sandbox-autonomy/definition.md) | Safety | 4 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |

@@ -1,0 +1,37 @@
+name: Set Checkpoints
+summary: Have the agent stop and wait for your decision before a risky step.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You had the agent stop before a risky step and made the decision
+    yourself in {cases} of {applicable} risky steps.
+  not_seen: >
+    {count} risky steps went ahead without a stop for your decision, and
+    were later undone.
+  continuous: >
+    An instruction or ask rule stops the agent before risky steps, and you
+    make the call each time.
+  slipped: >
+    A risky step went ahead without the checkpoint stopping the agent, in
+    {session}.
+
+next_step: >
+  Before your next risky task (a migration, deploy, deletion or public API
+  change), tell the agent exactly where to stop and ask you, for example
+  "draft the migration and ask before running it".
+
+advice: >
+  Some steps are hard to undo. Naming the point where the agent must stop
+  and wait keeps that decision with you, and lets you adjust the plan
+  ("run it, skip the backfill") rather than clean up afterwards. A question
+  the agent happens to ask is welcome, but it is not a checkpoint you set.
+
+fix_prompt: >
+  Before doing anything hard to undo in this task (running migrations,
+  deploying, deleting data or files, or changing a public API), stop and
+  tell me exactly what you are about to do and what it affects. Wait for my
+  decision before continuing.

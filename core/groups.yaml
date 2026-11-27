@@ -55,18 +55,38 @@ groups:
     name: Correcting course
     description: >
       Redirecting a wrong approach and deciding before risky steps.
+    patterns:
+      - steer
+      - set-checkpoints
   - id: delegation
     name: Delegation
     description: >
       Sizing, splitting and running work in parallel or unattended, safely
       isolated.
+    patterns:
+      - size-it
+      - split-it-up
+      - fan-out
+      - hands-off
+      - isolate-the-run
+      - two-at-once
   - id: economics
     name: Economics
     description: >
       Choosing models and check cadence that fit the work, and not paying to
       rebuild context.
+    patterns:
+      - right-size-it
+      - mind-the-cache
+      - harness-carries-it
+      - right-cadence
   - id: safety
     name: Safety
     description: >
       Keeping secrets out, scoping permissions, guarding destructive commands
       and containing autonomous runs.
+    patterns:
+      - keep-secrets-out
+      - scope-permissions
+      - guard-destructive
+      - sandbox-autonomy

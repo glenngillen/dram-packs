@@ -1,0 +1,39 @@
+name: Let the Harness Carry It
+summary: Let your checks show that lighter-model routine work holds up.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    Routine work on a lighter model passed your checks and was still in the
+    default branch fourteen days later, in {cases} of {applicable} routine
+    changes.
+  not_seen: >
+    {count} routine changes in repositories with working checks ran on a
+    premium model.
+  continuous: >
+    Most of your routine work runs on a lighter model, passes your checks
+    and stays merged.
+  slipped: >
+    Lighter routine work failed its checks and was finished on a premium
+    model, in {session}.
+
+next_step: >
+  In a repository where your checks run on every change, try your next
+  routine task on a lighter model and let those checks judge the result.
+
+advice: >
+  Your checks, not the model name, decide whether routine work is good
+  enough. Where gates run on every change, lighter-model work that passes
+  them and is still merged two weeks later is as kept as any other.
+  Savings estimates are not evidence that work held up; passing checks and
+  kept changes are.
+
+fix_prompt: >
+  This next task is routine. Before we start, tell me which checks and gates
+  in this repository will run on the change and whether they block on
+  failure. Then tell me how to switch to a lighter model here; I will decide
+  whether to. If the checks fail, show me the failure rather than
+  summarising it.

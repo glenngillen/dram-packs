@@ -1,0 +1,38 @@
+name: Fan Out
+summary: Run independent parts through parallel subagents and use their combined work.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You ran independent parts through parallel subagents and used the
+    combined result in {cases} of {applicable} pieces of work with several
+    independent parts.
+  not_seen: >
+    {count} pieces of work with several independent parts were done one part
+    after another.
+  continuous: >
+    A workflow you own fans independent parts out to parallel subagents and
+    brings their results together.
+  slipped: >
+    Independent parts were worked through one after another instead of in
+    parallel, in {session}.
+
+next_step: >
+  The next time you have the same change to make in three or more
+  independent places, ask for one subagent per part, run together, with
+  the results brought together at the end.
+
+advice: >
+  Independent parts do not need to wait for each other. Running one
+  subagent per part at the same time, then combining what they found, gets
+  the whole picture in one pass. It only helps if you use the combined
+  result.
+
+fix_prompt: >
+  These parts are independent. Use one subagent per part, running at the
+  same time, each with a short brief and a clear result to return. When
+  they are done, bring their results together in one summary for me. Keep
+  within the permissions and safety settings this project already has.

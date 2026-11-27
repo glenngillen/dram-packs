@@ -1,0 +1,39 @@
+name: Hands Off
+summary: Run a workflow you own and trust unattended, then use what it produces.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You ran one of your own workflows unattended and used its output, in
+    {cases} of {applicable} cases where an owned command was familiar enough
+    to hand off.
+  not_seen: >
+    {count} owned commands were repeated by hand across several sessions
+    while you watched each run.
+  continuous: >
+    A schedule or trigger you set up runs one of your own workflows
+    unattended, and its output gets used.
+  slipped: >
+    An unattended run of your workflow produced output that went unused, in
+    {session}.
+
+next_step: >
+  Pick one of your own commands you have already run by hand several times.
+  Check that its permissions are scoped for an unattended run, then run it
+  unattended on real work and use what it produces.
+
+advice: >
+  A command you have run by hand several times, with the same kind of
+  result, is a candidate to run without watching. Handing it off only helps
+  if you use the output, and it should only run unattended with narrowly
+  scoped permissions, never with permission checks switched off.
+
+fix_prompt: >
+  I want to run one of my own commands unattended. Look at this harness's
+  actual supported way to run it headless and at the permissions it would
+  need. List the exact tools and commands it uses, propose a narrowly scoped
+  permission set for the unattended run, and show me the command to start
+  it. Do not run it, and do not suggest skipping permission checks.

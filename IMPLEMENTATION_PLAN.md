@@ -124,25 +124,25 @@ Every following slice delivers complete pattern directories, their synthetic sce
   - Require owned launch/trigger provenance and used maintenance output, or an actual supplied production signal plus a preventive regression check.
   - Keep all fixtures synthetic; guides neither fetch production data nor configure or launch external schedules automatically.
 
-- [ ] Author Steer, don't stop and Set checkpoints.
+- [x] Author Steer, don't stop and Set checkpoints.
   - Separate explained redirects from bare interruptions and Seen from changed-course follow-through.
   - Require the requested stop and person decision; represent ask-rule semantics in prose where unsupported and cover unanswered or bypassed checkpoints.
 
-- [ ] Author Keep secrets out, Scope permissions, Guard destructive commands and Sandbox autonomy.
+- [x] Author Keep secrets out, Scope permissions, Guard destructive commands and Sandbox autonomy.
   - Preserve effective settings precedence, actual secret-location coverage, scoped unattended permissions and applicable guard enforcement; never inspect or reproduce real secret values.
   - Treat sandboxed permission bypass as neutral for Scope permissions, separate working-copy isolation from system containment, and leave unobservable credential-free hosts/separate users unassessed.
   - Cover unsafe passthrough, unknown environments and ineffective guards without asserting universal regex protection or container safety. Guides must not execute destructive commands to manufacture evidence.
 
-- [ ] Author Size it, Split it up and Fan out.
+- [x] Author Size it, Split it up and Fan out.
   - Preserve breakdown-plus-first-task Seen versus all-subtasks follow-through, own-agent/person-requested delegation, and three or more concurrent independent parts with used combined output.
   - Exclude unsolicited built-in delegation, sequential fan-out and discarded results; reference already-authored Safety prerequisites.
 
-- [ ] Author Hands off, Isolate the run and Two at once.
+- [x] Author Hands off, Isolate the run and Two at once.
   - Preserve three interactive runs for applicability versus three sessions for coaching, unattended classification, owned workflow provenance and output use.
   - Require separate working copies, active paired edits and the five-minute waiting boundary; exclude branch-only separation, idle overlap and parent/subagent pairs.
   - Keep scoped unattended permission and isolation suggestion prerequisites explicit; do not encode unsupported stage/run scopes as weaker runtime requirements.
 
-- [ ] Author Right-size it, Mind the cache, Let the harness carry it and Check at the right cadence.
+- [x] Author Right-size it, Mind the cache, Let the harness carry it and Check at the right cadence.
   - Separate intentional lower-tier selection from fallback and ordinary subagents; preserve the model-selection identity without reusing IaC sizing history.
   - Include both fresh returns and cold resumes in cache applicability, exact threshold boundaries and unknown usage/pricing inputs.
   - Require passing linked gates and mature fourteen-day survival for kept work; preserve the final gate and both observed model paths for differentiated cadence. Never invent savings or billing claims.

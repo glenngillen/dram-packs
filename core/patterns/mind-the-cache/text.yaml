@@ -1,0 +1,36 @@
+name: Mind the Cache
+summary: Start fresh from a handoff after a long break instead of resuming a large cold context.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You started fresh from a handoff or a clear after a long break in {cases}
+    of {applicable} returns to a large context.
+  not_seen: >
+    {count} times a large context was continued after a break longer than
+    the cache lasts, so it was sent again in full.
+  continuous: >
+    Your own end-of-day handoff is written before long breaks and used to
+    start fresh afterwards.
+  slipped: >
+    A large context was continued after a long break, in {session}.
+
+next_step: >
+  Before your next long break from a big session, ask the agent to write a
+  short handoff, then start a fresh session from it when you come back.
+
+advice: >
+  After a break longer than the cache lasts, continuing a large session
+  sends its whole context again. A short handoff carries the decisions you
+  need into a fresh session at a fraction of the size. Where Dram has
+  measured API-priced cost for the rebuild, it shows it; it never infers
+  what a subscription charged.
+
+fix_prompt: >
+  I am about to take a long break. Write a short handoff to a file in this
+  repository that I choose: the goal, decisions made, what is done, what is
+  next and anything I must not lose. Keep it brief. I will start a fresh
+  session from it when I come back.

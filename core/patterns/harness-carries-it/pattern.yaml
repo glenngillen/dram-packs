@@ -1,0 +1,48 @@
+# Let the harness carry it (Economics, rung 3). Full definition: definition.md.
+#
+# Disabled: the intended detection is code checks plus git evidence: routine
+# work done on a lighter model, in a repository whose checks (Checks by
+# default or gates) actually ran on it and passed, with the change still in
+# the default branch fourteen days later. The pinned CLI records no gate
+# runs linked to changes, no model tier per change and no git survival, and
+# the declared reverted_within measure is neither implemented nor fourteen-
+# day survival. So no detection, applies_to or mechanism block is named.
+id: glenngillen/harness-carries-it
+version: 1
+status: preview
+group: economics
+rung: 3
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    Routine work (a rename, docstrings, formatting, a version bump or a
+    simple fix) was done on a lighter model in a repository whose own
+    checks or gates ran on it and passed, and the change was still in the
+    default branch fourteen days later. Work without checks, reverted work
+    and work finished on a premium model after the lighter one failed do
+    not count. A change younger than fourteen days is unassessed.
+
+continuous:
+  held:
+    applies_when: >
+      The person did routine work in the window in repositories with checks
+      or gates, and has a mechanism of their own that sends routine work to
+      a lighter model (a lighter default, or an owned command or subagent
+      pinned lighter).
+    holds_when: >
+      Most routine work ran on the lighter model through that mechanism,
+      passed the linked checks or gates and was still in the default branch
+      fourteen days later.
+    not_holding_when: >
+      With the mechanism in place, lighter routine work routinely failed its
+      checks and was finished on a premium model, or was reverted or
+      replaced within fourteen days.
+
+automate: >
+  Once lighter routine work keeps passing your checks and staying merged,
+  you can let your harness route it: a lighter default or your own pinned
+  command or subagent, with your gates deciding whether the result is good
+  enough. This is a later step, offered once several patterns already
+  happen on their own.

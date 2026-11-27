@@ -1,0 +1,51 @@
+# Keep Secrets Out (Safety, rung 1). Full definition: definition.md.
+#
+# Disabled: the intended detection is a local code check over the effective
+# deny rules in force for a session (all settings sources, precedence and the
+# session's mode and tool behaviour), the repository's actual secret-file
+# locations and local redaction findings in person prompts. The pinned
+# permission_rule block is declared deny-only with no fixed-pattern execution,
+# and the collected-history shape records neither effective settings nor
+# file-scope facts, so no detection, applies_to or mechanism block is named.
+# Secret values are never read, quoted or reproduced by this pattern.
+id: glenngillen/keep-secrets-out
+version: 1
+status: preview
+group: safety
+rung: 1
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a repository that contains secret files, a deny rule the person or
+    their team configured was effective for a session there and covered the
+    repository's actual secret-file locations (for example `.env*` and
+    `config/secrets.yml`, wherever the secrets really are), after settings
+    precedence and the session's mode and tool behaviour were taken into
+    account. Relying on the agent to be careful does not count, and a rule
+    that misses where the secrets live does not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person works in repositories that contain secret files, with main
+      sessions there in the window.
+    holds_when: >
+      Every applicable repository was covered by an effective deny rule for
+      its actual secret locations, the rule was in effect in sessions there,
+      no agent read of a covered secret file got through, and the local
+      scanner detected no secret pattern in the person's prompts. A read the
+      rule denied is held.
+    not_holding_when: >
+      While the rule was in place, the agent read a covered secret file by a
+      route the rule did not stop (another tool, a shell command or a mode
+      that skipped it), or the local scanner detected a secret pattern in one
+      of the person's prompts.
+
+automate: >
+  Put deny rules for the secret locations you actually use (for example
+  `.env*` and credential files) in your user-level settings, so every
+  repository you open is covered from the start. This is a later step,
+  offered once several patterns already happen on their own; it does not
+  replace checking where each repository really keeps its secrets.

@@ -1,0 +1,39 @@
+name: Guard Destructive Commands
+summary: Make hard-to-undo commands stop for a rule or your decision, not the agent's judgement.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    An effective guard covered the destructive commands relevant in {cases}
+    of {applicable} repositories or unattended runs.
+  not_seen: >
+    In {count} sessions a destructive command ran without your approval:
+    nothing guarded it, or the session's mode skipped the guard.
+  continuous: >
+    Wherever unattended or parallel work runs, destructive commands are
+    guarded, and the guards stopped them when it mattered.
+  slipped: >
+    A destructive command ran without approval in {session}.
+
+next_step: >
+  Pick the most dangerous command in one real repository (a deploy, a
+  migration, a force push) and ask your agent to add a guard that blocks it
+  or makes it ask you first, in the mode you actually run in.
+
+advice: >
+  An agent that usually asks first will not always ask. A deny rule, an ask
+  rule or a pre-tool-use guard makes the stop happen by configuration. Check
+  that it still applies in the mode you run in, and remember that pattern
+  matching can miss other spellings of the same command: a guard narrows the
+  risk rather than removing it.
+
+fix_prompt: >
+  Look at this repository's deploy, migration, infrastructure and git
+  commands, and at this harness's actual supported permission and hook
+  configuration. Propose a guard that blocks the most destructive of them or
+  makes you ask me first, and tell me which permission modes would skip it
+  and what spellings or wrappers it would miss. Do not run any destructive
+  command to test it. Show me the change before writing it.

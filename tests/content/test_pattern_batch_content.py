@@ -24,6 +24,11 @@ BATCH = [
     "actionable-failures", "gate-done", "gate-each-step",
     "back-it-up-in-ci", "second-opinion", "test-behaviour",
     "schedule-the-clean-up", "learn-from-production",
+    "steer", "set-checkpoints",
+    "keep-secrets-out", "scope-permissions", "guard-destructive", "sandbox-autonomy",
+    "size-it", "split-it-up", "fan-out",
+    "hands-off", "isolate-the-run", "two-at-once",
+    "right-size-it", "mind-the-cache", "harness-carries-it", "right-cadence",
 ]
 
 # Phrases (case-insensitive regexes) a pattern's definition or scenarios must keep.
@@ -52,6 +57,22 @@ REQUIRED = {
     "test-behaviour": [r"snapshot"],
     "schedule-the-clean-up": [r"synthetic|invented", r"launch"],
     "learn-from-production": [r"regression", r"synthetic|invented"],
+    "steer": [r"bare", r"changed course", r"fix the harness", r"three times|at least three|3 or more"],
+    "set-checkpoints": [r"ask rule|ask-permission rule", r"unanswered", r"bypass", r"spontaneous|unprompted", r"deny only|deny-only"],
+    "keep-secrets-out": [r"config/secrets\.yml", r"never .*secret value", r"invented", r"effective"],
+    "scope-permissions": [r"sandbox", r"neutral", r"Bash\(\*\)", r"overrid|precedence", r"unattended"],
+    "guard-destructive": [r"regex", r"bypass", r"(never|not|does not) (execute|run) .*destructive"],
+    "sandbox-autonomy": [r"separate OS user", r"credential-free", r"unassessed", r"privileged|passthrough", r"unknown"],
+    "size-it": [r"first (finished |completed )?sub-?task", r"every sub-?task", r"one go"],
+    "split-it-up": [r"built-in", r"plugin", r"test-writer"],
+    "fan-out": [r"several_parallel", r"sequential", r"discard|thrown away"],
+    "hands-off": [r"three interactive", r"three (or more )?sessions", r"unattended_gap", r"scope permissions"],
+    "isolate-the-run": [r"branch", r"working copy", r"unused"],
+    "two-at-once": [r"long_turn", r"subagent", r"idle", r"isolate the run", r"five minutes|5 minutes"],
+    "right-size-it": [r"fallback", r"infracost/right-size-it", r"subagent", r"routine_work"],
+    "mind-the-cache": [r"cache_gap", r"large_context_tokens", r"exactly (1|one) hour", r"exactly 150,000", r"fresh start", r"resum"],
+    "harness-carries-it": [r"kept_window", r"unassessed", r"premium|opus", r"savings"],
+    "right-cadence": [r"final gate", r"both (observed )?(model )?paths", r"no checks"],
 }
 
 
@@ -91,6 +112,8 @@ SEEN_MUST_NOT_REQUIRE = {
     "keep-it-lean": [r"change was made", r"was made\b"],
     "evidence-not-claims": [r"then addressed", r"agent then"],
     "second-opinion": [r"acted on", r"used\b"],
+    "steer": [r"changed course", r"then (followed|changed|switched)"],
+    "size-it": [r"every sub-?task", r"all (the )?sub-?tasks"],
 }
 
 
@@ -529,3 +552,54 @@ def test_hand_it_off_guide_states_the_long_session_threshold():
     assert re.search(r"unknown", step, re.I) and re.search(r"cannot (establish|show)", step)
     done = guide.split("**Done:**", 1)[1].split("\n\n", 1)[0]
     assert re.search(r"compacted or (went|grew|had) .*more than 150,000", done)
+
+
+# Pattern-content batch 2: Correcting course, Safety, Delegation, Economics.
+MECHANISM_PATTERNS = [
+    "set-checkpoints", "keep-secrets-out", "scope-permissions", "guard-destructive",
+    "sandbox-autonomy", "size-it", "split-it-up", "fan-out", "hands-off",
+    "isolate-the-run", "two-at-once", "right-size-it", "mind-the-cache",
+    "harness-carries-it", "right-cadence",
+]
+
+
+def test_steer_declares_no_mechanism_of_its_own():
+    import yaml
+
+    data = yaml.safe_load((PATTERNS / "steer" / "pattern.yaml").read_text(encoding="utf-8"))
+    assert "continuous" not in data
+
+
+@pytest.mark.parametrize("pid", MECHANISM_PATTERNS)
+def test_mechanism_patterns_declare_held_prose(pid):
+    import yaml
+
+    data = yaml.safe_load((PATTERNS / pid / "pattern.yaml").read_text(encoding="utf-8"))
+    held = data["continuous"]["held"]
+    for key in ("applies_when", "holds_when", "not_holding_when"):
+        assert held.get(key), f"{pid}: continuous.held.{key} missing"
+
+
+# Safety prerequisites for autonomy suggestions stay explicit in prose and are
+# never encoded as a weaker `requires` binding.
+@pytest.mark.parametrize(
+    "pid, prerequisite",
+    [("hands-off", r"Scope permissions"), ("two-at-once", r"Isolate the run"), ("fan-out", r"Safety")],
+)
+def test_autonomy_suggestions_keep_safety_prerequisites(pid, prerequisite):
+    text = (PATTERNS / pid / "definition.md").read_text(encoding="utf-8")
+    coaching = _section(text, "Opportunities and coaching")
+    assert re.search(prerequisite, coaching), f"{pid}: coaching omits {prerequisite}"
+
+
+SAFETY_GUIDES = ["keep-secrets-out", "scope-permissions", "guard-destructive", "sandbox-autonomy"]
+DESTRUCTIVE = re.compile(r"rm -rf|git push (-f|--force)|terraform (apply|destroy)|DROP TABLE|--dangerously-skip-permissions\b(?! )", re.I)
+
+
+@pytest.mark.parametrize("pid", SAFETY_GUIDES + ["hands-off", "two-at-once", "fan-out"])
+def test_guides_never_recommend_bypass_or_run_destructive_commands(pid):
+    guide = (PATTERNS / pid / "guide.md").read_text(encoding="utf-8")
+    for line in guide.splitlines():
+        if line.startswith(">") or line.startswith("    "):
+            assert not DESTRUCTIVE.search(line), f"{pid}: guide prompt includes a destructive or bypass command: {line}"
+    assert not re.search(r"approve all|skip (the )?permissions", guide, re.I)

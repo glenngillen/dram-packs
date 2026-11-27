@@ -1,0 +1,34 @@
+# Steer, Don't Stop (Correcting course, rung 1). Full definition: definition.md.
+#
+# Disabled: recognition needs model judgement that a person's correction
+# explains what was wrong or why (not a bare "no", "stop" or "try again"),
+# attribution of interrupts, and evidence that the agent's later work took a
+# different course. The pinned CLI runs no block that can express person
+# intent or diagnosis, and the active recommendation prompt is built inside
+# the CLI, so no detection or applies_to block is named here. This pattern
+# has no mechanism of its own: automation belongs to Fix the harness, so no
+# continuous block is declared.
+id: glenngillen/steer
+version: 1
+status: preview
+group: correcting-course
+rung: 1
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    When the agent went wrong (an interrupt, a failed or repeated attempt,
+    or a wrong approach), the person redirected it with a correction that
+    explains what was wrong or why, for example "the limit belongs in
+    Options because callers set it per request" or "don't change the
+    schema; the slow part is the query". The explained redirect is the
+    person's deliberate act; a bare "no", "stop", "try again" or "still
+    failing", or a change of taste with no error, is not one.
+
+automate: >
+  When the same correction keeps coming back, stop repeating it: put the
+  reason into an instruction, command or hook so the agent starts from it
+  (Fix the harness). This is a later step, offered once several patterns
+  already happen on their own; it does not earn this pattern's stages
+  automatically.

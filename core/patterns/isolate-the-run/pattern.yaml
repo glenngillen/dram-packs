@@ -1,0 +1,43 @@
+# Isolate the run (Delegation, rung 5). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over historical
+# environment facts (git worktree, separate clone, container or VM with its
+# own checkout), unattended classification and active session overlap, plus
+# launch attribution for the mechanism. The pinned fixed-pattern interface
+# does not consume session environment headers, and a tool_call_matches on
+# `git worktree add` would accept an unused worktree or a path that only
+# looks like one. So no detection, applies_to or mechanism block is named.
+id: glenngillen/isolate-the-run
+version: 1
+status: preview
+group: delegation
+rung: 5
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    An unattended run, or one of two actively overlapping sessions, actually
+    ran in its own separate working copy: a git worktree, a separate clone, a
+    container or devcontainer with its own checkout, or a VM or remote
+    sandbox. A different branch in the same directory is not a separate
+    working copy, and a worktree that was created but never used does not
+    count.
+
+continuous:
+  held:
+    applies_when: >
+      The person has unattended or actively overlapping runs in the window.
+    holds_when: >
+      Every unattended or parallel run in the window ran in its own working
+      copy, set up through a command, script or devcontainer configuration
+      the person or their team owns.
+    not_holding_when: >
+      While that mechanism was in place, an unattended or parallel run still
+      shared a working copy with another active session.
+
+automate: >
+  Once isolating runs is a habit, a command or script you own can create the
+  worktree or start the container for every unattended or parallel run, so
+  separation does not depend on remembering. This is a later step, offered
+  once several patterns already happen on their own.
