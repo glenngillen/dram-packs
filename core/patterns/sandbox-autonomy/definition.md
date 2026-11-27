@@ -4,6 +4,24 @@ Source ID `sandbox-autonomy`; pattern `glenngillen/sandbox-autonomy`; Safety, ru
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** When the agent runs with broad permissions or unattended, it runs somewhere it can't do real damage: a container, a devcontainer, a VM or a remote sandbox. The source also named a machine without production credentials; a recorded decision keeps that unassessed until it can be observed.
+
+**Why it matters.** A broadly permissioned or unattended run can make a mistake, or follow instructions hidden in something it reads. Running it inside a contained environment keeps that away from the person's credentials, production access and the rest of their machine. It is the last rung of Safety, the containment that makes the most autonomous work safe to suggest ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+
+**What a recognition shows.** That a bypassed or unattended run the person launched actually ran inside an observable contained environment.
+
+**Why the rules are drawn this way.**
+
+- **Only bypassed sessions and unattended runs apply.** Those are the runs with nobody approving each step. The `unattended_gap` boundary tries to capture "nobody was watching this run" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Without them, nothing is reported ([applicable work](../../reference/principles.md#applicable-work)).
+- **System isolation, not working-copy isolation.** Recorded decision: the intent is system isolation. A worktree on the person's own machine keeps runs apart ([Isolate the run](../isolate-the-run/definition.md)) but doesn't stop them reaching credentials.
+- **An observable container, devcontainer, VM or remote sandbox.** Recorded decision: a separate OS user or a host said to be credential-free partly serves the intent but is unassessed until the CLI exposes it as a fact ([missing is not low](../../reference/principles.md#missing-is-not-low), [code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **Broad permissions aren't required.** A contained unattended run under scoped permissions serves the intent just as well.
+- **Launched by the person.** Software running an agent on its own behalf is not the person's run ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Unknown environments, privileged containers and credential passthrough are unassessed.** A container label can't promise containment, and no capability contract is defined, so these are neither credited nor called safe ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Continuous needs every bypassed or unattended run contained.** One run on the credentialed host is enough to reach everything ([stages](../../reference/principles.md#stages)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

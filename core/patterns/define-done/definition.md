@@ -4,6 +4,23 @@ Source ID `define-done`; pattern `glenngillen/define-done`; Briefing, rung 2. Es
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person says up front how they'll know the work is right: acceptance criteria, examples, or the tests that should pass.
+
+**Why it matters.** This is what lets checks judge correctness: without acceptance criteria, correctness is outside anything that checks the work ([groups](../../reference/principles.md#groups)). If the agent decides what done means, it finishes when its own idea of the work is complete.
+
+**What a recognition shows.** That on a feature or fix, the person set the criteria before implementation began, and the result was then checked against them.
+
+**Why the rules are drawn this way.**
+
+- **Feature and bug-fix work only.** Questions, exploration and reviews don't change behaviour, so there is no correctness to judge. A window with no feature or fix reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **Criteria the person authored.** Agent-written criteria accepted unread are the agent deciding what done means, the very thing this pattern replaces ([human intent only](../../reference/principles.md#human-intent-only)). A referenced spec counts when it is the person's; a missing file or unknown author leaves the result unassessed, not a miss ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **Before implementation.** The pattern is about saying it up front; criteria that arrive after implementation began are review, not defining done.
+- **Concrete enough to check.** "Make sure it works" gives a check nothing to judge against. Behavioural criteria count, as long as they were checked.
+- **A later check against them completes it.** Criteria exist so a check can judge the work; criteria never checked haven't done that job. Seen therefore already includes the check, so the act and its follow-through coincide ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous needs a template, spec location or command that is used.** It supplies or asks for criteria without the person remembering ([stages](../../reference/principles.md#stages)). A folder of specs on its own is neither criteria for this work nor a mechanism in use ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. The intended model judgement is described in [judge.md](judge.md), which the pinned CLI does not execute.

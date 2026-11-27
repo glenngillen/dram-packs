@@ -4,6 +4,23 @@ Source ID `brief-it`; pattern `glenngillen/brief-it`; Briefing, rung 1. Help the
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The request gives the agent the goal, the constraints and the context the work needs, so it doesn't have to guess.
+
+**Why it matters.** The person is the agent's guide for each piece of work ([groups](../../reference/principles.md#groups)). A goal alone leaves the agent to guess what the person already knows: which service to reuse, what must stay untouched, how a limit should behave. A wrong guess becomes a correction later. This is the first rung of Briefing; Define done and Plan first build on it.
+
+**What a recognition shows.** That the person opened a piece of work with its goal and at least one constraint or fact the agent could not otherwise know, and, for later stages, that the work then used it without asking or guessing.
+
+**Why the rules are drawn this way.**
+
+- **Only the first request of a piece of work.** Briefing happens before the agent starts. Later prompts on the same task are steering, and questions or exploration have no work to brief. A window with no new piece of work reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **A goal plus at least one substantive constraint or relevant fact.** A goal alone is exactly what leaves the agent guessing. Length counts neither way: what matters is whether the request carries what the work needs, and background the work never used spares no guess.
+- **The brief must be the person's.** An agent-written brief approved with "ok", tool output and compaction summaries are not the person telling the agent anything ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Constraints given only after a wrong guess are excluded.** By then the agent has already guessed; that is correcting course ([Steer, don't stop](../steer/definition.md)), not briefing.
+- **Seen on the brief; later stages need corroboration.** Sending the brief is the deliberate act, so it is credited promptly. Forming and Established count only briefs the work went on to use, credited when that finished, because context the work never relied on is not a habit worth crediting ([follow-through](../../reference/principles.md#follow-through)). This follows the recorded decision on stage-dependent completion; the original spec required the agent not to have guessed for Seen itself.
+- **Continuous needs a saved command, skill or template that is used.** A starting point that asks for the goal and constraints makes briefing happen without remembering ([stages](../../reference/principles.md#stages)). One that exists but was never used is untested, not held ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. The intended model judgement is described in [judge.md](judge.md), which the pinned CLI does not execute.

@@ -21,6 +21,7 @@ pytestmark = pytest.mark.content
 PACK_ID = "glenngillen/core"
 REQUIRED_FILES = ["pattern.yaml", "text.yaml", "guide.md", "definition.md", "eval/cases.jsonl", "eval/scenarios.md"]
 DEFINITION_SECTIONS = [
+    "Intent",
     "Status",
     "Applicable work",
     "Recognition",
@@ -115,6 +116,31 @@ def test_definition_has_required_sections_in_order(authored):
         for section in ("Why disabled", "Missing capabilities", "Verify before enabling"):
             body = text.split(f"## {section}\n", 1)[1].split("\n## ", 1)[0]
             assert len(body.strip()) > 40, f"{pid}: {section} is empty"
+
+
+INTENT_PARTS = ("**What it's for.**", "**Why it matters.**", "**What a recognition shows.**", "**Why the rules are drawn this way.**")
+
+
+def test_definition_intent_records_purpose_and_reasons(authored):
+    """Every definition explains its purpose and the reasoning behind its rules,
+    tied to the shared principles rather than restating them."""
+    for pid in authored:
+        text = (PATTERNS / pid / "definition.md").read_text(encoding="utf-8")
+        body = text.split("## Intent\n", 1)[1].split("\n## ", 1)[0]
+        positions = [body.find(part) for part in INTENT_PARTS]
+        assert all(p >= 0 for p in positions), f"{pid}: Intent is missing one of {INTENT_PARTS}"
+        assert positions == sorted(positions), f"{pid}: Intent parts out of order"
+        reasons = body.split(INTENT_PARTS[-1], 1)[1]
+        assert len(re.findall(r"^- ", reasons, re.M)) >= 3, f"{pid}: too few rule reasons"
+        assert "../../reference/principles.md#" in body, f"{pid}: Intent does not link the principles"
+        assert not PROHIBITED.search(body), f"{pid}: Intent uses prohibited wording"
+
+
+def test_principles_cover_every_group():
+    text = (PACK / "reference" / "principles.md").read_text(encoding="utf-8")
+    groups = load_yaml(PACK / "groups.yaml")["groups"]
+    for group in groups:
+        assert f"| **{group['name']}** |" in text, f"principles.md does not explain {group['name']}"
 
 
 def test_judge_prompt_only_for_model_judged_patterns(authored):

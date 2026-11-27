@@ -4,6 +4,25 @@ Source ID `gate-done`; pattern `glenngillen/gate-done`; Checking the work, rung 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** A final gate stops the agent finishing until the checks pass. For capable models, this one gate may be all that's needed.
+
+**Why it matters.** "Done" from an agent is a claim. A gate that runs the tests or build when the agent tries to finish turns it into a checked result, and sends failures back before the person reviews. It makes [Prove it](../prove-it/definition.md) happen without the person asking.
+
+**What a recognition shows.** That a final gate the person or their team configured, running a real check, actually fired when the agent finished.
+
+**Why the rules are drawn this way.**
+
+- **The gate must be the person's or their team's.** The agent choosing to run tests at the end is not a gate, and a test command in the transcript is not evidence of one ([human intent only](../../reference/principles.md#human-intent-only)). Configuration and firing are facts, so code checks them ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **It must run a real check.** Tests, a build or type checking say whether the work is correct; a formatter-only hook says nothing about that.
+- **It must enforce.** The intent is to stop the agent finishing, so a command that swallows its own failure is not a gate. A bypassed or ignored failure is never called holding.
+- **It must actually fire.** A hook in settings that never ran is untested, not Seen: configuration presence is never enough ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **A gate that caught nothing is neutral.** A passing run proves the gate executed, not that nothing escaped ([outcomes keep it honest](../../reference/principles.md#outcomes-keep-it-honest)).
+- **Only repositories with checks where the person works.** A window with none reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **Continuous needs every applicable repository covered and the gate holding.** Coverage alone is not enough: it must fire, and failures must be fixed before finishing ([stages](../../reference/principles.md#stages)).
+- **A guided setup reaches Seen only once it fires on real work** ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. Named as one of the first activation candidates; it still needs the capabilities below.

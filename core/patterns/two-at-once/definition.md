@@ -4,6 +4,25 @@ Source ID `two-at-once`; pattern `glenngillen/two-at-once`; Delegation, rung 6. 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** While one session works, the person runs another on something else.
+
+**Why it matters.** A long agent turn is waiting time. An independent task in a second session can use it, but only in its own working copy, so neither session changes the other's files.
+
+**What a recognition shows.** That during a long turn, two of the person's sessions, each in its own working copy and at least one interactive, were both making real edits in the same minutes.
+
+**Why the rules are drawn this way.**
+
+- **Only long turns apply.** The pattern is about using time the person would otherwise spend waiting. The five-minute `long_turn` boundary (from a recorded decision) tries to capture "the person was actually waiting" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Overlaps only during shorter turns are outside applicable work, not a miss ([applicable work](../../reference/principles.md#applicable-work)).
+- **Each session in its own separate working copy.** Recorded decision: branch-only separation does not count. Different branches in one directory share the same files on disk, so one session changes the files the other agent is working on, mid-cycle ([Isolate the run](../isolate-the-run/definition.md#recognition)).
+- **Both sessions editing during the overlap.** Two sessions open at the same time are not two sessions working; an idle session doesn't use the waiting time. Session intervals alone would overcount ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **At least one interactive, each started by a person prompt.** The pattern is the person running two pieces of work, not unattended runs alone ([human intent only](../../reference/principles.md#human-intent-only)).
+- **A session plus its own subagent is excluded.** A subagent is part of one session's work, not a second session the person runs ([Split it up](../split-it-up/definition.md) covers that).
+- **Paired evidence from both sessions.** One side's evidence cannot show both were working; a gap in either is unassessed, not a miss ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **Not suggested until Isolate the run is Seen.** Suggesting parallel sessions without isolation would invite two agents into one working copy ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+- **Continuous needs an owned command or script that starts isolated sessions** ([stages](../../reference/principles.md#stages)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

@@ -4,6 +4,24 @@ Source ID `back-it-up-in-ci`; pattern `glenngillen/back-it-up-in-ci`; Checking t
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The agent's changes go through CI, which reruns the fast checks and adds slower ones, rather than going straight to the default branch.
+
+**Why it matters.** Local checks are fast and catch most problems while the person works, but they run on one machine and usually skip the slow checks. CI runs the slower checks in a clean environment, so a change that only passes locally is caught before it reaches everyone else. In Checking the work, this is the step from checks around the agent to a check on the path every change takes to the default branch.
+
+**What a recognition shows.** That a specific agent change reached the default branch through a branch or pull request on which test-running CI actually ran, not just that the repository has a workflow file.
+
+**Why the rules are drawn this way.**
+
+- **Repositories that receive the person's agent work, counted when a change reaches the default branch.** That is the moment CI either backed the change up or didn't; work still on an unmerged branch hasn't reached that moment yet. No such change in the window reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **The actual default branch, not a branch named `main`.** The intent is about the branch everyone builds on, whatever it is called.
+- **CI must run tests, and must actually have run on the change before it merged.** Docs-only, lint-only or formatting-only CI doesn't back up behaviour. A workflow file, or a merge commit in git history, is a proxy that proves neither a run nor the route the change took ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)); without run evidence the case is unassessed, not a miss ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **Direct pushes are excluded even if CI runs afterwards.** The change reached everyone before anything tested it, which is the problem this pattern exists to prevent.
+- **Only the person's agent work counts.** Other people's commits and bots acting on their own behalf aren't the person's habit ([human intent only](../../reference/principles.md#human-intent-only)).
+- **A merge made while CI was pending or failing is not recognised yet.** Whether it should count is an open question; until settled, the pack chooses not to recognise rather than guess ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Continuous needs all agent work through CI, with the merge path holding.** The merge path itself is the mechanism; a bypassed required check counts as not holding, because a run that was then overridden didn't back the change up ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)). Branch protection isn't required because the original spec doesn't require it; it can help the path hold.
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

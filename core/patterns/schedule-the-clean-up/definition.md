@@ -4,6 +4,24 @@ Source ID `schedule-the-clean-up`; pattern `glenngillen/schedule-the-clean-up`; 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** Agents run on a schedule to catch drift nobody's looking at: outdated dependencies, dead code, flaky tests, broken docs.
+
+**Why it matters.** Dependency updates, flaky-test sweeps and similar chores come back every week, and done by hand they wait until someone notices. A headless agent run on a schedule can do the first pass without anyone remembering. In Checking the work, it is a check that keeps running after the work ships.
+
+**What a recognition shows.** That a schedule or trigger the person or their team owns launched a maintenance run, and someone used what it produced.
+
+**Why the rules are drawn this way.**
+
+- **People who maintain at least one repository.** Recurring upkeep only falls to someone who maintains something; no maintained repository reports nothing ([applicable work](../../reference/principles.md#applicable-work)). What "maintains" means is still open, so a repository visited once isn't assumed applicable.
+- **Headless, maintenance, and launched by an owned schedule.** A run started by hand is the interactive chore, not the schedule; a vendor's bot or another team's job is not the person's harness ([human intent only](../../reference/principles.md#human-intent-only)). A headless invocation alone doesn't prove a configured schedule ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Output must be used, even for Seen.** The scheduled run is only valuable if someone merges, files or fixes what it finds; a report nobody opens is excluded by the original spec. So use is part of Seen here, credited to the window the use finished in ([follow-through](../../reference/principles.md#follow-through)).
+- **One-off interactive maintenance is the coaching moment, not a recognition.** Doing the chore by hand repeatedly is exactly what a schedule would replace.
+- **Forming and Established count used runs across weeks and maintained repositories' chores.** "Two distinct weeks" and "fewer than four items is not assessable" try to capture a schedule that keeps producing used output, rather than one lucky run; both are [calibration points](../../reference/principles.md#thresholds-are-calibration-points).
+- **Continuous is the schedule holding throughout the window.** Runs happening on schedule with output used is the mechanism; runs that stop or pile up unused while the chore is done by hand are not holding ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)). How many missed runs are allowed is still open.
+- **Unattended runs come after Scope permissions.** Automate advice for a scheduled run follows the Safety prerequisite for unattended work ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

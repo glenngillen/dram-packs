@@ -4,6 +4,25 @@ Source ID `harness-carries-it`; pattern `glenngillen/harness-carries-it`; Econom
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person's guides and gates are good enough that a cheaper model does routine work reliably: it passes the gates and the changes are kept.
+
+**Why it matters.** The person's checks, not the model name, decide whether routine work is good enough. Where gates run on every change, lighter-model work that passes them and is still in place two weeks later is as kept as any other. In Economics, this is the harness doing the work a bigger model would; it builds on [Right-size it](../right-size-it/definition.md) and on the gates from Checking the work.
+
+**What a recognition shows.** That routine work done on a lighter model passed the repository's checks and survived, not just that a lighter model was used.
+
+**Why the rules are drawn this way.**
+
+- **Routine work on a lighter model, in a repository whose checks ran on the change.** Without gates there is nothing to judge whether the lighter model carried the work, so that is a Checking the work matter first. "Lighter" uses Right-size it's reference tier; unknown tiers are unassessed ([missing is not low](../../reference/principles.md#missing-is-not-low)). No such work reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **The person's model choice or their own pinned subagent or command.** Lighter work the person didn't route there isn't their harness carrying it ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Gates passed and the change kept.** Passing checks and a kept change are the evidence that work held up. A gate that didn't run proves nothing, and an estimated saving is not a kept change ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Kept means still in the default branch fourteen days later.** The window tries to capture "the change held up rather than being quietly replaced"; it is the shared [`kept_window`](../../reference/parameters.md#kept_window) and a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Younger changes are unassessed, and each instance is credited when its survival is established ([follow-through](../../reference/principles.md#follow-through)).
+- **Finished on premium, or reverted, is excluded.** Then the lighter model did not carry the work. Failed lighter trials are never an opportunity for another lighter trial.
+- **Coverage counts all routine work in gated repositories, premium included.** Measuring only lighter work would make coverage trivially complete, so Established and Continuous use the full set. "Most" (60%, at least four changes) tries to capture "routine work usually runs lighter"; it is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points).
+- **Continuous needs coverage and a holding mechanism.** The original spec's Continuous is coverage alone; the pack also requires the routing configuration with its gates, because a high rate without a mechanism is Established ([stages](../../reference/principles.md#stages)).
+- **No savings or billing claims.** Outcomes are shown as facts with their cases ([outcomes keep it honest](../../reference/principles.md#outcomes-keep-it-honest)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

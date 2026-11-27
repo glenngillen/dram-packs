@@ -4,6 +4,22 @@ Source ID `save-it`; pattern `glenngillen/save-it`; Guides, rung 4. Turn repeate
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person turns a request they keep making into a saved command or skill.
+
+**Why it matters.** Typing the same request again means rewording it each time and getting slightly different results. A saved command or skill keeps the wording the person settled on and starts the task in one line. Saved workflows are part of what the agent knows before it starts ([groups](../../reference/principles.md#groups)).
+
+**What a recognition shows.** That a command or skill of the person's own, capturing a request they repeat, was run by them and completed.
+
+**Why the rules are drawn this way.**
+
+- **Requests repeated nearly word for word across sessions.** The two-session boundary tries to capture "a request the person keeps making" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Near-identical is a model judgement with both prompts quoted, with no similarity number; prompts that only share a topic are not the same request ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)). A window with no repeated request reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **The person's own command or skill.** Built-in and third-party plugin commands are not something the person saved ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Invoked by the person, and completed.** A saved file never run is not use, and a skill the agent invoked unasked is the agent's initiative. The file's existence is context, not completion ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Forming needs another run on a different day.** It tries to capture reuse on a separate occasion rather than a burst within one sitting.
+- **Established and Continuous are about coverage of repeated work.** The pattern is that repeated requests go through saved versions. Continuous's rule (no request retyped by hand in three or more sessions over four weeks) tries to capture "repeated work starts from saved versions"; those numbers are calibration points. Coverage alone is not enough: the mechanism must apply and hold ([stages](../../reference/principles.md#stages)). Too few repeated requests to judge is not assessable, not a miss ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. [`judge.md`](judge.md) is authoring prose for the similarity judgement; the pinned CLI does not execute it.

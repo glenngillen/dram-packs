@@ -4,6 +4,24 @@ Source ID `fan-out`; pattern `glenngillen/fan-out`; Delegation, rung 3. Run inde
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** For work that splits cleanly (the same change in many places, independent investigations), the person has several subagents work in parallel and brings the results together.
+
+**Why it matters.** Independent parts do not need to wait for each other. Running one subagent per part at the same time, then combining what they found, gets the whole picture in one pass. It only helps if the person uses the combined result.
+
+**What a recognition shows.** That the person asked for parallel subagents across independent parts, they actually ran at the same time, and the combined result was used.
+
+**Why the rules are drawn this way.**
+
+- **Only work with several independent parts applies.** Fanning out needs parts that don't depend on each other's results. The three-part boundary (from a recorded decision, `several_parallel`) tries to capture "work that genuinely splits into several parts", not a pair and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Work below it reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **Parts need not edit files.** Independent investigations split as cleanly as repeated changes, which is in the source's intent.
+- **A person request.** Parallel subagents the agent starts on its own are the model's habit, not the person's choice ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Actually concurrent, from run timings.** Subagents run one after another are not a fan-out, however many there are; concurrency is read from overlapping run intervals, not from the request's wording or the number of calls ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **The combined result must be used.** Parallel runs whose results are thrown away are effort with no effect, so use is the completing evidence, and later stages are credited to the week the result was used ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous needs a saved fan-out command or workflow.** An owned command that fans out makes it happen without remembering; it must actually run the parts concurrently and have its result used to hold ([stages](../../reference/principles.md#stages)).
+- **Safety prerequisites shape the advice.** Parallel work multiplies what each subagent can do, so suggestions stay within scoped permissions, secret protection and destructive-command guards, and never suggest permission bypass ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

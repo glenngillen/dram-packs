@@ -4,6 +4,24 @@ Source ID `clear-between-tasks`; pattern `glenngillen/clear-between-tasks`; Cont
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person clears context when switching to unrelated work, so the new task doesn't carry the old one.
+
+**Why it matters.** Everything earlier in a session stays in the agent's context. When the next task is unrelated, that history is noise: it costs tokens and can pull the agent towards decisions that belonged to the old task. Keeping working memory relevant keeps the agent sharp and cheap.
+
+**What a recognition shows.** That the person deliberately reset the agent's working memory at a real switch of task, after enough work on the old task for its context to matter.
+
+**Why the rules are drawn this way.**
+
+- **A genuine `/clear` by the person.** Compaction summarizes the old task into the context rather than removing it, and resume or continue brings it back, so neither does what the pattern is for. Opening a new session is excluded from Seen by the original spec; reason not recorded. It does count as the mechanism holding, because there it is the person's own rule being followed. A clear by the agent or by software is not the person's act ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Only after substantial work.** An early clear leaves little old context to carry, so it is not the moment the pattern is about. Six person prompts tries to capture "enough work on the old task that its context would weigh on the new one"; it comes from a recorded decision and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Only the person's prompts count, because tool output, hook output and compaction summaries are not the person working.
+- **The next prompt must start unrelated work.** A clear followed by more of the same task is not a switch, and the intent is about switching. Whether two tasks are related is a judgement, so a model makes it and must cite the prompts on either side ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **Forming and Established need the new task to proceed from the cleared context.** Seen credits the clear promptly; later stages count only clears whose new task went ahead without being steered back to the old one, credited to the week that finished, per a recorded decision ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous is an owned rule or command that scopes sessions to one task.** Remembering to clear every time is Established; a rule the agent follows makes it hold without remembering ([stages](../../reference/principles.md#stages)). Once it is in place, a switch that started from a clean context is credit, and one that started on top of the old context is a not-holding finding ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **A session that stays on one task reports nothing.** Someone whose sessions rarely change task isn't marked down ([applicable work](../../reference/principles.md#applicable-work)).
+- **A guided discussion earns nothing on its own.** Only a real clear followed by real unrelated work counts ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. A [judge prompt](judge.md) is authored but not executed.

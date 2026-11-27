@@ -4,6 +4,22 @@ Source ID `script-it`; pattern `glenngillen/script-it`; Guides, rung 5. Use dete
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** For mechanical changes, the person has the agent use or build a deterministic tool (a codemod, a scaffolding script, a language server, a formatter) instead of editing by hand, so the result is exact and repeatable.
+
+**Why it matters.** An agent editing forty files one by one is slow and can drift between files. A script makes the same change everywhere, is easy to review once, and can be run again.
+
+**What a recognition shows.** That the person asked for, or configured, a deterministic tool, and running it is what made a mechanical change.
+
+**Why the rules are drawn this way.**
+
+- **Mechanical changes across many files.** That is where hand edits drift and a tool's exactness pays. Whether a change is mechanical is a model judgement citing the change. "Many" has no recognition threshold; ten files is only a coaching trigger, trying to capture "enough identical hand edits to be worth pointing out", and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). A window with no such change reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **The person requested or configured the tool.** A throwaway script the agent wrote on its own, or a tool it discovered, is the agent's initiative ([human intent only](../../reference/principles.md#human-intent-only)).
+- **The tool's run made the change.** A script written but never run, run on nothing, or merely present does not make the result exact or repeatable ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)). The same is true for later stages, which count only instances whose run made the change ([follow-through](../../reference/principles.md#follow-through)).
+- **Files edited one by one are excluded, even when identical.** That is the hand editing the pattern replaces.
+- **Continuous needs a saved script or wrapper that is reused.** Saved in the repository, the next change of that kind goes through it without remembering ([stages](../../reference/principles.md#stages)); the same change made by hand while it was in place is not holding ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. [`judge.md`](judge.md) is authoring prose for the mechanical-change judgement; the pinned CLI does not execute it.

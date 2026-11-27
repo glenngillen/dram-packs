@@ -4,6 +4,24 @@ Source ID `evidence-not-claims`; pattern `glenngillen/evidence-not-claims`; Chec
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** When the agent's summary and the recorded result disagree, the person believes the result and challenges the claim.
+
+**Why it matters.** An agent's summary can say "all tests pass" while the output above it shows failures or skipped cases. The output is the evidence; the summary is a claim. A person who accepts the summary lets broken work through even though the proof that it is broken was in front of them.
+
+**What a recognition shows.** That the person noticed a real gap between what the agent said and what was recorded, and pointed at it.
+
+**Why the rules are drawn this way.**
+
+- **Only real contradictions are applicable.** The pattern needs a recorded result the claim contradicts, including a shortfall against what the person asked for (three cases when four were expected). Where every claim matched its result, there is nothing to challenge and nothing is reported ([applicable work](../../reference/principles.md#applicable-work)).
+- **The challenge must be the person's.** A tool, hook or reviewer agent catching it is the mechanism at work, not the person's act ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Challenging a correct result, or "are you sure?" with no discrepancy, is excluded.** The pattern is believing the result, not doubting everything; such questions are neither credit nor a miss.
+- **Missing or truncated output is unassessed.** It may hide the missing case or a later pass, so it is never taken as a contradiction or as a correct result ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **Seen completes on the challenge; later stages need the agent to have addressed it.** The original spec required the agent to address the result for Seen; a recorded decision makes completion stage-dependent, so the first challenge is credited promptly, and Forming and Established count only challenges whose response dealt with the result, credited to the week it finished. A challenge the agent ignored never counts towards later stages ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous is a Stop hook or instruction rule requiring the actual check output with every "done".** It surfaces the contradiction before the person has to spot it. Once it holds, there is nothing left to challenge, so credit moves to claims arriving with their output ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **Guided sessions reach Seen only.** A guided review that finds no discrepancy is neither a failure nor an opportunity ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

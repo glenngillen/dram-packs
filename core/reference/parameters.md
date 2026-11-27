@@ -2,7 +2,7 @@
 
 The single list of tunable defaults the pattern definitions depend on. Patterns link to a parameter here, for example [`most`](#most), instead of restating its number, so one change updates every dependent pattern.
 
-**Every value is provisional.** The user decided that the source's worked examples become provisional defaults and approved proposed defaults where the source gave none. They are starting points to calibrate during private staff evaluation. None has been validated or calibrated, and none is reported as measured.
+**Every value is provisional, and deliberately arbitrary.** The user decided that the source's worked examples become provisional defaults and approved proposed defaults where the source gave none. This first implementation exists to calibrate what feels right in real use, so no number here is justified or derived from data, and none should be read as a claim that the boundary is correct ([calibration points](principles.md#thresholds-are-calibration-points)). None has been validated or calibrated, and none is reported as measured. What each threshold is *trying to capture* is stated in the Intent section of the patterns that use it.
 
 Rules that apply to all of them:
 

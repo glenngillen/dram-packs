@@ -4,6 +4,24 @@ Source ID `right-cadence`; pattern `glenngillen/right-cadence`; Economics, rung 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** Checks run as often as the model needs: after every edit for lighter models, with a final gate enough for the most capable ones. A harness heavier than the work needs adds cost for no gain.
+
+**Why it matters.** Per-step checks help most where mistakes are more likely; on some work they may run often and catch little. Matching their cadence to the model is the last rung of Economics, and it only makes sense once both step checks and a final gate are in place, so every change is still checked before it is done.
+
+**What a recognition shows.** That the person configured different step-check cadences for lighter and premium work, both ran as configured, and the final gate stayed on for both.
+
+**Why the rules are drawn this way.**
+
+- **Repositories with both step checks and a final gate, used with more than one model tier.** Without both kinds of check there is no cadence to choose, and with one tier there is nothing to differentiate. Anything else reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **Person-configured differentiation.** The configuration must be the person's or their team's ([human intent only](../../reference/principles.md#human-intent-only)), confirmed from what the harness actually supports rather than assumed syntax ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **Both paths observed running.** Configuration with only one path seen is a proxy for differentiation, not evidence of it ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **The final gate must stay.** The intent relies on a final gate being enough for the most capable models; reducing step checks only makes sense while every change is still checked before "done". Removing the final gate, or having no checks at all, is never credited as efficiency.
+- **The same heavy checks everywhere is neutral, not wrong.** It isn't this pattern, but nothing says those checks are worthless; quiet checks don't prove quality and no model is assumed beyond checking ([outcomes keep it honest](../../reference/principles.md#outcomes-keep-it-honest)). Any reduction is the person's decision.
+- **Continuous is the configuration applying to all applicable work, with the final gate.** Escapes past the final gate count as not holding and are shown as outcomes, not hidden ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **Forming and Established count both paths over weeks and sessions.** Two distinct weeks, 60% and at least four applicable sessions try to capture a cadence that is actually in use rather than tried once; they are [calibration points](../../reference/principles.md#thresholds-are-calibration-points).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

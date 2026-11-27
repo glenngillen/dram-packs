@@ -5,8 +5,9 @@ groups:
   - id: briefing
     name: Briefing
     description: >
-      Giving the agent the goal, the constraints and how the work will be
-      judged before it starts.
+      The person as the agent's guide for each piece of work: what to do,
+      what done means, and how to get there. Without acceptance criteria,
+      correctness is outside anything that checks the work.
     patterns:
       - brief-it
       - define-done
@@ -15,8 +16,8 @@ groups:
   - id: guides
     name: Guides
     description: >
-      Instructions, commands and tooling the person maintains so the agent
-      starts from what they already know.
+      What the agent knows before it starts: instructions, conventions, saved
+      workflows and tools. Guides are how one correction becomes permanent.
     patterns:
       - give-it-instructions
       - write-it-down
@@ -28,8 +29,8 @@ groups:
   - id: context
     name: Context
     description: >
-      Keeping the agent's working memory relevant: clearing, handing off and
-      pointing at what matters.
+      What's in the agent's working memory during a session. Keeping it
+      relevant keeps the agent sharp and cheap.
     patterns:
       - clear-between-tasks
       - hand-it-off
@@ -37,8 +38,11 @@ groups:
   - id: checking-the-work
     name: Checking the work
     description: >
-      Evidence that agent work does what it claims, from asking for proof to
-      gates, CI and review.
+      How the work gets checked, and where checks are enforced: from the
+      person checking, to the agent running checks, to checks that block it
+      at each step and before "done", to CI, independent reviews and checks
+      that keep running after the work ships. Quality is kept as early as
+      possible.
     patterns:
       - prove-it
       - evidence-not-claims
@@ -54,15 +58,18 @@ groups:
   - id: correcting-course
     name: Correcting course
     description: >
-      Redirecting a wrong approach and deciding before risky steps.
+      Correcting the agent while the work is under way: redirecting it when
+      it goes wrong, and setting checkpoints ahead of time so it stops and
+      asks. Making a correction permanent is Fix the harness, in Guides.
     patterns:
       - steer
       - set-checkpoints
   - id: delegation
     name: Delegation
     description: >
-      Sizing, splitting and running work in parallel or unattended, safely
-      isolated.
+      Handing the agent work at the right size and letting it run:
+      subagents, unattended runs, isolation, parallel sessions. These pay off
+      most once Checking the work is in place.
     patterns:
       - size-it
       - split-it-up
@@ -73,8 +80,9 @@ groups:
   - id: economics
     name: Economics
     description: >
-      Choosing models and check cadence that fit the work, and not paying to
-      rebuild context.
+      Getting the same results for less: the right model for the task, the
+      harness doing the work a bigger model would, and context that stays
+      cached.
     patterns:
       - right-size-it
       - mind-the-cache
@@ -83,8 +91,9 @@ groups:
   - id: safety
     name: Safety
     description: >
-      Keeping secrets out, scoping permissions, guarding destructive commands
-      and containing autonomous runs.
+      Giving the agent autonomy in proportion to what it could break. These
+      advance alongside Delegation: next steps don't suggest more autonomy
+      without them.
     patterns:
       - keep-secrets-out
       - scope-permissions

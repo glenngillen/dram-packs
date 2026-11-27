@@ -4,6 +4,24 @@ Source ID `plan-first`; pattern `glenngillen/plan-first`; Briefing, rung 3. Reco
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** On a change across several files, a plan is agreed before edits start, however it was proposed. The person's act is reviewing it.
+
+**Why it matters.** Once an agent has edited several files, changing direction means undoing work; a plan is cheap to correct. Reading it before edits begin is the person's chance to catch the wrong approach, a missed constraint or a file that should not change. In Briefing, it is how the person guides the way the work gets done ([groups](../../reference/principles.md#groups)).
+
+**What a recognition shows.** That the person engaged with a plan before a change that then went on to edit two or more files.
+
+**Why the rules are drawn this way.**
+
+- **Changes that edit at least two files.** That is where changing direction means undoing work, so a reviewed plan for a one-file change is excluded. The two-file boundary tries to capture "a change across several files" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). A window with no such change reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **Who proposed the plan doesn't matter; the person's review does.** The value is in the person's response, so an agent-originated plan counts through that review ([human intent only](../../reference/principles.md#human-intent-only)).
+- **No person turn, no review.** Plans approved automatically in headless or permission-bypass runs, and plans nobody answered, were never checked by anyone.
+- **Before the multi-file edits began.** A plan asked for after the second file was edited can no longer prevent the undoing. A plan after a single initial edit is left unassessed rather than settled by a convenient ordering rule ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **The second file's edit completes it.** It ties the review to a change that really did span several files, so act and follow-through belong to the same Seen event.
+- **Whether an unread "ok" or "go" counts is not yet settled.** It is the substantive-review judgement shared across Briefing, recorded as an open question.
+- **Continuous needs a rule or default setting that held.** A planning rule or default plan mode makes the plan happen without remembering ([stages](../../reference/principles.md#stages)); it must have been in place at the time, and a setting with no multi-file change to apply to is untested ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. The intended model judgement is described in [judge.md](judge.md), which the pinned CLI does not execute.

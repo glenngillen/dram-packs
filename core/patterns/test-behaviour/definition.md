@@ -4,6 +4,24 @@ Source ID `test-behaviour`; pattern `glenngillen/test-behaviour`; Checking the w
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The judgement this pattern needs is described in [judge.md](judge.md), which the pinned CLI does not execute.
 
+## Intent
+
+**What it's for.** The person makes sure the checks cover what the change does, not just its code: contract tests, end-to-end checks, approved fixtures, recorded side effects.
+
+**Why it matters.** Tests the agent writes after the code tend to check what the code does, not what callers need. A change can pass every one of them and still break someone downstream. A check written from the caller's side, or a recorded output the person has actually read, catches that before the change ships.
+
+**What a recognition shows.** That on a change other systems or users rely on, the person asked for, wrote or reviewed a check of the behaviour itself, and it ran.
+
+**Why the rules are drawn this way.**
+
+- **Changes to APIs, outputs and user flows that callers rely on.** That is where a behaviour check adds something unit tests don't; pure refactors, docs and internal tooling nobody calls have no caller to protect. No such change reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **The person's deliberate act.** Behaviour checks the agent adds on its own, and implementation-only tests it writes after the code, aren't the person making sure the right thing is covered ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Classify what is checked, not the framework or label.** A test called "e2e" that asserts nothing relevant is a proxy; a unit-test tool can carry a genuine behaviour check ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Snapshots and recorded output count only when reviewed.** Regenerating them without reading the diff (for example with `-u`) approves whatever the code now does, which is the opposite of checking it.
+- **The check must run.** A check requested but never run checked nothing. A failing run still shows the checking happened, but not that the change is correct.
+- **Later stages need the result used.** Forming and Established count instances whose result was acted on (a failure fixed, a pass accepted), credited to the week that finished ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous needs behaviour checks running automatically.** A hook or CI the person or their team owns runs them without anyone remembering, and holds only while it covers the behaviour that changed ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

@@ -4,6 +4,23 @@ Source ID `steer`; pattern `glenngillen/steer`; Correcting course, rung 1. Diagn
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** When the agent goes the wrong way, the person diagnoses and redirects rather than just stopping it.
+
+**Why it matters.** "No" or "try again" tells the agent only that it failed, so it often retries the same idea. A short reason gives it something to change. Stopping is fine; explaining is what turns a stop into a steer. It is the first rung of Correcting course: correcting the agent while the work is under way.
+
+**What a recognition shows.** That at a moment the agent went wrong, the person said what was wrong or why, and (for later stages) the agent changed course because of it.
+
+**Why the rules are drawn this way.**
+
+- **Moments the agent went wrong.** A redirect only means something where there was a wrong turn; a window where the agent never went wrong reports nothing ([applicable work](../../reference/principles.md#applicable-work)). Only the person's main sessions count.
+- **A person-authored correction that explains.** The value is the diagnosis, so bare stops ("no", "stop", "try again", "still failing") and an interrupt followed by "continue" are excluded: they tell the agent it failed, not what to change.
+- **Taste-only changes and agent self-correction are excluded.** A change of preference with nothing wrong is an ordinary instruction, not a correction of a wrong turn; the agent fixing its own mistake isn't the person steering ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Seen completes on the explained redirect; later stages need the agent to change course.** An explanation the agent ignored has had no effect, so it never counts toward Forming or Established. This staging comes from the recorded completion decision ([follow-through](../../reference/principles.md#follow-through)). Truncated records after the correction leave follow-through unknown, not missed ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **No Continuous of its own.** Making a correction permanent is [Fix the harness](../fix-the-harness/definition.md), as the original spec says; a harness fix isn't credited here, so neither pattern borrows the other's stage.
+- **The coaching trigger is the same failing approach retried three or more times.** It tries to capture "the agent was stuck on one idea and nobody told it why"; the count is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Retries with no person turn aren't reported, because opportunities must cite a person-authored moment (recorded decision).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

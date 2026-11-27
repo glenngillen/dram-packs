@@ -4,6 +4,23 @@ Source ID `keep-secrets-out`; pattern `glenngillen/keep-secrets-out`; Safety, ru
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** Secrets stay out of prompts and the agent's reach: environment and secret files are denied, and credentials aren't pasted.
+
+**Why it matters.** An agent that is told to be careful can still read a secret file while debugging, and what it reads can end up in its context. A deny rule that covers the real locations keeps those files out of reach. It is the first rung of Safety, which gives the agent autonomy in proportion to what it could break, and a prerequisite for broader autonomy ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+
+**What a recognition shows.** That a deny rule the person or their team configured, covering the repository's actual secret locations, was in effect in a session there.
+
+**Why the rules are drawn this way.**
+
+- **Repositories with secret files, or sessions that touched one, apply.** Elsewhere there is nothing to protect, and nothing is reported ([applicable work](../../reference/principles.md#applicable-work)).
+- **A configured rule, not the agent's caution.** An instruction to be careful, or the agent choosing not to open a file, can fail the next time; only configuration enforces it ([human intent only](../../reference/principles.md#human-intent-only)).
+- **It must cover the actual secret locations.** A `.env` rule doesn't protect secrets kept in `config/secrets.yml`; crediting it would show protection that isn't there ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Effective, not merely written.** Settings precedence, the session's mode and other tool routes (a shell read around a read-deny) decide whether the rule actually applied. These are facts, so code checks them ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)). A rule for paths that don't exist in this repository is untested here, not Seen.
+- **Values are never read or shown.** Secret files are identified by location and kind, and findings say only that something happened and where ([private by default](../../reference/principles.md#private-by-default)). The local scanner finding nothing does not prove there are no secrets, so copy stays within what it observed.
+- **Continuous needs coverage everywhere plus no secret pattern in prompts.** The rule protects files; keeping credentials out of prompts is the other half of the intent, so both must hold ([prevention: when success removes the signal](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. Named as one of the first activation candidates; it still needs the capabilities below.

@@ -4,6 +4,24 @@ Source ID `set-checkpoints`; pattern `glenngillen/set-checkpoints`; Correcting c
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** The person steers ahead of time: they tell the agent where to stop and ask before a risky or important decision, so they don't have to watch.
+
+**Why it matters.** Some steps are hard to undo. Naming the point where the agent must stop and wait keeps that decision with the person, and lets them adjust the plan rather than clean up afterwards. It is the second rung of Correcting course: from redirecting after the agent goes wrong to deciding in advance where it must check in.
+
+**What a recognition shows.** That before a risky step, the person asked the agent to stop, the agent stopped, and the person made the decision.
+
+**Why the rules are drawn this way.**
+
+- **Risky or hard-to-undo steps, classified on evidence.** Migrations, deploys, deletions and public API changes are where a decision matters; `ls` or a test run is not a decision point, however the request is phrased. No risky step reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **Request, stop and decision, in that order.** The checkpoint is the person's: they set it, the agent honours it, and they decide. An unanswered checkpoint left the decision unmade, so it isn't complete; whether the step then succeeded isn't required, because the pattern is about who decided.
+- **Spontaneous agent questions are excluded.** An unprompted "Shall I proceed?" is welcome, but it is the model's habit, not a checkpoint the person set ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Automatic approval never stands in for the decision.** An auto-approve setting, permission-skipping mode or script answering "yes" removes the person from the very decision the checkpoint exists for.
+- **A stop the agent bypassed is not Seen, and is not holding for a mechanism.** The risky step happened without the decision.
+- **Continuous is an instruction or ask rule that actually stopped the agent.** Checkpoints written into the harness hold without the person remembering to ask ([stages](../../reference/principles.md#stages)). The session's historical permission mode matters, because a rule that didn't apply in that mode didn't stop anything ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **Forming and Established count decided checkpoints over weeks and risky steps.** Two distinct weeks, 60% and at least four applicable steps try to capture "this happens across their risky work, not once"; they are [calibration points](../../reference/principles.md#thresholds-are-calibration-points).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

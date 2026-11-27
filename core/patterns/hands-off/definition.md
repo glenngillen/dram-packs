@@ -4,6 +4,24 @@ Source ID `hands-off`; pattern `glenngillen/hands-off`; Delegation, rung 4. Run 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** The person runs work they trust without watching it, and uses what it produces.
+
+**Why it matters.** A command the person has run by hand several times, with the same kind of result, is a candidate to run without watching. Handing it off only helps if they use the output, and it should run unattended only with narrowly scoped permissions, never with permission checks switched off.
+
+**What a recognition shows.** That an owned workflow the person already knew well ran unattended, launched by the person or their own schedule, and its output was actually used.
+
+**Why the rules are drawn this way.**
+
+- **Only owned commands already run interactively three times apply.** The pattern is about handing off work the person trusts, and trust comes from having watched it run. The three-run boundary tries to capture "familiar enough to hand off" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Without such a command, nothing is reported ([applicable work](../../reference/principles.md#applicable-work)).
+- **Owned commands or skills only.** Ad-hoc headless prompts, built-in and plugin commands are not work the person built and trusts, so they are not applicable ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Unattended means headless or not watched.** The `unattended_gap` boundary (15 minutes of agent work without a person prompt) tries to capture "the person wasn't watching it" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points).
+- **Launched by the person or their own trigger.** Software running an agent on its own behalf is not the person's work, even when it runs their command ([human intent only](../../reference/principles.md#human-intent-only)).
+- **The output must be used.** An unattended run whose output is discarded or redone by hand delivered nothing, so use is the completing evidence, judged from later evidence and credited to the window in which it happened ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous needs a configured schedule or trigger.** That is what makes the run happen without the person; it holds only while its output keeps being used ([prevention: when success removes the signal](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **Not suggested until Scope permissions is Seen for unattended runs.** An unattended run can break more with nobody watching, so the safeguard comes first, and only for that kind of run ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)). The opportunity uses a separate count (three or more sessions, a [calibration point](../../reference/principles.md#thresholds-are-calibration-points)) to capture "this has become a regular, watched routine".
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

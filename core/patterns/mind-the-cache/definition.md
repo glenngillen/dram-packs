@@ -4,6 +4,24 @@ Source ID `mind-the-cache`; pattern `glenngillen/mind-the-cache`; Economics, run
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person avoids paying to rebuild a large context: after a long break, they start fresh with a handoff instead of resuming a big, cold session.
+
+**Why it matters.** After a break longer than the cache lasts, continuing a large session sends its whole context again. A short handoff carries the decisions the person needs into a fresh session at a fraction of the size. In Economics, this is keeping context cached, or not paying to rebuild it when it isn't.
+
+**What a recognition shows.** That after a qualifying break from a large context, the person chose to start fresh on the same work rather than resume the cold session.
+
+**Why the rules are drawn this way.**
+
+- **Every return to the same work after a qualifying break, fresh starts and cold resumes alike.** Counting only resumes, as the original spec's wording did, would leave the good choice out of the assessment; this denominator is a recorded decision ([applicable work](../../reference/principles.md#applicable-work)). Unrelated new work after a break is not a return.
+- **A gap longer than the cache lifetime.** The gap tries to capture "the cache has expired, so resuming rebuilds it". A known lifetime supplied by the CLI replaces the default; the one-hour default is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points).
+- **A large prior context.** The 150,000-token boundary tries to capture "big enough that rebuilding it costs something worth avoiding"; it is the recorded long-session default and a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Short gaps and small contexts are neither hit nor miss.
+- **The person's fresh start.** Compaction on resume or a harness restart is the harness acting, not the person choosing ([human intent only](../../reference/principles.md#human-intent-only)). A handoff written but then ignored in favour of the cold session is a cold resume: the handoff only helps if it is used.
+- **Unknown timestamps or context size mean no assessment.** Without them there is no way to know the break qualified ([missing is not low](../../reference/principles.md#missing-is-not-low)). Cost is optional: unknown usage or pricing drops only the cost line, and any cost shown is a measured API-priced figure, never what anyone was billed ([evidence for everything](../../reference/principles.md#evidence-for-everything)).
+- **Continuous is the person's own end-of-day command or Stop mechanism writing a handoff, used afterwards.** It holds without remembering before every break ([stages](../../reference/principles.md#stages)); a handoff produced and not used is not holding.
+- **Forming and Established count fresh starts over weeks and returns.** Two distinct weeks, 60% and at least four qualifying returns try to capture a habit across breaks rather than one; they are [calibration points](../../reference/principles.md#thresholds-are-calibration-points).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. Named as one of the first activation candidates; it still needs the capabilities below.

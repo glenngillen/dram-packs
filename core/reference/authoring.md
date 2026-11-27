@@ -20,17 +20,18 @@ Shared rules live in the references, not in each pattern: [evidence](evidence.md
 
 `definition.md` has these `##` sections, in this order:
 
-1. **Status**: disabled, and the readiness term that applies.
-2. **Applicable work**: what the pattern is counted against, with linked parameters.
-3. **Recognition**: what earns Seen, and the completing evidence.
-4. **Exclusions**: what never counts.
-5. **Evidence**: citations required, and evidence sources the pinned CLI does not yet supply.
-6. **Progression**: the pattern's own overrides of the [stages](progression.md#stages).
-7. **Mechanism**: what Continuous means for this pattern (in place, applied, held, not holding), or why it has none of its own.
-8. **Opportunities and coaching**: the missed moment and the coaching trigger.
-9. **Why disabled**: the specific reason this pattern is off.
-10. **Missing capabilities**: each CLI capability needed, named precisely.
-11. **Verify before enabling**: the behaviour that must be demonstrated, not just a version number.
+1. **Intent**: what the pattern is for, the problem it solves and why it matters, what a recognition proves, and why its rules are drawn the way they are. Each rule's reason traces to the pattern's intent, a [principle](principles.md) or a recorded decision; a reason that isn't known is marked as not recorded rather than invented. Thresholds are [calibration points](principles.md#thresholds-are-calibration-points): say what each tries to capture, never justify the number.
+2. **Status**: disabled, and the readiness term that applies.
+3. **Applicable work**: what the pattern is counted against, with linked parameters.
+4. **Recognition**: what earns Seen, and the completing evidence.
+5. **Exclusions**: what never counts.
+6. **Evidence**: citations required, and evidence sources the pinned CLI does not yet supply.
+7. **Progression**: the pattern's own overrides of the [stages](progression.md#stages).
+8. **Mechanism**: what Continuous means for this pattern (in place, applied, held, not holding), or why it has none of its own.
+9. **Opportunities and coaching**: the missed moment and the coaching trigger.
+10. **Why disabled**: the specific reason this pattern is off.
+11. **Missing capabilities**: each CLI capability needed, named precisely.
+12. **Verify before enabling**: the behaviour that must be demonstrated, not just a version number.
 
 Add `## Open questions` only when something is genuinely open.
 

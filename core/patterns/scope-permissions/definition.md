@@ -4,6 +4,25 @@ Source ID `scope-permissions`; pattern `glenngillen/scope-permissions`; Safety, 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The agent is allowed what the work needs and no more: an allowlist of commands and tools, rather than approving everything or skipping permissions.
+
+**Why it matters.** Bypassing permissions on the person's own machine lets one wrong command reach their credentials, production access and other projects. A short allow list of the commands the work really needs keeps the prompts down without handing over everything. It is a Safety prerequisite for unattended work ([Hands off](../hands-off/definition.md)) and broader autonomy ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+
+**What a recognition shows.** That a session actually ran under a scoped allow list the person or their team configured, in a normal approval mode.
+
+**Why the rules are drawn this way.**
+
+- **Every main session applies, unattended ones most.** Permissions matter wherever the agent runs; an unattended run has nobody to catch a wrong command. The `unattended_gap` boundary tries to capture "nobody was watching this run" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points).
+- **Sandboxed bypass is neutral here.** Recorded decision: a bypassed session inside a qualifying sandbox is neither credit nor a miss for this pattern, and is recognized only by [Sandbox autonomy](../sandbox-autonomy/definition.md). A bypassed session in an unknown environment is unassessed ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **Scoped, not everything.** An entry that approves every command (`Bash(*)`) is the same as approving everything, which is what the pattern replaces. No breadth metric is defined, so a non-empty list is not assumed to be least privilege.
+- **Effective after precedence, and not bypassed.** A narrow file overridden by a broader setting, or skipped by a bypass mode, protects nothing; these are facts code reads ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest), [false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Configured by the person or their team** ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Run scope is recorded.** Hands off needs this pattern Seen for unattended runs specifically, so interactive-only recognition must be distinguishable ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+- **Continuous needs every applicable session scoped, unattended ones included.** One bypassed session is enough for a wrong command to reach everything ([stages](../../reference/principles.md#stages)).
+- **The opportunity is bypass where it matters most.** It points at bypass outside a sandbox in a repository with production access or deploy scripts, the case the source's coaching names; an unrestricted allow list is not recognized but is not reported as an opportunity on its own.
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. Named as one of the first activation candidates; it still needs the capabilities below.

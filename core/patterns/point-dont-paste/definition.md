@@ -4,6 +4,25 @@ Source ID `point-dont-paste`; pattern `glenngillen/point-dont-paste`; Context, r
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person gives the agent precise pointers to what it needs (specific files, symbols, a failing test, a doc) rather than pasting large blobs or telling it to read everything.
+
+**Why it matters.** Broad exploration and long pastes both fill the agent's context with material it does not need, leaving less room for what matters. Naming the right file and test, or pasting the few relevant log lines, gets the agent to the problem faster and keeps it focused, which keeps it sharp and cheap.
+
+**What a recognition shows.** That a request gave the agent the relevant context the work needed, and the agent went straight to it instead of searching.
+
+**Why the rules are drawn this way.**
+
+- **Only requests that needed context.** A standalone script or a general question needs no pointer, so it is neither credit nor a miss ([applicable work](../../reference/principles.md#applicable-work)).
+- **Pointers must be relevant and actually used.** A filename in a prompt proves nothing unless the work needed it and the agent read or ran it; crediting mentions alone would reward the wrong thing ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)). Whether a pointer was relevant is a judgement, so a model makes it ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **Relevance, not length, decides.** The problem the pattern addresses is material the agent doesn't need, not size. The five log lines and three-thousand-line paste in the examples illustrate relevance and are not limits, so a large trace the work genuinely needs is not penalized.
+- **Broad instructions and excessive pastes are excluded.** "Find the bug somewhere in billing" or a full log when a few lines show the failure are the opposite of the intent.
+- **Pointers must come from the person.** Files the agent found through its own search are not the person's act ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Forming and Established need the work done from the pointed context.** Seen credits the request; later stages count only requests whose work was completed from it, credited to the week that finished, per a recorded decision ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous is a codebase map in an instruction file.** It points the agent to the right place without the person naming it each time; it holds when sessions go straight to the material, and broad exploration despite the map is a not-holding finding ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **A guided answer needs a real request.** Identifying pointers in a guide counts only once the person uses them in real work ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. A [judge prompt](judge.md) is authored but not executed.

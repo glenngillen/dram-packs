@@ -4,6 +4,23 @@ Source ID `write-it-down`; pattern `glenngillen/write-it-down`; Guides, rung 2. 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The judge's authoring prompt is in [judge.md](judge.md) (not executed by the pinned CLI). Related: [Give it instructions](../give-it-instructions/definition.md) (the file exists and loads) and Fix the harness (broader, below).
 
+## Intent
+
+**What it's for.** When the person corrects a convention, they get it written into the agent's instructions instead of repeating it.
+
+**Why it matters.** A correction made in a prompt lasts one session. Written into the instruction file, it reaches every later session, so the person stops repeating it and the agent stops guessing. Guides are how one correction becomes permanent ([groups](../../reference/principles.md#groups)); this pattern builds on [Give it instructions](../give-it-instructions/definition.md), and [Fix the harness](../fix-the-harness/definition.md) is its wider form.
+
+**What a recognition shows.** That at the person's own request, a convention they corrected became a rule in an instruction file the agent loads.
+
+**Why the rules are drawn this way.**
+
+- **Corrections of a convention or preference, not one-off defects.** Only something that applies beyond the current change is worth carrying into later sessions. A window with no convention correction reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **At the person's request.** The agent editing instruction files on its own initiative, or writing auto-memory for itself, is not the person building their harness ([human intent only](../../reference/principles.md#human-intent-only)).
+- **A substantive, persisted addition.** "Remember this" with no file edit, or a typo fix, carries nothing into later sessions; the word "remember" or a `#` in a transcript is not proof ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Later stages need the rule kept and applied.** Seen credits the request and the edit promptly; Forming and Established count only rules that stayed in the file and were applied in later relevant work, following the recorded decision on stage-dependent completion ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous is the rule holding.** Once the rule works, the person stops correcting, so the evidence becomes the rule applied and held ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)). Silence in unrelated sessions is not held, and an unused rule is untested.
+- **The rule must have been loaded when the later session ran.** Today's file cannot show what a past session had ([evidence for everything](../../reference/principles.md#evidence-for-everything)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

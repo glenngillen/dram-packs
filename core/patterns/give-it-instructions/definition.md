@@ -4,6 +4,23 @@ Source ID `give-it-instructions`; pattern `glenngillen/give-it-instructions`; Gu
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The repositories the person works in have an instruction file the agent reads, with the conventions it needs.
+
+**Why it matters.** An agent starts every session knowing nothing about the project. Without instructions it guesses how to build and test, and drifts from conventions the person then has to repeat in prompts or correct after the fact. An instruction file is the first and cheapest guide: written once, it applies to every session. It is the foundation the rest of Guides builds on (Write it down adds to it, Keep it lean keeps it useful).
+
+**What a recognition shows.** That the agent actually started work in a regularly used repository with the person's meaningful instructions in context, not just that a file exists.
+
+**Why the rules are drawn this way.**
+
+- **Loaded, not merely present.** A file the agent never reads changes nothing; recognising file existence would credit a pattern that isn't working ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Non-trivial content.** A heading or untouched template gives the agent nothing to follow, so it is not a guide.
+- **Auto-memory and unreviewed agent-written files are excluded.** Notes the agent writes for itself are not instructions the person gave ([human intent only](../../reference/principles.md#human-intent-only)). A generated file the person reviewed and kept is theirs.
+- **Repositories the person regularly uses.** The pattern is about the places the person actually works; a repository visited once is not where a missing file costs them. The three-session boundary tries to capture "regularly works here" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points), not a derived number. Only the person's main sessions count, because subagents and Dram's own sessions are not the person working there.
+- **Continuous needs every applicable repository, or a maintained user-level file.** Coverage everywhere the person works is what makes it hold without remembering ([stages](../../reference/principles.md#stages)). The four-week refresh exists because a file written once and forgotten goes stale as the project changes; the interval is a calibration point.
+- **No applicable repository reports nothing.** Someone whose work never returns to the same repository isn't marked down ([applicable work](../../reference/principles.md#applicable-work)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. This is the pack's complete reference pattern.

@@ -4,6 +4,23 @@ Source ID `own-the-expectations`; pattern `glenngillen/own-the-expectations`; Br
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The expectations the work is checked against (tests, examples, fixtures) are written or approved by the person before the agent implements, not written by the same agent afterwards to match what it built.
+
+**Why it matters.** Tests written after the code tend to describe what the code does, bugs included, so they pass straight away and prove little. Expectations the person wrote or read before the implementation are independent of it, so a pass then means something. It takes [Define done](../define-done/definition.md) to the tests themselves.
+
+**What a recognition shows.** That on a change adding or changing tests, the expectations came from the person before implementation, and the implementation was then made to pass them.
+
+**Why the rules are drawn this way.**
+
+- **Only work that adds or changes tests.** That is where tests can come before or after the code; criteria in general are Define done's. A window with no such work reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **Written by the person, or reviewed by them with substance.** What matters is that the person's judgement went into the expectations before the code existed, not who typed them. An unread "ok, go" puts none in ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Before the first implementation edit.** Independence from the implementation is the point of the pattern, so tests and code produced in one step, with no review between, are excluded.
+- **Post-hoc agent tests never count, however green.** They tend to mirror the implementation, and a passing test is not itself evidence of independent expectations ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **The implementation passing them completes it.** Expectations matter because the work is checked against them; a reviewed test with no passing implementation is incomplete ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous needs a test-first rule or command that is followed.** It puts the tests first without the person remembering ([stages](../../reference/principles.md#stages)); a rule present but ignored is not holding ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. The intended model judgement is described in [judge.md](judge.md), which the pinned CLI does not execute.

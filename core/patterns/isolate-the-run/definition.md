@@ -4,6 +4,23 @@ Source ID `isolate-the-run`; pattern `glenngillen/isolate-the-run`; Delegation, 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** Unattended and parallel runs each get their own separate working copy (a worktree, clone, container or VM), so they can't trample each other or the person's working copy. The source also allowed a separate branch; a recorded decision removed it.
+
+**Why it matters.** Two agents editing the same directory overwrite each other's files and mix their changes. A separate working copy keeps each run's changes apart, and it is what makes parallel and unattended work safe to suggest ([Two at once](../two-at-once/definition.md) depends on it).
+
+**What a recognition shows.** That an unattended or actively parallel run actually ran in its own separate working copy, shown by the environment recorded when it ran.
+
+**Why the rules are drawn this way.**
+
+- **Only unattended runs and actively overlapping sessions apply.** Those are the runs that can trample other work. The `unattended_gap` boundary tries to capture "nobody was watching this run" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Without either, nothing is reported ([applicable work](../../reference/principles.md#applicable-work)).
+- **Idle sessions don't create overlap.** A session open but doing nothing cannot change the other's files, so it does not make a run parallel.
+- **Only a separate working copy counts; branch-only separation does not.** Recorded decision. Different branches in one directory still share the same files on disk: switching branches in one session rewrites the files another agent is working on, mid-cycle. Two branches can only be worked on at once from different copies.
+- **The working copy must be used.** A worktree created and never used for an applicable run isolates nothing.
+- **Environment facts, not path names.** A path that looks like a worktree is not proof, and unknown environments are unassessed, never assumed isolated ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses), [missing is not low](../../reference/principles.md#missing-is-not-low)). These are facts, so code checks them ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **Continuous needs an owned mechanism.** A command, script or devcontainer that gives every run its own copy; consistent manual separation reaches at most Established ([stages](../../reference/principles.md#stages)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. Named as one of the first activation candidates; it still needs the capabilities below.

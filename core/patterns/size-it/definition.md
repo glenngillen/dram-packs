@@ -4,6 +4,23 @@ Source ID `size-it`; pattern `glenngillen/size-it`; Delegation, rung 1. Break la
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** The person hands the agent work in pieces it can finish well: one goal per session or task, large work broken down first.
+
+**Why it matters.** An agent given one huge goal tends to spread itself thin and finish nothing cleanly. Breaking the work into session-sized tasks, and finishing them one at a time, gives the person a checkable result at each step. It is the first rung of Delegation: handing work at the right size comes before handing it to subagents or letting it run unattended.
+
+**What a recognition shows.** That the person deliberately broke large work down, used that breakdown, and finished the first piece on its own, not merely that a request happened to be small.
+
+**Why the rules are drawn this way.**
+
+- **Only substantial work applies.** Sizing only matters where the work was too big to finish and check cleanly in one go. Whether it was is a judgement about the work itself, so a model makes it ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)); the source gives no size boundary, and none is invented. Windows with only small tasks report nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **A breakdown the person asked for, wrote or adopted.** Steps the agent listed on its own and the person never used are the agent's initiative, not the person's sizing ([human intent only](../../reference/principles.md#human-intent-only)).
+- **The breakdown must actually be used.** Asking for steps and then doing everything together anyway leaves the work unsized; crediting the request would credit a pattern that isn't working ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **A naturally small request never counts.** Smallness alone doesn't show deliberate sizing, so it is excluded rather than guessed at.
+- **Seen on the first finished sub-task; later stages need every sub-task finished.** Recorded decision (completion depends on the stage): the first finished piece credits the person promptly, while Forming and Established count only breakdowns carried through, credited to the week the last piece finished ([follow-through](../../reference/principles.md#follow-through)). Pending sub-tasks are not a miss.
+- **Continuous needs a breakdown mechanism.** A planning command or sub-task template the person owns makes large work start from a breakdown without remembering; a high share of sized work alone is not enough ([stages](../../reference/principles.md#stages)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

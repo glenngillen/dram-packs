@@ -4,6 +4,24 @@ Source ID `guard-destructive`; pattern `glenngillen/guard-destructive`; Safety, 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** Commands that can't be undone (force pushes, recursive deletes, production database or deploy commands) are blocked or need explicit approval, whatever mode the session is in.
+
+**Why it matters.** An agent that usually asks first will not always ask. A deny rule, an ask rule or a pre-tool-use guard makes the stop happen by configuration. It is a Safety prerequisite for broader autonomy ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+
+**What a recognition shows.** That a guard the person or their team configured, covering destructive commands relevant to the repository or run, was effective in a session there.
+
+**Why the rules are drawn this way.**
+
+- **Repositories with deploy, migration or infrastructure commands, and every unattended run, apply.** Those are where an irreversible command can run, and an unattended run has nobody watching. Elsewhere nothing is reported ([applicable work](../../reference/principles.md#applicable-work)). The `unattended_gap` boundary tries to capture "nobody was watching this run" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points).
+- **Destructive commands come from the repository's actual commands.** The guard is judged against what could cause irreversible harm there, not against every shell command.
+- **A configured guard, not the agent's habit of asking.** An agent's own "shall I force push?" can be skipped the next time ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Relevant and effective in the session's mode.** A guard for commands the repository never uses, or one a bypass mode skips, doesn't protect that session; these are facts code reads ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **No universal blocking is claimed.** Spellings, aliases, wrappers and compound commands can get past a pattern-matching guard, so coverage is judged for commands as actually invoked ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Evidence is never manufactured.** Nobody runs a destructive command to prove a guard works; a guard with no applicable session stays untested ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+- **Continuous needs guards wherever unattended or parallel work runs, with evidence they held.** That is where a missing guard costs most; silence counts only where the guard applied ([prevention: when success removes the signal](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. Named as one of the first activation candidates; it still needs the capabilities below.

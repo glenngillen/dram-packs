@@ -4,6 +4,26 @@ Source ID `checks-by-default`; pattern `glenngillen/checks-by-default`; Checking
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** The agent runs the project's fast checks (tests, types, lint) after it changes code without being asked each time, because the person's instructions tell it to.
+
+**Why it matters.** Asking for checks every time depends on remembering. An instruction rule or hook that says "after changing code, run these" makes the agent check its own work by default, which moves checking from the person ([Prove it](../prove-it/definition.md)) into the harness.
+
+**What a recognition shows.** That a check ran after an edit because a rule or hook the person or their team owns asked for it, not because the person asked this time and not because the model happened to.
+
+**Why the rules are drawn this way.**
+
+- **The check must be caused by the person's rule or hook.** The agent running tests unprompted is the model's habit, not the person's harness; when a guide the person wrote tells it to, it is ([human intent only](../../reference/principles.md#human-intent-only)). Rules from third-party templates or auto-memory the person never adopted are excluded for the same reason.
+- **The rule must have been in place and loaded when the session ran.** A rule added afterwards cannot have caused that session's check, and today's configuration cannot prove what a past session loaded ([evidence for everything](../../reference/principles.md#evidence-for-everything)).
+- **No fresh person prompt between the edit and the check.** If the person asked, that is [Prove it](../prove-it/definition.md); the point here is not being asked each time.
+- **A relevant check after an edit.** A check before the edit, or an unrelated command, does not show the rule working after a change.
+- **Configuration alone is never enough.** A rule or hook with no check run, or a rule the agent ignored, is not Seen: presence is not completing evidence ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)). A rule in place that wasn't followed is a not-holding finding ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **Execution, not passing, completes Seen.** The rule worked as a trigger even if the check failed. Holding is stricter: a directed check left failed and unresolved is not holding, and a missing result leaves holding unassessed ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **Coverage is over repositories with checks.** A scratch folder with nothing to run is not counted against the person ([applicable work](../../reference/principles.md#applicable-work)).
+- **Continuous needs every applicable repository covered and the rule followed.** Coverage alone is not enough; it must hold where it applied ([stages](../../reference/principles.md#stages)).
+- **A guided setup reaches Seen only once a later session follows the rule** ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

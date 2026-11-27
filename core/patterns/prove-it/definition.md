@@ -4,6 +4,24 @@ Source ID `prove-it`; pattern `glenngillen/prove-it`; Checking the work, rung 1.
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** The person doesn't accept "done" without proof: tests, a build, the output.
+
+**Why it matters.** "Done" from an agent is a claim, not a result. Asking it to run the relevant check after its last edit turns the claim into evidence the person can read, and a check that ran and failed is still useful: it shows the change is not finished yet. It is the first rung of Checking the work: the person checking, before checks are made automatic.
+
+**What a recognition shows.** That after the agent changed code and called it done, the person asked for proof and a relevant check actually ran.
+
+**Why the rules are drawn this way.**
+
+- **Only code changes the agent reported done.** That is where a claim needs proving; discussion, reading code and documentation-only questions are not, and a window without such turns reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **The order is edit, claim, request, check.** A check before the final edit says nothing about the change that followed it, and a request before any change is not asking for proof of that change.
+- **The request must be the person's.** Checks the agent ran unprompted are its own habit, not the person's ([human intent only](../../reference/principles.md#human-intent-only)). Checks a person-owned rule or hook caused are [Checks by default](../checks-by-default/definition.md), so the two habits are credited separately.
+- **A relevant check must actually run.** "Yes, they pass" with nothing run, or an unrelated command such as `git status`, is not proof ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Ran, not passed.** The pattern is about asking for evidence, so a check that ran and failed still completes the request; it is never taken as evidence the change works. Truncated or missing output leaves the result unknown rather than assumed ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **No Continuous of its own.** The original spec points to [Checks by default](../checks-by-default/definition.md) and [Gate "done"](../gate-done/definition.md) as the mechanisms that make proof automatic, so a hook running checks is recognized there. Why their stages are not carried over to this pattern: reason not recorded.
+- **Guided sessions reach Seen only,** on the person's next real change ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

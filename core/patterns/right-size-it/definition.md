@@ -6,6 +6,24 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
 
 **Identity.** This pattern is **model selection**. It is not the built-in IaC pattern `infracost/right-size-it` (infrastructure resource sizing). The two load side by side because the pinned loader scopes pattern IDs by organisation ([compatibility](../../reference/compatibility.md#identity)). Findings, history and progress of `infracost/right-size-it` are **never** reused for `glenngillen/right-size-it`, and vice versa.
 
+## Intent
+
+**What it's for.** The person picks a lighter model for work that doesn't need the premium one, and keeps the premium one for hard problems.
+
+**Why it matters.** Routine edits rarely need the most capable model. Choosing a lighter one for them, on purpose and before the work starts, keeps the premium model for the work that needs it. It is the first rung of Economics: getting the same results for less.
+
+**What a recognition shows.** That the person deliberately chose a tier below their usual one for routine work, and real work was then done on it.
+
+**Why the rules are drawn this way.**
+
+- **Routine work, judged on evidence.** Renames, docstrings, formatting, version bumps and simple fixes are the original spec's examples; work outside the list isn't assumed non-routine, because classifying it is a judgement that must be justified ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)). No routine work reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **"Lighter" is relative to the person's usual model, and is a fact.** The pattern is about a choice, so someone who always uses a lighter model made none. When the usual model or a model's tier is unknown, the work is unassessed rather than guessed ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **The person's choice, before the work.** Automatic fallback after a limit and ordinary lighter subagents picked by the harness aren't the person choosing ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Edits must follow on the lighter tier.** A switch with no work after it saved nothing and showed nothing; the first edit is the completing evidence. Whether that work was kept and passed its checks belongs to [Let the harness carry it](../harness-carries-it/definition.md).
+- **Continuous is model choice in the harness.** A lighter default with deliberate escalation, premium planning with lighter execution, or an owned command or subagent pinned to a lighter model does it without the person remembering ([stages](../../reference/principles.md#stages)). An owned pinned subagent is the person's harness, unlike a built-in one.
+- **Forming and Established count choices over weeks and routine tasks.** Two distinct weeks, 60% and at least four applicable tasks try to capture a regular habit rather than a one-off switch; they are [calibration points](../../reference/principles.md#thresholds-are-calibration-points).
+- **Separate from IaC resource sizing.** The two share a name but measure different things; per the recorded identity decision this pattern is `glenngillen/right-size-it` and never reuses `infracost/right-size-it` findings. Cost copy uses only measured cost and makes no savings claim ([evidence for everything](../../reference/principles.md#evidence-for-everything)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

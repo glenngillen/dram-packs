@@ -4,6 +4,22 @@ Source ID `reuse-your-harness`; pattern `glenngillen/reuse-your-harness`; Guides
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person's guides, commands, hooks and settings follow them across repositories, instead of being rebuilt in each one.
+
+**Why it matters.** Separate copies of the same command drift apart, and fixes made in one repository never reach the other. One maintained copy that every repository picks up keeps them the same.
+
+**What a recognition shows.** That the same item of the person's own, shared from one source, was actually used in at least two repositories.
+
+**Why the rules are drawn this way.**
+
+- **People working in two or more repositories.** With one repository there is nothing to follow the person across; that reports nothing, not a miss ([applicable work](../../reference/principles.md#applicable-work)).
+- **One shared source, never matching names.** Diverged copies are the problem this pattern coaches on, so separately defined copies are excluded, and sharing is never inferred from filenames alone ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **The person's own harness.** Built-in commands and third-party plugins used everywhere are not something the person built ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Used in each repository, not merely in place.** A shared item unused in one of the repositories has not followed the person there ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **Continuous needs every repository and a recent update.** Coverage everywhere the person works is what makes it hold without remembering ([stages](../../reference/principles.md#stages)). The four-week update tries to capture "maintained, not set up once and forgotten" and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points); a stale harness still earns Seen.
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

@@ -4,6 +4,24 @@ Source ID `fix-the-harness`; pattern `glenngillen/fix-the-harness`; Guides, rung
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. Related: Write it down (the instruction-file step this pattern builds on).
 
+## Intent
+
+**What it's for.** When the person corrects the agent, they fix the guide or check that would have prevented it, and the same correction stops recurring.
+
+**Why it matters.** This is the clearest sign of a self-improving harness. Correcting the same mistake every few sessions costs the person each time; a rule, check or gate aimed at it stops it at the source, and later work shows whether it really did. It is the wider form of [Write it down](../write-it-down/definition.md): any mechanism, not only an instruction line.
+
+**What a recognition shows.** That a correction the person had made before led them to a relevant harness change, after which later relevant work went without it.
+
+**Why the rules are drawn this way.**
+
+- **Only corrections of a kind made before.** A repeat is what shows a gap in the harness; a first-time correction is not applicable. Matching corrections by kind is a model judgement citing both prompts. A window with no recurring correction reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **A relevant change the person owns.** A guide change unrelated to any correction is not this pattern, and agent rule changes the person never reviewed are not the person's act ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Seen already needs the correction to stop.** Prevention is the pattern's deliberate result, so a rule after which the same correction continues does not count ([follow-through](../../reference/principles.md#follow-through)). `fix_followup` tries to capture "enough later work where the mistake could have come back, close enough to the change to link them"; it comes from the recorded decision accepting the proposed default and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points).
+- **Only later applicable sessions count.** Silence is credit only where the correction could have recurred, so vague rules such as "write clean code" stay untested ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **Recurrence and too little later work are kept apart.** Recurrence is a finding that the change is not holding; too little later work is not yet assessable, not a miss ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **Continuous covers most recurring corrections.** The habit is that recurring corrections lead to fixes; `most` is a calibration point, and too few recurring corrections is not assessable.
+- **The change must have been in place when the later sessions ran.** Current configuration cannot prove what an earlier session had ([evidence for everything](../../reference/principles.md#evidence-for-everything)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. [`judge.md`](judge.md) is authoring prose for the correction-matching judgement; the pinned CLI does not execute it.

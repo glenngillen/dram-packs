@@ -4,6 +4,25 @@ Source ID `actionable-failures`; pattern `glenngillen/actionable-failures`; Chec
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person's checks report failures in a way the agent can act on: the failing rule, where, and how to fix it, fed straight back to the agent.
+
+**Why it matters.** An agent can only fix what it can see. A failure that reaches it with the rule, the place and the expected fix gets fixed in one step; a bare "lint failed", or output written somewhere the agent never reads, leads to repeated attempts.
+
+**What a recognition shows.** That a check the person or their team configured failed during agent work, its output reached the agent with enough detail to act on, and the agent fixed the named problem in its next step.
+
+**Why the rules are drawn this way.**
+
+- **The feedback path must be owned.** A linter the agent chose to run on its own is not the person's harness ([human intent only](../../reference/principles.md#human-intent-only)). Whether a hook is configured and returns its output is a fact, so code checks it ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **The agent must visibly receive the failure.** Output in the person's terminal, CI or a log elsewhere cannot be acted on by the agent, which is the whole point of feeding it back.
+- **The output must say what to do.** The rule, the location or the expected fix. A bare exit code or "lint failed" is the problem the pattern coaches on, not a recognition. Formatter-only hooks feed nothing back.
+- **A linked fix in the agent's next step.** The fix is what shows the feedback was actionable. Any edit after an error is not enough: it must touch what the failure named. The source alternates between "next step" and "next turn", and no wider window is invented that would let a delayed, unrelated fix count ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)). Failures fed back and ignored are excluded.
+- **A quiet hook proves nothing.** Configured with no failure in the window is untested, never held ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **Later stages credit the week the fix finished.** Forming counts instances by the week the fix finished, per the recorded completion decision ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous is hooks or lint rules with fix guidance, holding.** It holds when the agent fixes the named problem in its next step; feedback it never received, too vague to act on, or ignored is a not-holding finding ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+- **A guided setup reaches Seen only with a real failure and fix.** Configuring the hook is not the pattern working ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

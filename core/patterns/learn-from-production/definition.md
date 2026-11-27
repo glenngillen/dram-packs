@@ -4,6 +4,24 @@ Source ID `learn-from-production`; pattern `glenngillen/learn-from-production`; 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** Signals from running software (errors, alerts, logs, SLOs) feed agent work directly, so the harness learns from what got through.
+
+**Why it matters.** A bug report in the person's own words loses detail the alert already had. Giving the agent the actual signal, and asking for a check that fails on it, means the fix comes with something that stops the same problem coming back. In Checking the work, this closes the loop: a problem that escaped every earlier check becomes a new check.
+
+**What a recognition shows.** That the person started a production fix from the real signal and the fix added a check that would catch the problem next time.
+
+**Why the rules are drawn this way.**
+
+- **Work on production services.** Production signals only exist where code runs in production; no such fix work reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **The actual signal, not a paraphrase.** "Fix the bug in payments" loses the detail the intent depends on, so a generic request without the signal doesn't count.
+- **A new preventive check that exercises the failure.** Learning from what got through means something now catches it. Rerunning existing tests, or adding an unrelated test in the same change, adds nothing; whether the check exercises the failure is a model judgement ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **The person's request, or a trigger they or their team own.** An agent starting itself on production data isn't the person's habit. A triggered fix still needs a person-authored moment (their review or merge), because every recognition and opportunity cites one ([human intent only](../../reference/principles.md#human-intent-only), [evidence for everything](../../reference/principles.md#evidence-for-everything)).
+- **Credited when the check finishes.** A request whose check lands later is credited to the window where the check finished ([follow-through](../../reference/principles.md#follow-through)). Two distinct weeks and "fewer than four is not assessable" try to capture repeated practice rather than one fix; they are [calibration points](../../reference/principles.md#thresholds-are-calibration-points).
+- **Continuous is an owned alert or error trigger that holds.** It starts fix work without the person remembering, and holds only when its fixes add a check and the problem doesn't recur ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)). Automated triggers come after Scope permissions for the unattended run ([autonomy and safety advance together](../../reference/principles.md#autonomy-and-safety-advance-together)).
+- **Production signals stay local and fixtures are synthetic.** Signals are the person's case content and may be sensitive; the pack never fetches logs or connects to services ([private by default](../../reference/principles.md#private-by-default)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

@@ -4,6 +4,24 @@ Source ID `hand-it-off`; pattern `glenngillen/hand-it-off`; Context, rung 2. Car
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** The person carries what matters out of a long session into a fresh one, instead of continuing or compacting.
+
+**Why it matters.** A long conversation fills the agent's context, and compaction can drop earlier decisions. A short written handoff keeps what matters: what was decided, where the work stands and what comes next. A fresh session that starts from it has the decisions without the noise, which keeps the agent sharp and cheap.
+
+**What a recognition shows.** That a long session's state was written down at the person's request or by their own harness, and a genuinely fresh session then actually started from it.
+
+**Why the rules are drawn this way.**
+
+- **Only long sessions are applicable.** A handoff is worth it when the context has grown enough to degrade. More than 150,000 tokens, or any compaction, tries to capture "the session got long enough to lose focus or drop decisions"; it comes from a recorded decision and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). Unknown context size is insufficient, not short ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **The next session must be genuinely fresh, confirmed by the record.** Resume, continue and compaction keep or shrink the same long context, which is exactly what the pattern replaces. An unconfirmed fresh or resumed flag is not enough to recognize ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **The handoff is the person's.** It was written at their request or by a hook or command they own; a handoff an agent workflow wrote unasked is not their act ([human intent only](../../reference/principles.md#human-intent-only)).
+- **The fresh session's first prompt must use it.** Writing a handoff carries nothing until a session starts from it, so the fresh use is the completing evidence. A first prompt naming an unrelated file, or a handoff never used, is not a recognition: a filename match would accept both.
+- **Same repository, within 24 hours.** The pairing tries to capture "the next session is picking up the same work". The 24-hour window is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). If retention removed the earlier session, the pair is unassessable, not a miss ([missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **Forming and Established need the fresh session to continue from the handoff.** Seen credits the first use; later stages count only instances where the agent acted on the handoff's decisions rather than re-deriving them, credited to the week that finished, per a recorded decision ([follow-through](../../reference/principles.md#follow-through)).
+- **Continuous is an owned PreCompact or Stop hook, or saved command, that writes the handoff.** It makes the handoff happen without remembering; it holds when the next fresh session starts from what it wrote, and a hook that writes handoffs nobody uses is a not-holding finding ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. A [judge prompt](judge.md) is authored but not executed.

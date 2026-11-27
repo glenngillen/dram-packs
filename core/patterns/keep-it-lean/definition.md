@@ -4,6 +4,23 @@ Source ID `keep-it-lean`; pattern `glenngillen/keep-it-lean`; Guides, rung 3. Su
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The judge's authoring prompt is in [judge.md](judge.md) (not executed by the pinned CLI). Related: [Give it instructions](../give-it-instructions/definition.md), [Write it down](../write-it-down/definition.md).
 
+## Intent
+
+**What it's for.** The person keeps their instruction files consistent and worth what they cost: no rules that contradict each other, and a size whose cost to every session is justified.
+
+**Why it matters.** Two instructions that disagree make the agent guess which one was meant, and instruction files that take a large share of the context leave less room for the work. Findings are always a suggestion to review, never to delete: a rule that rarely applies can still be the one that matters most. It keeps what [Give it instructions](../give-it-instructions/definition.md) and [Write it down](../write-it-down/definition.md) build useful.
+
+**What a recognition shows.** That after a contradiction or a measured cost was found, the person asked for a change that resolved it, and, for later stages, that the change was kept.
+
+**Why the rules are drawn this way.**
+
+- **Only two kinds of finding make the files applicable.** A contradiction is flagged only with both lines cited ([evidence for everything](../../reference/principles.md#evidence-for-everything)), judged by a model. Cost is computed by code from real sizes, usage and pricing, never invented; with no load or price evidence there is no cost claim ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest), [missing is not low](../../reference/principles.md#missing-is-not-low)).
+- **The cost threshold.** It tries to capture "large enough to measure", so that nothing is said about size below it. Both the share and its strict boundary are a [calibration point](../../reference/principles.md#thresholds-are-calibration-points).
+- **Age or rare use never justifies trimming, and deleting a rule the person still wants is not lean-up.** A rule that rarely applies can still be the one that matters most.
+- **The person's request for a resolving change.** Agent rewrites, even ones that remove a real conflict, are not the person's act ([human intent only](../../reference/principles.md#human-intent-only)). Requests that only add content neither reconcile nor trim.
+- **Seen on the request; later stages need the edit kept.** A lean-up change requested is credited promptly; Forming and Established count only edits that survived `kept_window`, which tries to capture "the change stuck rather than being reverted" and is a calibration point ([follow-through](../../reference/principles.md#follow-through)). This follows the recorded decision on stage-dependent completion; the original spec required the kept change for Seen.
+- **Continuous needs a recurring check that runs.** Files that happen to be consistent without a check are not kept that way by anything ([stages](../../reference/principles.md#stages)); a check configured but never run is untested ([prevention](../../reference/principles.md#prevention-when-success-removes-the-signal)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

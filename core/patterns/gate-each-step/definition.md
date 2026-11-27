@@ -4,6 +4,26 @@ Source ID `gate-each-step`; pattern `glenngillen/gate-each-step`; Checking the w
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern.
 
+## Intent
+
+**What it's for.** Fast checks run and block at each step (after an edit, before a commit), so problems are caught where they're cheapest.
+
+**Why it matters.** A type or lint error found at the end means unpicking several steps of work built on it. A fast check after each edit sends the problem back while the agent is still on that change. It keeps quality as early as possible, ahead of the final gate in [Gate "done"](../gate-done/definition.md).
+
+**What a recognition shows.** That a step gate the person or their team configured, running a fast check, actually stopped a step or returned a problem to the agent during real work.
+
+**Why the rules are drawn this way.**
+
+- **Fast checks only.** A check that usually finishes within 60 seconds tries to capture "quick enough to run at every step"; the boundary comes from a recorded decision and is a [calibration point](../../reference/principles.md#thresholds-are-calibration-points). A slower check may still count as a final gate.
+- **The gate must be owned.** The agent running a linter on its own is not a gate ([human intent only](../../reference/principles.md#human-intent-only)). Configuration and runs are facts, so code checks them ([code checks facts; a model judges the rest](../../reference/principles.md#code-checks-facts-a-model-judges-the-rest)).
+- **It must block or feed back at least once.** The intent is catching problems at the step; a run that passed shows execution, not a catch, so quiet runs are not Seen ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Formatters, end-only checks and never-fired hooks are excluded.** A formatter rewrites rather than gates; a check run only at the end is Gate "done"; a hook that never fired has done nothing yet.
+- **Always-bypassed checks are excluded, not untested.** A commit made with `--no-verify` is evidence the gate did not run, never that it passed.
+- **The fix is not required here.** What the agent does with the feedback belongs to [Make failures actionable](../actionable-failures/definition.md); this pattern needs only the block or feedback, and invents no window for a fix.
+- **Established is measured against defects introduced at a step.** A defect caught at its step counts; one found only later is a miss; quiet passing runs are neither ([applicable work](../../reference/principles.md#applicable-work)).
+- **Continuous needs every applicable repository covered and the gate holding.** Coverage alone is not enough: it must fire, and what it caught must be fixed at that step ([stages](../../reference/principles.md#stages)).
+- **A guided setup reaches Seen only once it blocks or feeds back on real work** ([guided sessions reach Seen only](../../reference/principles.md#guided-sessions-reach-seen-only)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable. Named as one of the first activation candidates; it still needs the capabilities below.

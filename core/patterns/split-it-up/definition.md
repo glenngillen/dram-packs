@@ -4,6 +4,24 @@ Source ID `split-it-up`; pattern `glenngillen/split-it-up`; Delegation, rung 2. 
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The intended judge prompt is [judge.md](judge.md) (authoring prose; not executed by the pinned CLI).
 
+## Intent
+
+**What it's for.** The person hands a side task to a subagent and keeps going.
+
+**Why it matters.** Side tasks fill the main session's context with detail it does not need. Handing them to a subagent keeps the main conversation focused and brings back only the result.
+
+**What a recognition shows.** That the person chose to delegate a side task, by asking for a subagent or by defining one their harness uses, and a subagent actually started for it.
+
+**Why the rules are drawn this way.**
+
+- **Only sessions that broke off to a side task and came back apply.** The pattern is about protecting a main task from a detour; work with no side task reports nothing ([applicable work](../../reference/principles.md#applicable-work)). Delegating the whole job is a different pattern ([Fan out](../fan-out/definition.md), [Hands off](../hands-off/definition.md)).
+- **A person request, or a subagent the person defined.** Either is the person's intent: a request in the moment, or a definition written ahead of time ([human intent only](../../reference/principles.md#human-intent-only)).
+- **Spontaneous built-in subagents and plugin agents without a request are excluded.** A subagent the agent starts on its own is the model's habit, and a third-party agent is not the person's own definition ([human intent only](../../reference/principles.md#human-intent-only)).
+- **A subagent must actually start.** Asking for delegation while the main agent does the work itself is a request with no effect; the start is the completing evidence, and a Task call alone never proves intent or ownership ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **Provenance from configuration, not names.** A person can name their own agent `explore`, so whether a subagent is built-in, plugin or person-defined must come from the configuration that existed at the time ([evidence for everything](../../reference/principles.md#evidence-for-everything)).
+- **Later stages count delegations whose result came back.** A delegation that never returned its result didn't keep the main session going; this applies the shared [follow-through](../../reference/principles.md#follow-through) rule.
+- **Continuous needs the person's subagents invoked through their instructions.** An instruction-file rule naming when to use an owned subagent makes delegation happen without remembering ([stages](../../reference/principles.md#stages)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.

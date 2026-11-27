@@ -4,6 +4,8 @@ Coaching packs for [Dram](https://github.com/infracost/dram), the CLI that looks
 
 Findings describe work, never the person. There is no grade, score, ranking, streak or productivity measure, and no promise of savings.
 
+Why the framework works the way it does, and what each group is for: [principles](core/reference/principles.md).
+
 **This release is content only.** Every pattern is disabled because the detection it needs is not yet in the Dram CLI. See [what installing gives you](#what-installing-gives-you) before installing.
 
 ## What installing gives you

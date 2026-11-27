@@ -4,6 +4,23 @@ Source ID `second-opinion`; pattern `glenngillen/second-opinion`; Checking the w
 
 Shared rules: [evidence](../../reference/evidence.md), [parameters](../../reference/parameters.md), [progression](../../reference/progression.md), [outcomes](../../reference/outcomes.md), [authoring and readiness](../../reference/authoring.md). This file states only what is specific to this pattern. The judgement this pattern needs is described in [judge.md](judge.md), which the pinned CLI does not execute.
 
+## Intent
+
+**What it's for.** Before accepting non-trivial work, the person has it reviewed independently: a review subagent, a review command, a different model, or a reviewer prompt that didn't write the code.
+
+**Why it matters.** The session that wrote a change tends to agree with itself. A reviewer that didn't write it reads the diff without that history and catches what the author missed, before the change is accepted rather than after it causes a fix-up. In Checking the work, this adds an independent check on top of the checks the person and the agent already run.
+
+**What a recognition shows.** That the person had a change they were about to accept reviewed by something that didn't write it, got a result back before accepting, and (for later stages) used what it found.
+
+**Why the rules are drawn this way.**
+
+- **Changes the person committed or opened a pull request for.** That is the work being accepted; uncommitted exploration and discarded changes are not. No such change reports nothing ([applicable work](../../reference/principles.md#applicable-work)).
+- **Independence is shown by provenance, not by name.** The value is a reader without the author's history. Asking the implementing session "is this right?", a "reviewer" persona inside that session, or a subagent that wrote part of the change all share that history, so a different name proves nothing ([false positives are worse than misses](../../reference/principles.md#false-positives-are-worse-than-misses)).
+- **The result must return before the change was accepted.** A review that arrives afterwards could not have changed what was accepted.
+- **The person asks for it.** Spontaneous agent self-review isn't the person's habit, and a review by another person outside their agent work, while useful, isn't this pattern's evidence ([human intent only](../../reference/principles.md#human-intent-only)). A built-in review command counts, because using a review is the pattern, not owning the reviewer.
+- **Seen completes on the request with its result; later stages need the findings used.** A review only helps if it is acted on, so ignored findings never count toward Forming or Established. This staging comes from the recorded completion decision ([follow-through](../../reference/principles.md#follow-through)). What makes a "clean result" evidenced enough is still open.
+- **Continuous needs an automated review that holds.** A hook, CI step or pull request reviewer the person or their team owns runs without them remembering; it holds only when its findings are used before acceptance ([stages](../../reference/principles.md#stages)).
+
 ## Status
 
 **Disabled** (`enabled: false`). Readiness: authored; structurally valid on the pinned CLI; **not evaluable**. Every case in `eval/cases.jsonl` is reported unevaluable.
