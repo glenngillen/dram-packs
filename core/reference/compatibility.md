@@ -44,9 +44,9 @@ Run on 2026-11-27 in this repository, against the pinned build at `.tmp/dram`:
 | --- | --- | --- |
 | `.tmp/dram pack validate .` | exit 0: `dram.yaml is valid: 1 pack offered`, `glenngillen/core 0.1.0 25 patterns` | The index and pack load beside the built-in packs, with no ID collision. Structural only. |
 | `.tmp/dram pack validate core` | exit 0: `glenngillen/core 0.1.0 is valid: 25 patterns` | As above. |
-| `.tmp/dram pack eval core` | exit 1 (red): 0 passed, 0 failed, 368 unevaluable, 0 errors; all 25 authored patterns held to nothing | **No case was judged.** The red verdict is the expected, honest result for disabled content; it is not hidden or patched. |
+| `.tmp/dram pack eval core` | exit 1 (red): 0 passed, 0 failed, 370 unevaluable, 0 errors; all 25 authored patterns held to nothing | **No case was judged.** The red verdict is the expected, honest result for disabled content; it is not hidden or patched. |
 | `.tmp/dram pack show --dir core --json` | all 25 patterns: `enabled: false`, `status: preview`, `blocks: []` | Each pattern is loadable without presenting an executable recognizer. |
-| `bash scripts/run-tests.sh` | 258 passed, 0 skipped (with the pinned checkout and `.tmp/dram` present) | Local structural checks: schema and registry against the pinned files, references, placeholders, cases, links, parameters, catalogue order. **Not an evaluation.** |
+| `bash scripts/run-tests.sh` | 274 passed, 0 skipped (with the pinned checkout and `.tmp/dram` present) | Local structural checks: schema and registry against the pinned files, references, placeholders, cases, links, parameters, catalogue order. **Not an evaluation.** |
 
 The content tests in `tests/content/` re-run the CLI commands above when `.tmp/dram` exists and read the schema and registry from the pinned checkout (override with `DRAM_CLI_CHECKOUT`). Without them, those tests are skipped and say so.
 

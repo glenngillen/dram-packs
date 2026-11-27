@@ -23,23 +23,26 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
    - a built-in review command such as `/review`;
    - a different model;
    - a fresh reviewer session that **did not write the code**.
-2. **The result used**: the findings were **acted on** (fixes made, or a finding explicitly answered and dismissed with a reason), or an **evidenced clean result** was accepted (the reviewer's output exists and reports no blocking finding).
+2. **The review's result returned** before the change was accepted: findings, or an evidenced clean result (the reviewer's output exists and reports no blocking finding).
 
-Completing evidence: the review request and its result, plus the follow-through that shows the result was used.
+Per [stage-dependent completion](../../reference/progression.md#stage-dependent-completion), **Seen completes on the review request with its result**, the source's completing event.
+
+**Follow-through** (Forming and Established only): the result was **used**. Findings were **acted on** (fixes made, or a finding explicitly answered and dismissed with a reason), or the evidenced clean result was accepted. Each instance is credited to the week that action finished. Follow-through still pending is unassessed, not a miss. **Ignored findings** (the change accepted with blocking findings neither fixed nor answered) are **failed follow-through**: they never count toward Forming or Established, but they do not withdraw an otherwise qualifying Seen. Under the mechanism they are **not holding**.
 
 A **built-in** review command counts here, even though built-ins do not establish ownership for Save it. Each pattern keeps its own rule.
 
 ## Exclusions
 
 - Asking the **implementing session** whether its own work is right ("Looks right to you?"): it is not independent.
-- A review whose findings were **ignored**: the change was accepted with blocking findings neither fixed nor answered.
+- A review whose findings were **ignored** never counts toward later stages (failed follow-through); it still earns Seen when the person's request and its result qualify.
+- A review whose result had not returned before the change was accepted: there was no result to use before acceptance.
 - A reviewer with a **different name but the same provenance**: a "reviewer" persona inside the session that wrote the change, or a subagent that wrote part of the change. A different name does not prove independence.
 - Spontaneous agent self-review the person did not ask for, and reviews performed by another person outside the person's agent work (useful, but not this pattern's evidence).
-- A guided review request with no independent execution, or with a result that was never used.
+- A guided review request with no independent execution or no returned result.
 
 ## Evidence
 
-- **Cite** the person's review request (or the owned mechanism that ran the review), the reviewer's result, and the follow-through: the edits that act on findings, or the person's acceptance of a clean result. At least one attributable person-authored citation is required ([attribution](../../reference/evidence.md#attribution-and-citations)).
+- **Cite** the person's review request (or the owned mechanism that ran the review) and the reviewer's result: these complete Seen. **Retain** the follow-through for later stages: the edits that act on findings, or the person's acceptance of a clean result. At least one attributable person-authored citation is required ([attribution](../../reference/evidence.md#attribution-and-citations)).
 - **Reviewer provenance**: the reviewing session, agent or model must be shown not to have written the change. A name or persona is not provenance.
 - **Change linkage**: the review must be linked to the same change (diff, branch or pull request) that was then accepted.
 - **Completion window**: the review request is the initiating act; acting on findings is the follow-through and can finish in a later week ([completion windows](../../reference/evidence.md#completion-windows)).
@@ -52,7 +55,7 @@ No threshold override; the default [stages](../../reference/progression.md#stage
 | Stage | For this pattern |
 | --- | --- |
 | Seen | The review request with its result, inside the window. |
-| Forming, Established | Only reviews whose findings were **acted on** (or whose clean result was accepted), each credited to the week that action finished. A review with findings still pending counts for Seen, not yet for later stages; it is not a miss. Established needs [`most`](../../reference/parameters.md#most) applicable changes. |
+| Forming, Established | Only reviews whose findings were **acted on** (or whose clean result was accepted), each credited to the week that action finished. A review with findings still pending counts for Seen, not yet for later stages; it is not a miss. Ignored findings never count here. Established needs [`most`](../../reference/parameters.md#most) applicable changes. |
 | Continuous | Automated independent review in place, applied and holding (see [mechanism](#mechanism)). |
 
 A guided session establishes Seen only ([guided sessions](../../reference/progression.md#guided-sessions)).
@@ -92,16 +95,16 @@ Recognition needs model judgement (is this reviewer independent, were the findin
 ## Verify before enabling
 
 - `@agent-reviewer` review followed by two fixes is recognized; "Looks right to you?" in the implementing session is rejected.
-- A fresh session reviewing the branch for bugs, with the result used, is recognized; ignored findings are rejected.
+- A fresh session reviewing the branch for bugs, with the result used, is recognized and counts toward Forming; ignored findings are rejected for Forming and Established while the request with its result keeps Seen (pos-7).
 - A built-in review counts here, while built-ins still do not establish ownership for Save it.
 - A reviewer with a different name but implementing provenance is rejected.
-- Guided review requests without independent execution and result use do not count.
+- Guided review requests without independent execution and a returned result do not count; guided use earns Seen only.
 - Unused, held and not-holding mechanism cases produce distinct results.
 - Every case in `eval/cases.jsonl` runs (none unevaluable) and passes on the enabling CLI build.
 
 ## Open questions
 
-- What makes a "clean result" evidenced enough to count as used?
+- What makes a "clean result" evidenced enough to count as a result, and its acceptance as used?
   - evidence: The source allows "an evidenced clean result accepted" without saying what the evidence must contain.
   - options: The reviewer's output reports no blocking finding and the person accepts after it; require the review to name what it checked.
   - location: core/patterns/second-opinion/definition.md / Recognition

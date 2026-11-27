@@ -24,22 +24,23 @@ Cost is computed by code from **actual resolved instruction sizes, usage and pri
 **Seen** needs, in order:
 
 1. A **finding**: a flagged contradiction (both lines cited) or measured cost over the threshold.
-2. The **person's request** to reconcile the contradiction, or to trim or split the instructions, keeping the rules they still want.
-3. The resulting **change** to the instruction files.
+2. The **person's attributable request**, after that finding, to reconcile the contradiction, or to trim or split the instructions, keeping the rules they still want. The request must ask for a resolving change, not only an addition.
 
-Per [stage-dependent completion](../../reference/progression.md#stage-dependent-completion), **Seen completes on the requested change** (a lean-up change requested and made). **Forming and Established count only changes kept for [`kept_window`](../../reference/parameters.md#kept_window)** (14 days in the default branch), credited to the week survival is established. A change younger than 14 days is unassessed, not failed.
+Per [stage-dependent completion](../../reference/progression.md#stage-dependent-completion), **Seen completes on the lean-up request** (a lean-up change requested), even while the edit is still pending.
+
+**Follow-through** for **Forming and Established**: the **resolving edit** to the instruction files, **kept for [`kept_window`](../../reference/parameters.md#kept_window)** (14 days in the default branch), credited to the week survival is established. An edit still pending, or younger than 14 days, is unassessed for later stages, not failed. An edit that only adds content, or that is reverted within `kept_window`, never counts toward later stages; Seen from the qualifying request stands.
 
 ## Exclusions
 
 - **Agent-initiated rewrites**: an unprompted instruction rewrite, even one that removes a real conflict.
-- **Changes that only add content**: adding a rule does not reconcile or trim.
+- **Requests and changes that only add content**: adding a rule does not reconcile or trim.
 - **A guided review with no resolving action**: reading the conflict or the cost and doing nothing.
 - **Trimming justified only by age or infrequent use.**
 - **A deletion of a rule the person still wants**, presented as lean-up: the pattern preserves valuable rules.
 
 ## Evidence
 
-- **Cite** the finding (both contradictory lines, quoted, with their files; or the measured cost with the sizes it was computed from), then the person's request (quoted), then the edit. **Kept evidence** (the change still in the default branch after `kept_window`) is required for Forming and Established.
+- **Cite** the finding (both contradictory lines, quoted, with their files; or the measured cost with the sizes it was computed from), then the person's request (quoted): these complete Seen. **Retain** the resolving edit and **kept evidence** (the change still in the default branch after `kept_window`); both are required for Forming and Established, not for Seen.
 - **Attribution**: the request must be a person prompt; the instruction files must be the person's or their team's.
 - **Historical**: the instruction files must have had the conflicting lines or size **when the session ran**. Current files alone do not prove an earlier state.
 - **Evidence the pinned CLI does not supply**: historical instruction resolution (which files loaded, with content); contradiction judgement; token counts of resolved instructions against initial context, with usage and pricing; git survival over `kept_window`; recurring-check run evidence.
@@ -50,8 +51,8 @@ Default [stages](../../reference/progression.md#stages) with the stage-dependent
 
 | Stage | For this pattern |
 | --- | --- |
-| Seen | A requested reconciliation or trim/split change after a finding, inside the window. |
-| Forming, Established | Only changes kept for `kept_window`, credited to the week survival was established. |
+| Seen | A person's request for a reconciliation or trim/split after a finding, inside the window; the edit may still be pending. |
+| Forming, Established | Only requests whose resolving edit was made and kept for `kept_window`, credited to the week survival was established. |
 | Continuous | The [mechanism](#mechanism) in place, applied and held. |
 
 A guided session establishes Seen only ([guided sessions](../../reference/progression.md#guided-sessions)).
@@ -95,7 +96,7 @@ Both halves of the definition need facts the pinned CLI (revision `bdea6f6`) doe
 - The source example (12% of initial context prompting a split into on-demand rules) is handled under the strict threshold: exactly 12% is not a finding; above 12% is.
 - An unprompted instruction rewrite and a guided review with no resolving action are rejected.
 - No price or load evidence yields no numeric cost claim; unused checks do not establish Continuous.
-- Seen on request; Forming only after `kept_window`.
+- Seen on the request, including with the edit pending (pos-6); Forming only after the resolving edit survives `kept_window`.
 - Every case in `eval/cases.jsonl` runs (none unevaluable) and passes on the enabling CLI build.
 
 ## Open questions

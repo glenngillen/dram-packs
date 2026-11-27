@@ -30,9 +30,9 @@ Ask your agent to make the change, for example:
 
 > Our two test commands disagree. Keep `make test` and remove the old `npm test` line. Show me the diff first.
 
-**Done:** you asked for the reconciliation, trim or split and the change was made. If it is still in the default branch two weeks later, it has also stuck.
+**Done:** you asked for the reconciliation, trim or split after seeing the actual conflict or measured cost. That request is what this pattern recognizes as Seen once detection is available. When the edit is made and still in the default branch two weeks later, it has also stuck, and that is what counts toward the later stages.
 
-**Not done yet:** if you looked at the conflict or the size and changed nothing, or the agent rewrote the file without you asking, the step has not happened yet. That is fine and nothing is recorded against you; the next step is still to ask for the change.
+**Not done yet:** if you looked at the conflict or the size and asked for nothing, or the agent rewrote the file without you asking, the step has not happened yet. That is fine and nothing is recorded against you; the next step is still to ask for the change.
 
 ## Later
 

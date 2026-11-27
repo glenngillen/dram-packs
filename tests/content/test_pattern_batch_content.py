@@ -81,3 +81,113 @@ def test_keep_it_lean_tests_the_strict_threshold_separately_from_the_illustratio
     text = (PATTERNS / "keep-it-lean" / "eval" / "scenarios.md").read_text(encoding="utf-8")
     kinds = re.findall(r"^- kind: boundary$", text, re.M)
     assert len(kinds) >= 1, "keep-it-lean needs a boundary scenario at exactly 12%"
+
+
+# Stage-dependent completion: Seen is the person's deliberate act. Follow-through
+# (corroboration, a kept edit, an addressed response, findings acted on) belongs
+# to Forming and Established and must not appear among the Seen prerequisites.
+SEEN_MUST_NOT_REQUIRE = {
+    "brief-it": [r"ask or guess", r"did not (need|have) to"],
+    "keep-it-lean": [r"change was made", r"was made\b"],
+    "evidence-not-claims": [r"then addressed", r"agent then"],
+    "second-opinion": [r"acted on", r"used\b"],
+}
+
+
+def _seen_when(pid: str) -> str:
+    import yaml
+
+    data = yaml.safe_load((PATTERNS / pid / "pattern.yaml").read_text(encoding="utf-8"))
+    return " ".join(data["seen"]["when"].split())
+
+
+def _section(text: str, heading: str) -> str:
+    match = re.search(rf"^## {re.escape(heading)}\n(.*?)(?=^## |\Z)", text, re.M | re.S)
+    assert match, f"missing section {heading!r}"
+    return match.group(1)
+
+
+def _scenario(pid: str, heading_prefix: str) -> str:
+    text = (PATTERNS / pid / "eval" / "scenarios.md").read_text(encoding="utf-8")
+    match = re.search(
+        rf"^#+ {re.escape(heading_prefix)}\b.*?\n(.*?)(?=^#+ |\Z)", text, re.M | re.S
+    )
+    assert match, f"{pid}: no scenario {heading_prefix!r}"
+    return match.group(1)
+
+
+@pytest.mark.parametrize("pid", sorted(SEEN_MUST_NOT_REQUIRE))
+def test_seen_rule_does_not_require_follow_through(pid):
+    seen = _seen_when(pid)
+    for phrase in SEEN_MUST_NOT_REQUIRE[pid]:
+        assert not re.search(phrase, seen, re.I), f"{pid}: seen.when requires follow-through {phrase!r}"
+
+
+@pytest.mark.parametrize("pid", sorted(SEEN_MUST_NOT_REQUIRE))
+def test_guide_done_does_not_require_follow_through(pid):
+    guide = (PATTERNS / pid / "guide.md").read_text(encoding="utf-8")
+    done = re.search(r"^\*\*Done:\*\*(.*)$", guide, re.M)
+    assert done, f"{pid}: guide has no Done line"
+    for phrase in SEEN_MUST_NOT_REQUIRE[pid]:
+        if pid == "second-opinion" and phrase == r"used\b":
+            continue  # "used" may describe later stages in a separate sentence
+        first = done.group(1).split(". ")[0]
+        assert not re.search(phrase, first, re.I), f"{pid}: guide Done requires follow-through {phrase!r}"
+
+
+def test_brief_it_recognition_list_does_not_require_corroboration():
+    text = (PATTERNS / "brief-it" / "definition.md").read_text(encoding="utf-8")
+    recognition = _section(text, "Recognition").split("### ")[0]
+    assert not re.search(r"ask or guess", recognition, re.I)
+
+
+def test_keep_it_lean_seen_on_request_with_edit_pending():
+    text = (PATTERNS / "keep-it-lean" / "definition.md").read_text(encoding="utf-8")
+    assert "requested and made" not in text
+    judge = (PATTERNS / "keep-it-lean" / "judge.md").read_text(encoding="utf-8")
+    seen_line = next(l for l in judge.splitlines() if l.startswith("- `seen`"))
+    assert "edit citation" not in seen_line
+    body = _scenario("keep-it-lean", "pos-6")
+    assert re.search(r"expect: seen", body)
+    assert re.search(r"edit (is )?(still )?pending|not yet (been )?made|before the edit", body, re.I)
+
+
+def test_evidence_not_claims_recognition_list_omits_addressed_response():
+    text = (PATTERNS / "evidence-not-claims" / "definition.md").read_text(encoding="utf-8")
+    seen_list = _section(text, "Recognition").split("Per [stage-dependent")[0]
+    assert not re.search(r"addressing|addressed", seen_list, re.I)
+
+
+def test_second_opinion_recognition_list_omits_acted_on_findings():
+    text = (PATTERNS / "second-opinion" / "definition.md").read_text(encoding="utf-8")
+    seen_part = _section(text, "Recognition").split("Per [stage-dependent")[0]
+    assert not re.search(r"acted on|result used", seen_part, re.I)
+    judge = (PATTERNS / "second-opinion" / "judge.md").read_text(encoding="utf-8")
+    assert re.search(r"ignored.*seen", judge, re.I | re.S)
+
+
+def test_second_opinion_ignored_findings_keep_seen():
+    body = _scenario("second-opinion", "pos-7")
+    assert "expect: seen" in body and re.search(r"ignor", body, re.I)
+
+
+def test_prove_it_neg_3_has_explicit_acceptance_after_the_answer():
+    body = _scenario("prove-it", "neg-3")
+    setup = next(l for l in body.splitlines() if l.startswith("- Setup:"))
+    answer = setup.index("without running anything")
+    assert re.search(r"person (then )?(replies|writes|says)", setup[answer:], re.I)
+
+
+def test_prove_it_week_boundary_anchors_seen_to_execution():
+    body = _scenario("prove-it", "stage-boundary Forming")
+    assert "for the deliberate request" not in body
+    assert re.search(r"Seen in week 2", body)
+
+
+def test_gate_each_step_established_counts_qualifying_instances():
+    text = (PATTERNS / "gate-each-step" / "definition.md").read_text(encoding="utf-8")
+    row = next(l for l in text.splitlines() if l.startswith("| Established"))
+    assert not re.search(r"\bran on\b", row)
+    assert re.search(r"block|feed", row, re.I)
+    body = _scenario("gate-each-step", "stage-boundary Quiet")
+    assert re.search(r"not (Seen|Forming|Established)", body)

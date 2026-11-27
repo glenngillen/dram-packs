@@ -31,9 +31,9 @@ Ask the reviewer to review the real diff, for example:
 
 Read the findings. Fix the ones that matter (ask your implementing session to make the fixes), and answer the ones you disagree with, saying why. If the review is clean, accept it knowing what it checked.
 
-**Done:** an independent review of the change ran, and you acted on its findings or accepted its evidenced clean result before accepting the change. That is what this pattern recognizes once detection is available. Fixing the findings is the follow-through that later stages count.
+**Done:** you requested an independent review of the change and it returned its findings or an evidenced clean result before you accepted the change. That is what this pattern recognizes as Seen once detection is available. Acting on its findings (or accepting its clean result knowing what it checked) is the follow-through that later stages count; ignoring them never counts toward those stages.
 
-**Not done yet:** if you only read this guide, asked the session that wrote the change to check itself, or requested a review and then accepted the change without looking at its findings, the pattern has not happened yet. That is fine. Nothing is recorded against you; the next step is still to get one independent review used on a real change.
+**Not done yet:** if you only read this guide, asked the session that wrote the change to check itself, or accepted the change before the review returned, the pattern has not happened yet. That is fine. Nothing is recorded against you; the next step is still to get one independent review used on a real change.
 
 ## Later
 

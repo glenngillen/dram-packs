@@ -47,6 +47,13 @@ Applicable work is an agent change from the person's main sessions committed or 
 - Setup: in the last days of the window, the person has a fresh session review a committed change in `quince-api`. The review lists two findings; the fixes are not made before the window ends.
 - Why: the review request with its result earns Seen. It does not yet count toward Forming; the pending follow-through is not a miss.
 
+## pos-7 Findings ignored: Seen stands, follow-through failed
+
+- kind: boundary
+- expect: seen
+- Setup: in `marram-ui`, the person asks a fresh session that did not write the change to review the branch. It reports a null-handling bug. The person writes "merge it" without fixing or answering the finding.
+- Why: the person's independent review request with its result is the qualifying Seen event. Ignoring the findings is failed follow-through: it never counts toward Forming or Established, but it does not retract Seen. (The source's "findings ignored" negative is rejected for those later stages; see the stage-boundary scenario below.)
+
 ## neg-1 "Looks right to you?" in the implementing session
 
 - kind: source-negative
@@ -54,12 +61,12 @@ Applicable work is an agent change from the person's main sessions committed or 
 - Setup: in `heathrow-ledger`, after the agent writes a migration, the person asks the same session "Looks right to you?". It answers yes; the change is merged and needs two fix-up commits the next day.
 - Why: the implementing session is not independent. The unreviewed merge needing fix-ups is the opportunity, citing the person's question and merge prompt.
 
-## neg-2 Findings ignored
+## neg-2 Merged before the review returned
 
 - kind: source-negative
 - expect: opportunity
-- Setup: in `marram-ui`, a fresh session reviews the branch and reports a null-handling bug. The person writes "merge it" without fixing or answering the finding. A fix-up follows two days later.
-- Why: ignored findings mean the review was not used. The person's "merge it" is the citation.
+- Setup: in `marram-ui`, the person asks a fresh session to review the branch, then writes "merge it" to the implementing session before the review has returned anything. The review later reports a null-handling bug; a fix-up follows two days later.
+- Why: Seen needs the review's result before the change was accepted; here there was none to use. The unreviewed merge needing a fix-up is the opportunity, citing the person's "merge it".
 
 ## neg-3 Reviewer persona inside the implementing session
 
@@ -117,6 +124,13 @@ Applicable work is an agent change from the person's main sessions committed or 
 - kind: stage-boundary
 - Setup: the person requests a fresh-session review in week 1 and gets findings; they act on them in week 2. Another independent review is requested and used within week 3.
 - Expected: Seen in week 1 (request with result). Forming, with instances credited to weeks 2 and 3, the weeks the findings were acted on.
+- Why no case: `expect` accepts only `seen`, `continuous`, `opportunity` and `none`.
+
+### stage-boundary Ignored findings never count toward later stages
+
+- kind: stage-boundary
+- Setup: the person requests independent reviews in weeks 1 and 3; both return findings, and both times the person merges without fixing or answering them (as in pos-7).
+- Expected: Seen only. Neither review counts toward Forming or Established, because neither had its findings acted on.
 - Why no case: `expect` accepts only `seen`, `continuous`, `opportunity` and `none`.
 
 ### stage-boundary Follow-through outside the window

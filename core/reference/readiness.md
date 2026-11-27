@@ -14,7 +14,7 @@ The eight code-checked patterns named as the first activation candidates are Giv
 | `own-the-expectations` | [Set the Expectations Yourself](../patterns/own-the-expectations/definition.md) | Briefing | 4 | Authored; structurally valid; not evaluable (12 of 12 cases unevaluable); disabled |
 | `give-it-instructions` | [Give It Instructions](../patterns/give-it-instructions/definition.md) | Guides | 1 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
 | `write-it-down` | [Write It Down](../patterns/write-it-down/definition.md) | Guides | 2 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
-| `keep-it-lean` | [Keep It Lean](../patterns/keep-it-lean/definition.md) | Guides | 3 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `keep-it-lean` | [Keep It Lean](../patterns/keep-it-lean/definition.md) | Guides | 3 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
 | `save-it` | [Save It](../patterns/save-it/definition.md) | Guides | 4 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
 | `script-it` | [Script It](../patterns/script-it/definition.md) | Guides | 5 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
 | `reuse-your-harness` | [Reuse Your Harness](../patterns/reuse-your-harness/definition.md) | Guides | 6 | Authored; structurally valid; not evaluable (12 of 12 cases unevaluable); disabled |
@@ -29,7 +29,7 @@ The eight code-checked patterns named as the first activation candidates are Giv
 | `gate-done` | [Gate "done"](../patterns/gate-done/definition.md) | Checking the work | 5 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
 | `gate-each-step` | [Gate Each Step](../patterns/gate-each-step/definition.md) | Checking the work | 6 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
 | `back-it-up-in-ci` | [Back It Up in CI](../patterns/back-it-up-in-ci/definition.md) | Checking the work | 7 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
-| `second-opinion` | [Second Opinion](../patterns/second-opinion/definition.md) | Checking the work | 8 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `second-opinion` | [Second Opinion](../patterns/second-opinion/definition.md) | Checking the work | 8 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
 | `test-behaviour` | [Test Behaviour](../patterns/test-behaviour/definition.md) | Checking the work | 9 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
 | `schedule-the-clean-up` | [Schedule the Clean-up](../patterns/schedule-the-clean-up/definition.md) | Checking the work | 10 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
 | `learn-from-production` | [Learn From Production](../patterns/learn-from-production/definition.md) | Checking the work | 11 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |

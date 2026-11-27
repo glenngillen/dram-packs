@@ -1,7 +1,7 @@
 # Second opinion (Checking the work, rung 8). Full definition: definition.md.
 #
 # Disabled: the intended detection combines model judgement (was the review
-# independent, were its findings used) with review provenance (which session
+# independent and, for later stages, were its findings used) with review provenance (which session
 # or agent reviewed, and whether it wrote the change). The pinned CLI runs no
 # pack-authored judge and no block that sees reviewer provenance, so no
 # detection, applies_to or mechanism block is named here. judge.md is
@@ -19,9 +19,13 @@ seen:
     Before accepting a change that was committed or opened as a pull request,
     the person requested or ran an independent review (their own review agent
     or command, a built-in review command, a different model, or a fresh
-    session that did not write the code) and acted on its findings, or
-    accepted an evidenced clean result. Asking the implementing session "is
-    this right?" or ignoring the findings does not count.
+    session that did not write the code) and the review returned its result.
+    Seen completes on the review request with its result. Acting on the
+    findings, or accepting an evidenced clean result, is follow-through
+    counted only for Forming and Established; ignored findings are failed
+    follow-through that never counts toward later stages but does not
+    withdraw Seen. Asking the implementing session "is this right?" does not
+    count.
 
 continuous:
   held:

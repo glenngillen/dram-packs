@@ -9,7 +9,7 @@ The cost threshold is [`instruction_cost_share`](../../../reference/parameters.m
 - kind: source-positive
 - expect: seen
 - Setup: in `lanternfish-api`, `CLAUDE.md` says "Run tests with `make test`" and `rules/testing.md` says "Run tests with `npm test`". The check flags both lines. The person writes: "Those disagree. `make test` is right; remove the npm line." The agent removes it. Twenty days later the change is still in the default branch.
-- Why: a contradiction with both lines cited, the person's request, a resolving edit, and kept for `kept_window`. Seen on the request and edit; the kept change also counts toward later stages.
+- Why: a contradiction with both lines cited and the person's request: Seen on the request. The resolving edit, kept for `kept_window`, also counts toward later stages.
 
 ## pos-2 Source illustration: instructions around 12% of initial context, split into on-demand rules
 
@@ -39,6 +39,13 @@ The cost threshold is [`instruction_cost_share`](../../../reference/parameters.m
 - Setup: the person's harness has an owned weekly command that reports contradictory instruction lines and loading share. It ran four times in the window across `lanternfish-api` and `quillmark`; the files stayed consistent and below the threshold.
 - Why: check in place, applied (it ran) and held (consistent, below threshold).
 - Note: no block reaches `continuous` in the pinned build.
+
+## pos-6 Lean-up requested, edit still pending
+
+- kind: boundary
+- expect: seen
+- Setup: on the last day of the window in `heron-service`, the check flags two conflicting branch-naming rules, quoting both lines. The person writes: "Those conflict. Keep `feat/` and drop the `feature/` line." The window ends before the edit is made; the edit is still pending.
+- Why: Seen completes on the attributable request after a supported finding. The resolving edit and its fourteen-day survival are follow-through for Forming and Established; while pending they are unassessed, not a miss.
 
 ## neg-1 Unused ninety-day-old migration rule, no flag
 
@@ -123,5 +130,5 @@ The cost threshold is [`instruction_cost_share`](../../../reference/parameters.m
 
 - kind: stage-boundary
 - Setup: a requested trim is reverted two days later.
-- Expected: Seen (the request and change qualified); never counts toward Forming or Established. A one-day or two-day revert measure is not fourteen-day survival.
+- Expected: Seen (the request qualified); never counts toward Forming or Established. A one-day or two-day revert measure is not fourteen-day survival.
 - Why no case: as above.

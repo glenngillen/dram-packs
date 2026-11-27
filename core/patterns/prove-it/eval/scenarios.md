@@ -57,8 +57,8 @@ Applicable work is a turn in the person's main session where the agent changed c
 
 - kind: guided-no-action
 - expect: opportunity
-- Setup: reading the guide, the person asks in `kestrel-app` "did you run the tests?" after the agent reports a change done. The agent answers "Yes, they should pass" without running anything, and the person ends the session.
-- Why: a request with no following check is incomplete. The claim stood with nothing run after the last edit; the opportunity cites the person's question, the attributable moment that accepted the unverified answer.
+- Setup: reading the guide, the person asks in `kestrel-app` "did you run the tests?" after the agent reports a change done. The agent answers "Yes, they should pass" without running anything. The person then replies "ok, good" and ends the session.
+- Why: a request with no following check is incomplete, so it is not Seen. The claim stood with nothing run after the last edit, and the person's later "ok, good" accepted the unverified answer; the opportunity cites that reply (with the question as context). Without such a later acceptance turn there would be no attributable accepting moment and no opportunity.
 
 ## neg-4 Check before the final edit
 
@@ -100,8 +100,8 @@ Applicable work is a turn in the person's main session where the agent changed c
 ### stage-boundary Forming credited to the week the check ran
 
 - kind: stage-boundary
-- Setup: a proof request late on Sunday of week 1, with the check completing just after midnight (person's local time) in week 2; another request and check in week 3.
-- Expected: Seen in week 1 for the deliberate request; for Forming, instances are credited to weeks 2 and 3, two distinct weeks of the last four.
+- Setup: a proof request at 23:58 on Sunday of week 1 (person's local time). The agent starts executing the relevant check at 00:01 on Monday of week 2 and it completes at 00:03. Another request, with its check starting and completing, in week 3.
+- Expected: Seen in week 2, anchored to the check's execution, because this pattern requires a relevant check actually executing and execution started in week 2; the request alone in week 1 earns nothing. For Forming, instances are credited to weeks 2 and 3, two distinct weeks of the last four.
 - Why no case: `expect` accepts only `seen`, `continuous`, `opportunity` and `none`.
 
 ### stage-boundary Continuous comes from other patterns

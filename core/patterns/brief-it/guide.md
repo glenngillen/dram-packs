@@ -25,7 +25,7 @@ Write your real request with the goal and both lines, for example:
 
 Write it yourself. If you ask the agent to draft a brief, read and correct it before saying go; "ok" on a draft you did not read is not your brief.
 
-**Done:** you sent a request with the goal and at least one constraint or fact the work needed, and the agent worked without having to ask or guess about it. That brief is what this pattern recognizes once detection is available.
+**Done:** you sent a request with the goal and at least one constraint or fact the work needed. That brief is what this pattern recognizes as Seen once detection is available. When the agent's work then uses it without asking or guessing, that later corroboration is what counts toward the later stages.
 
 **Not done yet:** if you answered the questions above but sent the request without them, or only sent the goal, the pattern has not happened yet. That is fine. Nothing is recorded against you; try it on your next task.
 

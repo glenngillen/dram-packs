@@ -17,10 +17,10 @@ opportunities: true
 seen:
   when: >
     The agent's summary contradicted a recorded result (failures, errors or
-    skipped cases it reported as passing or complete), the person identified
-    that gap in a prompt, and the agent then addressed the recorded result.
-    Seen completes on the person's challenge; later stages count only
-    challenges whose response addressed the result.
+    skipped cases it reported as passing or complete), and the person
+    identified that gap in a prompt. Seen completes on the person's
+    challenge, whether the response is pending or ignored; later stages
+    count only challenges whose response addressed the result.
 
 continuous:
   held:

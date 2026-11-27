@@ -30,7 +30,7 @@ or
 
 > I expected four cases and only three ran. Where is the fourth?
 
-**Done:** you pointed at a real gap between the summary and the output, and the agent then dealt with it (fixed the failures, ran the missing case, or showed why the result was expected).
+**Done:** you pointed at a real gap between the summary and the output. That challenge is what this pattern recognizes as Seen once detection is available, even before the agent responds. When the agent then deals with it (fixes the failures, runs the missing case, or shows why the result was expected), that follow-through is what counts toward the later stages.
 
 **Not done yet:** if the summary matched the output, there was nothing to challenge, and that is fine: it is not a miss and nothing is recorded. If you noticed a gap but accepted the summary anyway, or stopped after reading this guide, the pattern has not happened yet. Nothing is recorded against you; compare the next summary you get.
 

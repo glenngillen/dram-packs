@@ -20,7 +20,8 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
 
 1. A recorded result (test, build, lint or other output) and an agent claim it **contradicts**.
 2. A **person-authored challenge** identifying that gap (for example "You said all pass but 3 failed above. Fix those first").
-3. The agent's later response **addressing** the recorded result (fixing the failures, running the missing cases, or showing why the result was expected).
+
+**Follow-through** (Forming and Established only): the agent's later response addresses the recorded result (fixing the failures, running the missing cases, or showing why the result was expected).
 
 Per [stage-dependent completion](../../reference/progression.md#stage-dependent-completion): **Seen completes on the person's challenge**, which is the source's completing event. **Forming and Established** count only challenges whose response **addressed** the recorded result, each credited to the **week the response finished**. A challenge whose response is still pending counts for Seen and is not a miss; a response that ignored the challenge never counts toward later stages.
 
@@ -86,7 +87,7 @@ Recognition needs model judgement comparing an agent's claim against the recorde
 
 ## Verify before enabling
 
-- "You said all pass but 3 failed above. Fix those first", when addressed, is recognized; "Great, thanks" after the contradiction is an opportunity.
+- "You said all pass but 3 failed above. Fix those first" earns Seen when issued, including when the response is pending or ignored (pos-5, pos-7), and counts toward Forming only once addressed; "Great, thanks" after the contradiction is an opportunity.
 - A challenge to three passing cases when four were expected is recognized; challenging a correct complete result is not.
 - Questions without a discrepancy do not earn the pattern; a guided review finding none creates no opportunity.
 - A challenge in week 1 with its response in week 2 counts toward Forming in week 2.

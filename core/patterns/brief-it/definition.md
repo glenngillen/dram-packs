@@ -21,10 +21,11 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
 **Seen** is the person's brief itself, the deliberate act ([stage-dependent completion](../../reference/progression.md#stage-dependent-completion)):
 
 - the request states the **goal**, and
-- at least one **substantive constraint** (what to reuse, what must not change, a limit or rule) or **relevant contextual fact** the agent could not otherwise know, and
-- the work that followed **did not need to ask or guess** about those details.
+- at least one **substantive constraint** (what to reuse, what must not change, a limit or rule) or **relevant contextual fact** the agent could not otherwise know.
 
-Source positives: "Add password reset. Use the existing email service, links expire after an hour", when the work used the email service and the expiry; an end-date filter request that says the end date is inclusive and existing timezone handling must not change.
+Seen completes when the qualifying brief is sent. Whether the later work used that context is **corroboration**, not a Seen prerequisite (see below).
+
+Source positives: "Add password reset. Use the existing email service, links expire after an hour" (the source's example also shows the work using the email service and the expiry, which is corroboration); an end-date filter request that says the end date is inclusive and existing timezone handling must not change.
 
 Length is neither positive nor negative evidence. A one-line request can be a sufficient brief, and a long one can carry only background.
 
@@ -35,7 +36,7 @@ The brief completes Seen when it is sent. **Corroboration** is the later evidenc
 ## Exclusions
 
 - **A goal alone**, for example "Add password reset".
-- **Irrelevant background**: context the work never used, however long.
+- **Irrelevant background**: context the requested work does not need (the source's "background the work never used"), however long. Relevance is judged from the request and the task, not from whether corroboration has arrived.
 - **An agent-written brief accepted with "ok"** or similar unread approval. The agent's restatement is not the person's brief unless the person evidently reviewed and changed or confirmed it with substance.
 - Constraints supplied only after the agent guessed wrong: that is a correction (Steer, don't stop), not a brief.
 - Tool results, hook output, pasted command output and compaction summaries are not the person's request ([evidence](../../reference/evidence.md#what-counts-as-the-persons-work)).
@@ -94,7 +95,7 @@ The definition needs a model judgement of intent and relevance plus linkage to l
 
 ## Verify before enabling
 
-- The password-reset brief with the email service and one-hour expiry is recognized when the work used them; "Add password reset" alone is rejected.
+- The password-reset brief with the email service and one-hour expiry earns Seen when sent, and counts toward Forming once the work used them; "Add password reset" alone is rejected.
 - The inclusive end-date brief protecting timezone handling is recognized; lengthy unused background is rejected.
 - An agent-written brief accepted with "ok" is rejected.
 - Guide questions answered without a substantive brief earn nothing; a guided brief earns Seen only.
@@ -107,7 +108,7 @@ The definition needs a model judgement of intent and relevance plus linkage to l
   - evidence: The source applies the pattern to new tasks within a session but gives no boundary rule; the pinned CLI has no task segmentation.
   - options: A model judgement that the request is unrelated to the preceding work; an explicit marker such as `/clear` or a new issue reference; both.
   - location: core/patterns/brief-it/definition.md / Applicable work
-- Does a brief still count when the agent asked one clarifying question about a detail the brief did not cover?
-  - evidence: Seen requires work "that did not need to ask or guess about those details"; a question about a different detail is not addressed by the source.
-  - options: Count it when the question concerns details outside the brief; reject any clarifying question.
-  - location: core/patterns/brief-it/definition.md / Recognition
+- Does a brief still corroborate when the agent asked one clarifying question about a detail the brief did not cover?
+  - evidence: Seen completes on the brief; corroboration for Forming and Established requires work that did not need to ask or guess about the brief's details. A question about a different detail is not addressed by the source.
+  - options: Count it as corroborated when the question concerns details outside the brief; treat any clarifying question as failed corroboration.
+  - location: core/patterns/brief-it/definition.md / Seen versus corroboration

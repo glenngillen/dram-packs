@@ -52,7 +52,7 @@ Uses the default [stages](../../reference/progression.md#stages) with a coverage
 | --- | --- |
 | Seen | One owned step gate that fired and blocked or fed back. |
 | Forming | Blocking or feedback instances in at least two distinct weeks of the last four. |
-| Established | The step gate ran on at least 60% of applicable sessions with agent edits, with at least four applicable sessions ([`most`](../../reference/parameters.md#most)). |
+| Established | Qualifying blocking or feedback instances on at least 60% of applicable cases, with at least four applicable cases ([`most`](../../reference/parameters.md#most)). An applicable case is a step at which the agent introduced a type, lint or unit-check defect in an applicable repository; it counts when the owned step gate blocked it or fed it back at that step, and as a miss when the defect was found only later. Quiet passing runs are neither qualifying instances nor applicable cases. |
 | Continuous | Step-gate coverage of **every** applicable repository and actual firing in the window, **and** the [mechanism](#mechanism) holding. |
 
 A guided setup establishes Seen only once it actually blocks or feeds back on real work ([guided sessions](../../reference/progression.md#guided-sessions)).

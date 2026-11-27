@@ -12,13 +12,14 @@ Authoring content for a future model judge. **The pinned CLI does not execute th
 
 1. Is this the first request of a piece of work (session opening or a new, unrelated task)? If not, skip it.
 2. Does it state a **goal**?
-3. Does it include at least one **substantive constraint or relevant contextual fact** the agent could not otherwise know? Background is not a constraint unless the work used it.
-4. Did the later work **apply** it without asking or guessing about it? Record the evidence ID and timestamp of that corroboration, or mark it pending.
+3. Does it include at least one **substantive constraint or relevant contextual fact** the agent could not otherwise know? Background is not a constraint unless it bears on the requested work; judge that from the request and the task, not from whether corroboration has arrived.
+   A yes to 1–3 is **Seen**, completed when the brief was sent.
+4. For later stages only: did the later work **apply** it without asking or guessing about it? Record the evidence ID and timestamp of that corroboration, or mark it pending. Pending corroboration never withdraws Seen.
 
 ## Reject
 
 - A goal alone.
-- Background the work never used.
+- Background irrelevant to the requested work.
 - An agent-written brief the person accepted with "ok" or similar unread approval.
 - Constraints added only after the agent guessed wrong (that is a correction).
 - Anything quoted from tool output, hook output or a compaction summary.

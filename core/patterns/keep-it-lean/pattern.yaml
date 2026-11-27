@@ -2,8 +2,8 @@
 #
 # Disabled: recognition needs a model-judged contradiction between two cited
 # instruction lines, or a code-computed instruction cost from actual resolved
-# instruction sizes, plus the person's request and a change kept in the
-# default branch. The pinned CLI supplies none of these facts and runs no
+# instruction sizes, plus the person's request (Seen) and, for later stages,
+# the resolving edit kept in the default branch. The pinned CLI supplies none of these facts and runs no
 # pack-authored judge, so no detection, applies_to or mechanism block is
 # named here.
 id: glenngillen/keep-it-lean
@@ -19,8 +19,10 @@ seen:
     After a flagged contradiction between two cited instruction lines, or
     after instruction files measurably loaded more than the cost threshold of
     the initial context, the person asked the agent to reconcile, trim or
-    split them while keeping every rule they still want, and the change was
-    made. Agent-initiated rewrites and changes that only add content do not
+    split them while keeping every rule they still want. Seen completes on
+    that request; the resolving edit, kept for the fourteen-day kept window,
+    is follow-through counted only for Forming and Established.
+    Agent-initiated rewrites and requests that only add content do not
     count.
 
 continuous:

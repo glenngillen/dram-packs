@@ -118,6 +118,13 @@ Applicable work is a repository with a fast type, lint or unit check (usually fi
 - Expected: Forming (instances in two distinct weeks of the last four).
 - Why no case: `expect` accepts only `seen`, `continuous`, `opportunity` and `none`.
 
+### stage-boundary Quiet runs only
+
+- kind: stage-boundary
+- Setup: across all four weeks, the owned PostToolUse type-check hook in `osprey-dashboard` fires after agent edits in eight sessions and passes every time; it never blocks or feeds back.
+- Expected: not Seen, not Forming, not Established. Execution alone is not a qualifying instance, and with no defect introduced there are no applicable cases toward Established; this is not a miss.
+- Why no case: the case format has no `forming` or `established` expectation (neg-4 covers the Seen-level result).
+
 ### stage-boundary Continuous needs every applicable repository
 
 - kind: stage-boundary
