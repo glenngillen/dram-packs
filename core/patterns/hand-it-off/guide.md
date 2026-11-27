@@ -6,7 +6,9 @@ When a session has grown long, write down what matters and carry it into a fresh
 
 ## 1. Find a long session on real work
 
-You need a session in one of your own repositories that has grown long (it has been compacted, or the agent reports a very full context) and work you intend to continue.
+You need a session in one of your own repositories that has grown long and work you intend to continue. Long has a precise meaning here ([`long_session`](../../reference/parameters.md#long_session)): the session has been **compacted**, or its context grew to **more than 150,000 tokens**. A context that feels full is not enough on its own: a smaller context can be nearly full without reaching the threshold, and exactly 150,000 tokens with no compaction does not count.
+
+If the session's context size is unknown and it has not been compacted, that cannot establish that this pattern applies; pick a session you know was compacted or went past 150,000 tokens.
 
 If your current sessions are short, or the work is finished, **stop here**: there is nothing to hand off and nothing to recognize.
 
@@ -26,7 +28,7 @@ Start a **new** session in the same repository within 24 hours of the long sessi
 
 (Use your file's actual path.) If you are not sure how your tool starts a new session rather than resuming, ask your agent.
 
-**Done:** within 24 hours of the long session ending, a fresh session in the same repository started from it, and the agent continued the work from it. A handoff picked up later can still be useful, but it does not count for this pattern. That is what this pattern recognizes once detection is available.
+**Done:** the earlier session was compacted or had more than 150,000 tokens of context, and within 24 hours of the long session ending, a fresh session in the same repository started from it, and the agent continued the work from it. A handoff picked up later can still be useful, but it does not count for this pattern. That is what this pattern recognizes once detection is available.
 
 **Not done yet:** if you wrote the handoff but never started a fresh session from it, or you resumed the old session instead, or you only read this guide, the pattern has not happened yet. That is fine. Nothing is recorded against you; the next step is to start a fresh session that reads the handoff.
 

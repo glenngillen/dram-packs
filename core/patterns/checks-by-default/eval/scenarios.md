@@ -125,3 +125,17 @@ Applicable work is a person's main session that changed code in a repository wit
 - Setup: rule-caused checks in sessions in weeks 1 and 3 of the last four.
 - Expected: Forming.
 - Why no case: `expect` accepts only `seen`, `continuous`, `opportunity` and `none`.
+
+### stage-boundary Rule-directed check failed and was left unresolved
+
+- kind: stage-boundary
+- Setup: in `amber-lib`, the person's after-change rule (in place and loaded when the session ran) directs `make test`. After an edit the agent runs it unprompted; it fails with two errors. The session ends with the failures neither fixed nor re-run, and the person replies "ok, leave it".
+- Expected: Seen (the rule caused the check to execute), but for the mechanism this session is **not holding**: a directed check that ran, failed and remained unresolved does not satisfy `holds_when`. It cannot support Continuous.
+- Why no case: `expect` cannot express "seen but not holding".
+
+### stage-boundary Check result missing
+
+- kind: stage-boundary
+- Setup: as above, but the session record is truncated after the `make test` call, so its result is unavailable.
+- Expected: Seen rests on the execution; holding is **unassessed** (insufficient evidence), neither held nor not holding, and never a miss.
+- Why no case: `expect` cannot express "seen with holding unassessed".

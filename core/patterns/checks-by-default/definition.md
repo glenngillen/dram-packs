@@ -24,7 +24,7 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
 
 Completing evidence: the attributable rule or hook and the resulting check execution. The check ran because the harness asked, not because the person asked this time (that is [Prove it](../prove-it/definition.md)) and not because the model happened to.
 
-**Execution is not passing.** A check that ran and failed is recorded honestly; the rule worked as a trigger. Mere execution cannot establish that an unresolved violation was dealt with.
+**Execution is not passing.** A check that ran and failed is recorded honestly; the rule worked as a trigger, so it still counts for Seen. Mere execution cannot establish that an unresolved violation held: a directed check left failed and unresolved when the session ended is a [not-holding](#mechanism) case, and a missing check result leaves holding unassessed.
 
 ## Exclusions
 
@@ -64,9 +64,10 @@ The mechanism is the after-change check rule or hook itself.
 | --- | --- |
 | In place | The rule (in a loaded instruction file) or hook existed, attributable to the person or team, when the session ran. |
 | Applied | A code-changing session loaded the rule or the hook fired after an edit. |
-| Held | The directed check ran after edits, without prompting, in every applicable repository's code-changing sessions. |
-| Not holding | While in place and applied, a code-changing session ended with no directed check after the last edit. |
+| Held | The directed check ran after edits, without prompting, in every applicable repository's code-changing sessions, and no directed check was left failed and unresolved when the session ended. Execution alone does not establish holding. |
+| Not holding | While in place and applied, a code-changing session ended with no directed check after the last edit, **or** a directed check ran, failed and remained unresolved when the session ended. |
 | Untested | In place, but no code-changing session in that repository in the window. |
+| Unassessed | The check ran but its result is missing or truncated: insufficient evidence for held or not holding. Seen still rests on the execution. |
 
 ## Opportunities and coaching
 

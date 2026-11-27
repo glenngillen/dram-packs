@@ -489,3 +489,43 @@ def test_actionable_failures_not_holding_covers_delivered_feedback_ignored():
         assert re.search(r"did not resolve|does not resolve|left .*unresolved", flat, re.I), f"{name}: unresolved feedback missing"
         assert re.search(r"next qualifying response", flat, re.I), f"{name}: next-response boundary missing"
         assert re.search(r"open question|step or turn|step/turn", flat, re.I), f"{name}: boundary must stay unresolved"
+
+
+# Review F1 (checks-by-default): a check that ran, failed and stayed
+# unresolved must not satisfy the holding predicates. Seen still records the
+# execution, and a missing check result stays unassessed.
+def test_checks_by_default_holding_excludes_unresolved_failures():
+    import yaml
+
+    data = yaml.safe_load((PATTERNS / "checks-by-default" / "pattern.yaml").read_text(encoding="utf-8"))
+    held = data["continuous"]["held"]
+    holds = " ".join(held["holds_when"].split())
+    not_holding = " ".join(held["not_holding_when"].split())
+    assert re.search(r"unresolved", holds, re.I)
+    assert re.search(r"failed and (was|remained) (left )?unresolved", not_holding, re.I)
+    text = (PATTERNS / "checks-by-default" / "definition.md").read_text(encoding="utf-8")
+    held_row = next(l for l in text.splitlines() if l.startswith("| Held |"))
+    not_row = next(l for l in text.splitlines() if l.startswith("| Not holding |"))
+    assert re.search(r"unresolved", held_row, re.I)
+    assert re.search(r"unresolved", not_row, re.I)
+    body = _scenario("checks-by-default", "stage-boundary Rule-directed check failed and was left unresolved")
+    assert "- kind: stage-boundary" in body
+    assert re.search(r"Seen", body) and re.search(r"not holding", body, re.I)
+    missing = _scenario("checks-by-default", "stage-boundary Check result missing")
+    assert re.search(r"unassessed", missing, re.I)
+    # Seen for a failing but executed check is preserved.
+    assert "expect: seen" in _scenario("checks-by-default", "pos-3")
+
+
+# Review F2 (hand-it-off): the guide states the real long_session threshold,
+# not context "fullness", and unknown size without compaction is insufficient.
+def test_hand_it_off_guide_states_the_long_session_threshold():
+    guide = (PATTERNS / "hand-it-off" / "guide.md").read_text(encoding="utf-8")
+    step = guide.split("## 1.", 1)[1].split("## 2.", 1)[0]
+    assert "very full context" not in guide
+    assert "../../reference/parameters.md#long_session" in step
+    assert re.search(r"more than 150,000", step)
+    assert re.search(r"compact", step)
+    assert re.search(r"unknown", step, re.I) and re.search(r"cannot (establish|show)", step)
+    done = guide.split("**Done:**", 1)[1].split("\n\n", 1)[0]
+    assert re.search(r"compacted or (went|grew|had) .*more than 150,000", done)

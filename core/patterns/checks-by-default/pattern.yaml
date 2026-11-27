@@ -31,11 +31,14 @@ continuous:
     holds_when: >
       Every applicable repository had the person's after-change check rule
       or hook in place when its sessions ran, and code-changing sessions
-      there ran the checks it directs after edits, without being asked.
+      there ran the checks it directs after edits, without being asked, with
+      no directed check left failed and unresolved at the end of the session.
+      A missing check result leaves the session unassessed, never holding.
     not_holding_when: >
-      A code-changing session in an applicable repository ended without the
-      directed check running after the last edit while the rule or hook was
-      in place and loaded.
+      While the rule or hook was in place and loaded, a code-changing session
+      in an applicable repository ended without the directed check running
+      after the last edit, or a directed check ran, failed and remained
+      unresolved when the session ended.
 
 automate: >
   Put the after-change checks in every repository you work in, or in a
