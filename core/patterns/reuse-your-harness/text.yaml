@@ -1,0 +1,36 @@
+name: Reuse your harness
+summary: Keep the commands, hooks and rules you rely on in one place every repository uses.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    Your own shared commands, hooks or rules were used in {cases} of
+    {applicable} repositories you worked in.
+  not_seen: >
+    {count} of your commands, hooks or rules are defined separately in more
+    than one repository.
+  continuous: >
+    Your maintained harness follows you into every repository you work in.
+  slipped: >
+    A repository you worked in ran without your shared harness, in
+    {session}.
+
+next_step: >
+  Find a command, hook or rule you have defined separately in two
+  repositories. Move one copy into your user configuration and use it from
+  both.
+
+advice: >
+  Separate copies of the same command drift apart, and fixes made in one
+  repository never reach the other. One maintained copy that every
+  repository picks up keeps them the same.
+
+fix_prompt: >
+  I have defined this command, hook or rule separately in more than one
+  repository. Compare the copies and show me the differences. Then propose a
+  single version in my user configuration, which this agent actually reads,
+  and tell me which repository copies it would replace. Do not delete anything
+  until I agree.

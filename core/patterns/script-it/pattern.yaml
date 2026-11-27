@@ -1,0 +1,41 @@
+# Script it (Guides, rung 5). Full definition: definition.md.
+#
+# Disabled: recognition needs a judgement that the change was mechanical, the
+# person's request or configuration of the tool, and evidence that the tool's
+# execution actually made the change. The pinned CLI runs no block that links
+# a person's request to a tool run and its edits, or that establishes tool
+# provenance, so no detection, applies_to or mechanism block is named here. A
+# command match on "sed" or "codemod" would not be evidence of intent.
+id: glenngillen/script-it
+version: 1
+status: preview
+group: guides
+rung: 5
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    For a mechanical change across many files (a rename, a migration,
+    boilerplate), the person asked for a script, codemod or tool and it was
+    run and made the change; or the person configured a language or MCP tool
+    that the agent then used to make it. Unprompted throwaway scripts and
+    scripts written but never run do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person makes a mechanical change across many files in a repository
+      with a saved script or command wrapper for that kind of change.
+    holds_when: >
+      The repository-saved script or wrapper is reused and makes the change,
+      rather than the agent editing each file by hand.
+    not_holding_when: >
+      The same kind of mechanical change is made by hand file by file while
+      the saved script or wrapper for it was in place.
+
+automate: >
+  Keep the scripts and codemods that worked in the repository, behind a
+  command your agent can run, so the next rename or migration starts from
+  them. This is a later step, offered once several patterns already happen on
+  their own; it does not replace reviewing what a script will change.

@@ -1,0 +1,33 @@
+name: Learn From Production
+summary: Fix production problems from the real signal, with a check that catches them next time.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You gave the agent the production signal and kept a regression check with
+    the fix in {cases} of {applicable} production fixes.
+  not_seen: >
+    {count} production fixes shipped without a check that would catch the
+    problem again.
+  continuous: >
+    Production alerts start agent fixes that arrive with a regression check.
+  slipped: >
+    A production fix shipped without a regression check, in {session}.
+
+next_step: >
+  Next time production reports an error, paste the redacted error into the
+  request and ask for a test that reproduces it before the fix.
+
+advice: >
+  A bug report in your own words loses detail the alert already had. Give
+  the agent the actual error, redacted, and ask for a test that fails on it
+  first. Then the fix comes with a check that stops the same problem coming
+  back.
+
+fix_prompt: >
+  Here is a production error I have redacted. Write a test that reproduces
+  it and show me it failing, then fix the code so the test passes. Tell me
+  if the error alone is not enough to reproduce it rather than guessing.

@@ -1,0 +1,35 @@
+name: Point, Don't Paste
+summary: Point the agent at the files, tests and lines that matter instead of making it search or pasting everything.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    Your request pointed the agent at the relevant files or excerpt, and it
+    used them, in {cases} of {applicable} requests that needed context.
+  not_seen: >
+    {count} requests left the agent exploring broadly, or pasted far more
+    than the work needed.
+  continuous: >
+    Your instruction file maps the codebase, and sessions go straight to the
+    relevant material.
+  slipped: >
+    The agent explored broadly for context a pointer would have given, in
+    {session}.
+
+next_step: >
+  In your next request that needs context, name the file and the test that
+  matter, and paste only the few log lines that show the problem.
+
+advice: >
+  Broad exploration and long pastes both fill the agent's context with
+  material it does not need, leaving less room for what matters. Naming the
+  right file and test, or pasting the five relevant log lines, gets the
+  agent to the problem faster and keeps it focused.
+
+fix_prompt: >
+  Before you start: the relevant code is in the file and test I name below,
+  and the log lines I paste are the ones that show the failure. Work from
+  those first, and tell me if you need to look anywhere else and why.

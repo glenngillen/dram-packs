@@ -1,0 +1,43 @@
+# Test behaviour (Checking the work, rung 9). Full definition: definition.md.
+#
+# Disabled: the intended detection needs model judgement (does a check
+# exercise behaviour callers or users rely on, did the person request or
+# review it) plus execution linkage. The pinned CLI runs no pack-authored
+# judge and no block that classifies what a test checks; a test name or a
+# command match is not that, so no detection, applies_to or mechanism block is
+# named here. judge.md is authoring prose only.
+id: glenngillen/test-behaviour
+version: 1
+status: preview
+group: checking-the-work
+rung: 9
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    On a change to an API, output or user flow that callers or users rely on,
+    the person requested or wrote a behaviour-level check (a contract test, an
+    end-to-end check, a recorded side effect) or reviewed an approval fixture
+    or snapshot, and the check was then run. Implementation-only tests the
+    agent wrote after the code, and snapshot updates nobody reviewed, do not
+    count.
+
+continuous:
+  held:
+    applies_when: >
+      The person makes behaviour-changing changes to APIs, outputs or user
+      flows in the window.
+    holds_when: >
+      Relevant behaviour checks ran automatically on those changes, from a
+      hook or CI the person or their team owns, and their results were used.
+    not_holding_when: >
+      A behaviour-changing change was accepted without its behaviour checks
+      running, or broke a caller the automatic checks should have covered,
+      while they were in place.
+
+automate: >
+  Have the behaviour checks for your APIs and flows run automatically from a
+  hook or CI on every change, so callers are checked without you asking. This
+  is a later step, offered once several patterns already happen on their own;
+  it does not replace deciding which behaviour matters.

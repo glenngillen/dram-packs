@@ -1,0 +1,31 @@
+# Prove it (Checking the work, rung 1). Full definition: definition.md.
+#
+# Disabled: recognition needs model judgement of a person's request for proof
+# after an agent reported a code change done, plus edit/claim/check ordering
+# across the turn. The pinned CLI runs no block that can express person
+# intent or that ordering, and the active recommendation prompt is built
+# inside the CLI, so no detection or applies_to block is named here. This
+# pattern has no mechanism of its own: automation belongs to Checks by
+# default and Gate "done", so no continuous block is declared.
+id: glenngillen/prove-it
+version: 1
+status: preview
+group: checking-the-work
+rung: 1
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    After the agent changed code and reported it done, the person asked for
+    proof (for example "run the tests and show me" or "did you lint it?"),
+    and a relevant test, build, lint or type check then actually ran. The
+    check running is what completes the request; whether it passed is
+    recorded separately and is not evidence the change works.
+
+automate: >
+  Once asking for proof is a habit, stop relying on remembering to ask: an
+  instruction rule or hook that runs checks after changes (Checks by default)
+  and a final gate before the agent finishes (Gate "done") do it every time.
+  This is a later step, offered once several patterns already happen on
+  their own; it does not earn this pattern's stages automatically.

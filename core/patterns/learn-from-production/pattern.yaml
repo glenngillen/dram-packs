@@ -1,0 +1,45 @@
+# Learn from production (Checking the work, rung 11). Full definition:
+# definition.md. Judge authoring prose: judge.md (not executed).
+#
+# Disabled: the intended detection is model judgement over a person request
+# that carries an actual production signal (alert, error, log, SLO breach) and
+# the resulting fix, to decide whether the fix added a check that would catch
+# the problem next time. The pinned CLI runs no pack-authored judge and has no
+# production-signal provenance or trigger evidence, so no detection,
+# applies_to or mechanism block is named here.
+id: glenngillen/learn-from-production
+version: 1
+status: preview
+group: checking-the-work
+rung: 11
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    On work for a production service, the person started the agent from an
+    actual production signal they supplied (an alert, error, log excerpt or
+    SLO breach), and the resulting fix included a new check, such as a
+    regression test, that would catch the problem next time. A generic bug
+    request without the signal, or a fix without a new preventive check, does
+    not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person works on a production service whose alerts or errors occur
+      during the window.
+    holds_when: >
+      An alert or error trigger the person or their team configured started
+      agent fix work automatically, and those fixes included a regression
+      check that would catch the problem next time.
+    not_holding_when: >
+      The trigger was in place and fired, but its fixes shipped without a
+      preventive check, or the same production problem recurred after a fix
+      it started.
+
+automate: >
+  When fixes from production signals reliably arrive with a regression check,
+  consider having your team's error or alert tooling start that agent work
+  for you, with narrow permissions and a person reviewing the fix. This is a
+  later step, offered once several patterns already happen on their own.

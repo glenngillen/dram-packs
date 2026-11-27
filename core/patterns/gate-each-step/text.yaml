@@ -1,0 +1,37 @@
+name: Gate Each Step
+summary: Catch problems with fast checks after each edit or before each commit.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    A fast check caught a problem at the step it happened, in {cases} of
+    {applicable} repositories with fast checks.
+  not_seen: >
+    In {count} repositories with fast checks, problems were only found at
+    the end because no step gate ran.
+  continuous: >
+    Your fast checks run on each agent edit or commit in every repository
+    that has them, and problems are fixed as they appear.
+  slipped: >
+    A step gate was bypassed or did not run on agent work, in {session}.
+
+next_step: >
+  Pick a repository with a fast type check or linter. Have it run after each
+  agent edit or before each commit, so a problem comes back at the step that
+  caused it.
+
+advice: >
+  A type or lint error found at the end means unpicking several steps of
+  work built on it. A fast check after each edit sends the problem back
+  while the agent is still on that change. A formatter, or a pre-commit
+  check that is always skipped, does not do this.
+
+fix_prompt: >
+  Find this project's fastest useful check: a type check, linter or quick
+  unit tests. Tell me how long it takes. Then, using this harness's actual
+  supported hook configuration, propose running it after your edits or
+  before commits so a failure comes back to you at that step. Show me the
+  change before writing it.

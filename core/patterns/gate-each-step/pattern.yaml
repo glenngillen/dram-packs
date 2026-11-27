@@ -1,0 +1,43 @@
+# Gate each step (Checking the work, rung 6). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over an owned PreToolUse,
+# PostToolUse or pre-commit check that actually fired and blocked or fed back.
+# The pinned CLI records no hook or pre-commit run results, bypasses or check
+# classification, and a tool_call_matches on a check command would match the
+# agent running it by choice, a formatter or a quiet pass. So no detection,
+# applies_to or mechanism block is named here.
+id: glenngillen/gate-each-step
+version: 1
+status: preview
+group: checking-the-work
+rung: 6
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a repository with fast type, lint or unit checks, a PreToolUse,
+    PostToolUse or pre-commit check that the person or their team owns
+    fired during agent work and, at least once, blocked a step or fed a
+    problem back to the agent. Formatter-only hooks, hooks that never fired
+    and pre-commit checks that are always bypassed do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person works in a repository with fast type, lint or unit checks,
+      and the agent edits or commits there in the window.
+    holds_when: >
+      Every applicable repository has a step gate, it fired during agent
+      edits or commits in the window, and the problems it caught were
+      fixed at that step.
+    not_holding_when: >
+      The step gate was in place but was bypassed, did not fire on agent
+      edits or commits, or a defect it should have caught at the step was
+      found only at the end.
+
+automate: >
+  Run your fast type check or linter after every agent edit across the
+  repositories you work in, from your user-level harness. This is a later
+  step, offered once several patterns already happen on their own; it does
+  not remove the final check before the work is done.

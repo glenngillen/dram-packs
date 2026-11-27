@@ -1,0 +1,34 @@
+name: Define done
+summary: Write down how a feature or fix will be judged before the agent starts on it.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    {cases} of {applicable} features and fixes started with your done-when
+    criteria and were checked against them.
+  not_seen: >
+    {count} features or fixes were accepted and then reopened because they
+    did not match what you meant.
+  continuous: >
+    Your template or spec location supplies done-when criteria before work
+    starts, and the work is checked against them.
+  slipped: >
+    Work went ahead without done-when criteria, in {session}.
+
+next_step: >
+  On your next real feature or fix, write two or three "done when" lines
+  before asking for code, then ask the agent to check its work against them.
+
+advice: >
+  If the agent decides what done means, it will finish when its own idea of
+  the work is complete. A few concrete criteria, examples or named tests up
+  front give both of you the same finish line, and a check against them
+  shows whether it was reached.
+
+fix_prompt: >
+  Before writing any code: this is done when [criterion 1], [criterion 2]
+  and [criterion 3]. Implement it, then check the result against each of
+  those lines and show me the evidence for each one.

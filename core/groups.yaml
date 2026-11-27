@@ -7,6 +7,11 @@ groups:
     description: >
       Giving the agent the goal, the constraints and how the work will be
       judged before it starts.
+    patterns:
+      - brief-it
+      - define-done
+      - plan-first
+      - own-the-expectations
   - id: guides
     name: Guides
     description: >
@@ -14,16 +19,38 @@ groups:
       starts from what they already know.
     patterns:
       - give-it-instructions
+      - write-it-down
+      - keep-it-lean
+      - save-it
+      - script-it
+      - reuse-your-harness
+      - fix-the-harness
   - id: context
     name: Context
     description: >
       Keeping the agent's working memory relevant: clearing, handing off and
       pointing at what matters.
+    patterns:
+      - clear-between-tasks
+      - hand-it-off
+      - point-dont-paste
   - id: checking-the-work
     name: Checking the work
     description: >
       Evidence that agent work does what it claims, from asking for proof to
       gates, CI and review.
+    patterns:
+      - prove-it
+      - evidence-not-claims
+      - checks-by-default
+      - actionable-failures
+      - gate-done
+      - gate-each-step
+      - back-it-up-in-ci
+      - second-opinion
+      - test-behaviour
+      - schedule-the-clean-up
+      - learn-from-production
   - id: correcting-course
     name: Correcting course
     description: >

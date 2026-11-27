@@ -1,0 +1,37 @@
+name: Keep it lean
+summary: Reconcile conflicting instructions and keep their loading cost in check, without losing rules you want.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You asked for conflicting or oversized instructions to be reconciled in
+    {cases} of {applicable} cases where they were flagged.
+  not_seen: >
+    {count} flagged instruction conflicts or oversized instruction files were
+    left as they were.
+  continuous: >
+    A recurring check keeps your instruction files consistent and within
+    their context budget.
+  slipped: >
+    A conflict or oversized instruction file went unflagged while your check
+    was in place, in {session}.
+
+next_step: >
+  Look at the flagged lines or the measured loading cost with your agent, and
+  ask it to reconcile or reorganize them while keeping every rule you still
+  want.
+
+advice: >
+  Two instructions that disagree make the agent guess which one you meant,
+  and instruction files that take a large share of the context leave less
+  room for the work. Reviewing them keeps the rules you value working.
+
+fix_prompt: >
+  Review the instruction files you load in this repository. Show me any two
+  lines that contradict each other, quoting both, and tell me how much of the
+  starting context these files take if you can measure it. Propose how to
+  reconcile or split them into rules loaded only when needed, keeping every
+  rule I still want. Do not delete anything without asking me.

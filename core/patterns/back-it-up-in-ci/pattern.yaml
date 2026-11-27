@@ -1,0 +1,41 @@
+# Back it up in CI (Checking the work, rung 7). Full definition: definition.md.
+#
+# Disabled: the intended detection uses configuration and git/run evidence
+# (a test-running CI workflow, the agent change's branch or pull request, the
+# CI run on it, and the merge into the actual default branch). The pinned CLI
+# runs no block that links those facts (ci_runs is declared without matching
+# semantics), and a workflow file alone proves neither a run nor a merge path,
+# so no detection, applies_to or mechanism block is named here.
+id: glenngillen/back-it-up-in-ci
+version: 1
+status: preview
+group: checking-the-work
+rung: 7
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a repository receiving commits of the person's agent work, an agent
+    change reached the actual default branch through a branch or pull request
+    on which a CI workflow that runs tests actually ran. A workflow file alone,
+    a direct push to the default branch, or CI that runs no tests does not
+    count.
+
+continuous:
+  held:
+    applies_when: >
+      The person's agent work reaches the default branch of a repository in
+      the window.
+    holds_when: >
+      All agent work that reached the default branch in the window went through
+      a branch or pull request on which test-running CI actually ran.
+    not_holding_when: >
+      Agent work reached the default branch without a test-running CI run while
+      the workflow was in place, for example a direct push or a bypassed check.
+
+automate: >
+  Make the merge path to the default branch go through a pull request whose
+  CI runs the tests, so every agent change gets the slower integration checks
+  without you remembering. This is a later step, offered once several patterns
+  already happen on their own; it does not replace fast local checks.

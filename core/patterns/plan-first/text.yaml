@@ -1,0 +1,34 @@
+name: Plan first
+summary: Agree a plan before the agent edits several files.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    {cases} of {applicable} multi-file changes started from a plan you
+    reviewed.
+  not_seen: >
+    {count} multi-file changes needed corrections that agreeing a plan first
+    could have caught.
+  continuous: >
+    Your setup makes multi-file changes start with a plan, and you review
+    each one before edits begin.
+  slipped: >
+    A multi-file change began without a reviewed plan, in {session}.
+
+next_step: >
+  For your next change that will touch more than one file, ask for a plan
+  first and approve, adjust or question it before any file is edited.
+
+advice: >
+  Once an agent has edited several files, changing direction means undoing
+  work. A plan is cheap to correct. Reading it before edits begin lets you
+  catch the wrong approach, the missed constraint or the file that should
+  not change.
+
+fix_prompt: >
+  Propose an approach for this change before editing anything: which files
+  you will change, what you will change in each, and anything you are
+  unsure about. Don't change anything yet; wait for me to review the plan.

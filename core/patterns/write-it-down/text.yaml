@@ -1,0 +1,34 @@
+name: Write it down
+summary: Turn a convention you keep correcting into an instruction the agent loads.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You turned a corrected convention into a written instruction in {cases}
+    of {applicable} cases where you corrected one.
+  not_seen: >
+    {count} conventions were corrected in more than one session without being
+    written down.
+  continuous: >
+    Conventions you wrote down are followed in later work without you
+    correcting them again.
+  slipped: >
+    A convention you had written down needed correcting again, in {session}.
+
+next_step: >
+  Next time you correct the agent on a convention, ask it to add that rule to
+  the instruction file it loads, and check the wording before it saves.
+
+advice: >
+  A correction made in a prompt lasts one session. The same correction
+  written into the instruction file reaches every later session, so you stop
+  repeating it and the agent stops guessing.
+
+fix_prompt: >
+  I keep correcting you on a convention in this project. Ask me which one,
+  then propose a short, specific rule for the instruction file you actually
+  load. Show me the exact addition before writing it, and do not change any
+  other rule.

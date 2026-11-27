@@ -1,0 +1,34 @@
+name: Hand It Off
+summary: Carry the decisions from a long session into a fresh one through a written handoff.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You started a fresh session from a written handoff after {cases} of
+    {applicable} long sessions.
+  not_seen: >
+    {count} long sessions carried on, or were resumed, without a handoff to a
+    fresh session.
+  continuous: >
+    Long sessions end in a handoff, and the next session starts from it.
+  slipped: >
+    A long session carried on without a handoff, in {session}.
+
+next_step: >
+  When a session has grown long or been compacted, ask the agent to write a
+  short handoff file, then start a new session that begins by reading it.
+
+advice: >
+  A long conversation fills the agent's context and compaction can drop
+  earlier decisions. A short written handoff keeps what matters: what was
+  decided, where the work stands and what comes next. A fresh session that
+  starts from it has the decisions without the noise.
+
+fix_prompt: >
+  Write a short handoff for continuing this work in a new session: the goal,
+  the decisions we made and why, what is done, what is left, and any traps
+  to avoid. Save it as a file in this repository and tell me its path, so I
+  can start a fresh session that reads it first.

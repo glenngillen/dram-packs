@@ -1,0 +1,35 @@
+name: Prove It
+summary: Ask for evidence after the agent says a code change is done.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You asked for proof and a check then ran in {cases} of {applicable}
+    changes the agent reported as done.
+  not_seen: >
+    {count} changes were reported as done with nothing run after the last
+    edit.
+  continuous: >
+    Checks run after changes without you having to ask.
+  slipped: >
+    A change was accepted as done with no check run after the last edit, in
+    {session}.
+
+next_step: >
+  The next time the agent says a code change is done, ask it to run the
+  relevant tests or linter and show you the output before you move on.
+
+advice: >
+  "Done" from an agent is a claim, not a result. Asking it to run the
+  relevant check after its last edit turns the claim into evidence you can
+  read. A check that ran and failed is still useful: it shows the change is
+  not finished yet.
+
+fix_prompt: >
+  Before we call this done, run the checks that cover what you just changed
+  (tests, build, lint or type check, whichever this project uses) after your
+  last edit, and show me the actual output. If anything fails, say so plainly
+  and do not summarise it as passing.

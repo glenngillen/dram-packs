@@ -92,35 +92,35 @@ Build the declarative `glenngillen/core` Dram pack containing all 41 coaching pa
 
 Every following slice delivers complete pattern directories, their synthetic scenarios and supported `cases.jsonl` entries, catalogue/readiness entries and focused validation together. Preserve every supplied positive and negative example, both guide outcomes, no-applicable-work and missing-evidence cases; mechanism patterns also need unused, held and not-holding scenarios. Keep unrepresentable scenarios fully described in Markdown with exact capability dependencies rather than inventing executable case fields or changing positives to `none`.
 
-- [ ] Author Brief it, Define done, Plan first and Set the expectations yourself.
+- [x] Author Brief it, Define done, Plan first and Set the expectations yourself.
   - Preserve meaningful person intent/review, criteria before implementation, actual checks and plan/edit ordering. Keep the unresolved first-edit boundary explicit.
   - Distinguish the brief's Seen event from later corroboration, and independent expectations from post-hoc implementation-mirroring tests.
 
-- [ ] Author Write it down and Keep it lean alongside the instruction reference pattern.
+- [x] Author Write it down and Keep it lean alongside the instruction reference pattern.
   - Require persisted attributable rules and later relevant use; distinguish in-place from held configuration.
   - Cite both contradictory lines or measured instruction cost, preserve wanted rules, and distinguish requested lean-up at Seen from fourteen-day kept follow-through. Retain the source's 12% illustration while testing the strict greater-than threshold separately.
 
-- [ ] Author Save it, Script it, Reuse your harness and Fix the harness.
+- [x] Author Save it, Script it, Reuse your harness and Fix the harness.
   - Preserve ownership, actual invocation, different-day reuse, cross-repository identity and historical configuration; built-ins and third-party tools do not establish ownership.
   - Keep the ten-file coaching trigger separate from recognition. Require relevant follow-up for harness fixes and distinguish recurrence from insufficient later work.
 
-- [ ] Author Clear between tasks, Hand it off and Point, don't paste.
+- [x] Author Clear between tasks, Hand it off and Point, don't paste.
   - Separate clear, compaction, resume and genuinely fresh sessions; preserve six-person-prompt applicability and same-repository handoff pairing within 24 hours.
   - Require relevant pointers actually used, rather than filenames or paste-length heuristics; retain attribution and delayed corroboration dependencies.
 
-- [ ] Author Prove it, Evidence, not claims and Checks by default.
+- [x] Author Prove it, Evidence, not claims and Checks by default.
   - Separate a person's proof request, a warranted challenge and checks caused by an owned harness. Preserve historical rule application and edit/check ordering.
   - Distinguish execution from passing, challenge-issued Seen from addressed follow-through, and missing/truncated output from adverse evidence.
 
-- [ ] Author Make failures actionable, Gate "done" and Gate each step.
+- [x] Author Make failures actionable, Gate "done" and Gate each step.
   - Require visible actionable feedback and linked fixes, effective final enforcement, or actual per-step blocking/feedback as specified; formatter-only, bypassed and unused hooks remain distinct negatives.
   - Preserve the provisional fast-check boundary and next-step/next-turn ambiguity; never reduce these definitions to hook presence or command matches.
 
-- [ ] Author Back it up in CI, Second opinion and Test behaviour.
+- [x] Author Back it up in CI, Second opinion and Test behaviour.
   - Preserve linked CI run/merge evidence, reviewer independence and used findings, and observable behavior checks with person review and execution.
   - Cover direct pushes, docs-only CI, ignored review findings and unreviewed snapshot updates; distinguish review result at Seen from later action on findings.
 
-- [ ] Author Schedule the clean-up and Learn from production.
+- [x] Author Schedule the clean-up and Learn from production.
   - Require owned launch/trigger provenance and used maintenance output, or an actual supplied production signal plus a preventive regression check.
   - Keep all fixtures synthetic; guides neither fetch production data nor configure or launch external schedules automatically.
 

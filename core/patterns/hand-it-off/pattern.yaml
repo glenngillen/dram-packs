@@ -1,0 +1,45 @@
+# Hand it off (Context, rung 2). Full definition: definition.md.
+#
+# Disabled: recognition pairs a long or compacted session with the next
+# genuinely fresh main session in the same repository, and judges whether the
+# fresh session's first prompt used a handoff the earlier session wrote. The
+# pinned CLI has no paired-session evidence, fresh-versus-resumed provenance,
+# context-size or compaction facts, or hook execution records, and runs no
+# block that could express them, so no detection, applies_to or mechanism
+# block is named here.
+id: glenngillen/hand-it-off
+version: 1
+status: preview
+group: context
+rung: 2
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    After a long session (more than 150,000 tokens of context, or any
+    compaction), the person started a genuinely fresh session in the same
+    repository within 24 hours and their first prompt pointed at a handoff
+    the earlier session wrote, or pasted its state summary. Resuming or
+    continuing the old session, compaction alone, naming an unrelated file or
+    writing a handoff that is never used does not count.
+
+continuous:
+  held:
+    applies_when: >
+      A session reaches the long-session threshold or is compacted, and work
+      continues in the same repository.
+    holds_when: >
+      A PreCompact or Stop hook, or a saved command, owned by the person or
+      their team wrote a handoff, and the next fresh session in that
+      repository started from it.
+    not_holding_when: >
+      The hook or command was in place and ran, but the next session started
+      without the handoff, or resumed the long session instead.
+
+automate: >
+  Have a hook or saved command write a short handoff (decisions, current
+  state, next steps) when a session gets long or is about to compact, so the
+  next session can start from it. This is a later step, offered once several
+  patterns already happen on their own; it does not replace starting fresh
+  from a handoff yourself.

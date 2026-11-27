@@ -1,0 +1,36 @@
+name: Fix the harness
+summary: Stop a correction you keep making by adding a rule, check or gate that prevents it.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    A harness change you made stopped a recurring correction in {cases} of
+    {applicable} cases.
+  not_seen: >
+    {count} corrections came up again in later sessions with no rule, check
+    or gate to prevent them.
+  continuous: >
+    The corrections you keep making turn into harness fixes, and they stop
+    recurring.
+  slipped: >
+    A correction you had added a rule or check for came up again in
+    {session}.
+
+next_step: >
+  Pick the correction you have made most often recently. Ask your agent to
+  propose a rule, lint check or gate that would catch it, review it, and keep
+  it.
+
+advice: >
+  Correcting the same mistake every few sessions costs you each time. A rule,
+  check or gate aimed at that mistake stops it at the source, and later work
+  shows whether it really did.
+
+fix_prompt: >
+  I keep correcting you on this. Here are the corrections I made. Propose the
+  smallest change to this project's harness that would prevent it: an
+  instruction rule, a lint or test check, or a gate before you finish. Show me
+  the change and explain how we will know it worked.

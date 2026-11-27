@@ -1,0 +1,37 @@
+name: 'Gate "done"'
+summary: Require a real check to pass before the agent can finish.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    A final gate running your tests, build or type check fired when the agent
+    finished, in {cases} of {applicable} repositories with checks.
+  not_seen: >
+    In {count} repositories with checks, the agent could finish without a
+    final gate running them.
+  continuous: >
+    Every repository you work in with checks runs a final gate before the
+    agent finishes, and failures get fixed rather than bypassed.
+  slipped: >
+    A session finished with the final gate failing or bypassed, in {session}.
+
+next_step: >
+  Pick a repository with tests you work in regularly. Add a final gate that
+  runs its actual test or build command when the agent says it is done, and
+  blocks if it fails.
+
+advice: >
+  "Done" from an agent is a claim. A gate that runs your tests or build when
+  the agent tries to finish turns it into a checked result, and sends
+  failures back before you review. A formatter alone, or a command that
+  ignores its own failure, is not a gate.
+
+fix_prompt: >
+  Look at how this project is tested and built, and at this harness's actual
+  supported hook configuration. Propose a final gate that runs when you are
+  about to finish: it should run this project's real test, build or type
+  check command and block you if it fails, so you fix the failure first.
+  Show me the change and explain what happens on failure before writing it.

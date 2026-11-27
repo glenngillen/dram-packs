@@ -8,31 +8,31 @@ The eight code-checked patterns named as the first activation candidates are Giv
 
 | Source ID | Pattern | Group | Rung | Status |
 | --- | --- | --- | --- | --- |
-| `brief-it` | Brief It | Briefing | 1 | Pending: not authored |
-| `define-done` | Define Done | Briefing | 2 | Pending: not authored |
-| `plan-first` | Plan First | Briefing | 3 | Pending: not authored |
-| `own-the-expectations` | Set the Expectations Yourself | Briefing | 4 | Pending: not authored |
+| `brief-it` | [Brief It](../patterns/brief-it/definition.md) | Briefing | 1 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
+| `define-done` | [Define Done](../patterns/define-done/definition.md) | Briefing | 2 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `plan-first` | [Plan First](../patterns/plan-first/definition.md) | Briefing | 3 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `own-the-expectations` | [Set the Expectations Yourself](../patterns/own-the-expectations/definition.md) | Briefing | 4 | Authored; structurally valid; not evaluable (12 of 12 cases unevaluable); disabled |
 | `give-it-instructions` | [Give It Instructions](../patterns/give-it-instructions/definition.md) | Guides | 1 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
-| `write-it-down` | Write It Down | Guides | 2 | Pending: not authored |
-| `keep-it-lean` | Keep It Lean | Guides | 3 | Pending: not authored |
-| `save-it` | Save It | Guides | 4 | Pending: not authored |
-| `script-it` | Script It | Guides | 5 | Pending: not authored |
-| `reuse-your-harness` | Reuse Your Harness | Guides | 6 | Pending: not authored |
-| `fix-the-harness` | Fix the Harness | Guides | 7 | Pending: not authored |
-| `clear-between-tasks` | Clear Between Tasks | Context | 1 | Pending: not authored |
-| `hand-it-off` | Hand It Off | Context | 2 | Pending: not authored |
-| `point-dont-paste` | Point, Don't Paste | Context | 3 | Pending: not authored |
-| `prove-it` | Prove It | Checking the work | 1 | Pending: not authored |
-| `evidence-not-claims` | Evidence, Not Claims | Checking the work | 2 | Pending: not authored |
-| `checks-by-default` | Checks by Default | Checking the work | 3 | Pending: not authored |
-| `actionable-failures` | Make Failures Actionable | Checking the work | 4 | Pending: not authored |
-| `gate-done` | Gate "done" | Checking the work | 5 | Pending: not authored |
-| `gate-each-step` | Gate Each Step | Checking the work | 6 | Pending: not authored |
-| `back-it-up-in-ci` | Back It Up in CI | Checking the work | 7 | Pending: not authored |
-| `second-opinion` | Second Opinion | Checking the work | 8 | Pending: not authored |
-| `test-behaviour` | Test Behaviour | Checking the work | 9 | Pending: not authored |
-| `schedule-the-clean-up` | Schedule the Clean-up | Checking the work | 10 | Pending: not authored |
-| `learn-from-production` | Learn From Production | Checking the work | 11 | Pending: not authored |
+| `write-it-down` | [Write It Down](../patterns/write-it-down/definition.md) | Guides | 2 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `keep-it-lean` | [Keep It Lean](../patterns/keep-it-lean/definition.md) | Guides | 3 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `save-it` | [Save It](../patterns/save-it/definition.md) | Guides | 4 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `script-it` | [Script It](../patterns/script-it/definition.md) | Guides | 5 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `reuse-your-harness` | [Reuse Your Harness](../patterns/reuse-your-harness/definition.md) | Guides | 6 | Authored; structurally valid; not evaluable (12 of 12 cases unevaluable); disabled |
+| `fix-the-harness` | [Fix the Harness](../patterns/fix-the-harness/definition.md) | Guides | 7 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `clear-between-tasks` | [Clear Between Tasks](../patterns/clear-between-tasks/definition.md) | Context | 1 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
+| `hand-it-off` | [Hand It Off](../patterns/hand-it-off/definition.md) | Context | 2 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
+| `point-dont-paste` | [Point, Don't Paste](../patterns/point-dont-paste/definition.md) | Context | 3 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `prove-it` | [Prove It](../patterns/prove-it/definition.md) | Checking the work | 1 | Authored; structurally valid; not evaluable (13 of 13 cases unevaluable); disabled |
+| `evidence-not-claims` | [Evidence, Not Claims](../patterns/evidence-not-claims/definition.md) | Checking the work | 2 | Authored; structurally valid; not evaluable (17 of 17 cases unevaluable); disabled |
+| `checks-by-default` | [Checks by Default](../patterns/checks-by-default/definition.md) | Checking the work | 3 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `actionable-failures` | [Make Failures Actionable](../patterns/actionable-failures/definition.md) | Checking the work | 4 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `gate-done` | [Gate "done"](../patterns/gate-done/definition.md) | Checking the work | 5 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
+| `gate-each-step` | [Gate Each Step](../patterns/gate-each-step/definition.md) | Checking the work | 6 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `back-it-up-in-ci` | [Back It Up in CI](../patterns/back-it-up-in-ci/definition.md) | Checking the work | 7 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
+| `second-opinion` | [Second Opinion](../patterns/second-opinion/definition.md) | Checking the work | 8 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `test-behaviour` | [Test Behaviour](../patterns/test-behaviour/definition.md) | Checking the work | 9 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
+| `schedule-the-clean-up` | [Schedule the Clean-up](../patterns/schedule-the-clean-up/definition.md) | Checking the work | 10 | Authored; structurally valid; not evaluable (16 of 16 cases unevaluable); disabled |
+| `learn-from-production` | [Learn From Production](../patterns/learn-from-production/definition.md) | Checking the work | 11 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
 | `steer` | Steer, Don't Stop | Correcting course | 1 | Pending: not authored |
 | `set-checkpoints` | Set Checkpoints | Correcting course | 2 | Pending: not authored |
 | `size-it` | Size It | Delegation | 1 | Pending: not authored |

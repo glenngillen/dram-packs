@@ -1,0 +1,44 @@
+# Checks by default (Checking the work, rung 3). Full definition:
+# definition.md.
+#
+# Disabled: recognition needs historical instruction resolution (which rule
+# was loaded when the session ran), hook configuration and run facts,
+# edit/check ordering without an intervening person prompt, and model
+# judgement that the check was caused by the rule rather than by habit.
+# Declared hook checks do not execute in the pinned fixed-pattern engine,
+# and a test command matched alone cannot show it was caused by the harness,
+# so no detection, applies_to or mechanism block is named here.
+id: glenngillen/checks-by-default
+version: 1
+status: preview
+group: checking-the-work
+rung: 3
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a code-changing session, an instruction rule or hook owned by the
+    person or their team, in place when the session ran, directed checks
+    after changes, and a relevant check then ran after an edit without a
+    fresh person prompt asking for it.
+
+continuous:
+  held:
+    applies_when: >
+      The person changes code in a repository that has relevant checks
+      (tests, type checks, lint or build).
+    holds_when: >
+      Every applicable repository had the person's after-change check rule
+      or hook in place when its sessions ran, and code-changing sessions
+      there ran the checks it directs after edits, without being asked.
+    not_holding_when: >
+      A code-changing session in an applicable repository ended without the
+      directed check running after the last edit while the rule or hook was
+      in place and loaded.
+
+automate: >
+  Put the after-change checks in every repository you work in, or in a
+  user-level rule or hook that applies everywhere, so new projects start
+  with them too. This is a later step, offered once several patterns
+  already happen on their own.

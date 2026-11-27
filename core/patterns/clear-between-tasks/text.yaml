@@ -1,0 +1,33 @@
+name: Clear Between Tasks
+summary: Clear the agent's context when you switch to unrelated work.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You cleared the context before starting unrelated work in {cases} of
+    {applicable} task switches after substantial work.
+  not_seen: >
+    {count} unrelated tasks started on top of a long earlier conversation.
+  continuous: >
+    Your sessions stay scoped to one task, and new work starts from a clean
+    context.
+  slipped: >
+    An unrelated task started on top of earlier work, in {session}.
+
+next_step: >
+  The next time you finish one task and move to something unrelated in the
+  same session, run /clear first and then describe the new task.
+
+advice: >
+  Everything earlier in a session stays in the agent's context. When the next
+  task is unrelated, that history is noise: it costs tokens and can pull the
+  agent towards decisions that belonged to the old task. Clearing gives the
+  new task a clean start.
+
+fix_prompt: >
+  Before we start the next task: is anything from this conversation needed
+  for it? If so, summarize just that in a few lines so I can paste it after I
+  clear the context. If not, say so and I will clear and start fresh.

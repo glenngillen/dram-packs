@@ -1,0 +1,43 @@
+# Plan first (Briefing, rung 3). Full definition: definition.md.
+#
+# Disabled: recognition needs a plan proposed before multi-file edits, the
+# person's review of it, and the ordering of later edits across at least two
+# files. The pinned CLI runs no pack-authored judge and has no plan-mode
+# provenance, person-approval recognition or default-mode evidence; a
+# tool_call_sequence over plan-mode and edit calls would match automatic
+# approval and miss the person's review, so no block is named here.
+id: glenngillen/plan-first
+version: 1
+status: preview
+group: briefing
+rung: 3
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    Before a change that went on to edit at least two files, a plan was
+    proposed (by the person or the agent), the person reviewed it with an
+    approval, adjustment or question, and edits to at least two files
+    followed. Automatic approval in unattended or bypass runs, unanswered
+    plans, one-file changes and plans requested after multi-file edits began
+    do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person makes changes editing at least two files with a plan
+      instruction rule, default plan mode or plan-then-execute setting of
+      their own in place.
+    holds_when: >
+      The setting engaged in the window and the multi-file changes it
+      covered began with a plan the person reviewed.
+    not_holding_when: >
+      Multi-file edits began before any plan, or plans were approved without
+      the person's review, while the setting was in place.
+
+automate: >
+  Make planning the default for multi-file work: an instruction rule, default
+  plan mode or a plan-then-execute setting in your own configuration. This is
+  a later step, offered once several patterns already happen on their own;
+  the review is still yours to do.

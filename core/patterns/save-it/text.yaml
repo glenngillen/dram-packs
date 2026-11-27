@@ -1,0 +1,36 @@
+name: Save it
+summary: Turn a request you keep repeating into your own command or skill, then use it.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You ran your own saved command or skill for {cases} of {applicable}
+    requests you had repeated across sessions.
+  not_seen: >
+    {count} requests were typed out again in another session with no saved
+    command or skill for them.
+  continuous: >
+    The requests you repeat go through commands and skills you saved and run
+    yourself.
+  slipped: >
+    A request you have saved, or repeat often, was typed out by hand again in
+    {session}.
+
+next_step: >
+  Pick the request you have typed most often in recent sessions. Ask your
+  agent to save it as a command or skill, read it, then run it yourself on the
+  next real case.
+
+advice: >
+  Typing the same request again means rewording it each time and getting
+  slightly different results. A saved command or skill keeps the wording you
+  settled on and lets you start the task with one line.
+
+fix_prompt: >
+  I keep asking for the same thing across sessions. Here is the request as I
+  usually write it. Save it as a reusable command or skill in the place this
+  agent actually reads, keep my wording and add any steps I usually repeat in
+  follow-ups. Show me the file before saving it, and tell me how to invoke it.

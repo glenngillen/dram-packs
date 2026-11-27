@@ -1,0 +1,42 @@
+# Point, don't paste (Context, rung 3). Full definition: definition.md.
+#
+# Disabled: recognition needs a model judgement that the person's request
+# named relevant files, symbols, docs or a concise excerpt, and evidence that
+# the agent actually used those pointers without broad exploration. The pinned
+# CLI does not execute pack-authored judges and runs no block that can link a
+# request's pointers to the agent's later reads, so no detection, applies_to
+# or mechanism block is named here.
+id: glenngillen/point-dont-paste
+version: 1
+status: preview
+group: context
+rung: 3
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    For work that needed codebase or external context, the person's request
+    named the specific relevant files, symbols or docs, or included a concise
+    relevant excerpt, and the agent actually used those pointers to do the
+    work without broad exploration. A file named but not used, an
+    instruction to read the whole repository, or a huge paste where a small
+    excerpt would do does not count.
+
+continuous:
+  held:
+    applies_when: >
+      Requests need codebase context in a repository whose instruction file
+      the person or their team maintains.
+    holds_when: >
+      The instruction file contains a codebase map, and sessions used it to
+      go straight to the relevant material instead of exploring broadly.
+    not_holding_when: >
+      With the map in place and loaded, sessions still explored broadly for
+      material the map pointed to.
+
+automate: >
+  Keep a short codebase map in your instruction file: where the main areas
+  live, where their tests are, and which docs matter. This is a later step,
+  offered once several patterns already happen on their own; it does not
+  replace pointing the agent at the right place in a request.

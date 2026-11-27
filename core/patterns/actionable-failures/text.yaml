@@ -1,0 +1,38 @@
+name: Make Failures Actionable
+summary: Feed check failures back to the agent with enough detail to fix them.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    Your checks fed an actionable failure back to the agent, and it fixed the
+    named problem next, in {cases} of {applicable} sessions where a check
+    failed.
+  not_seen: >
+    In {count} sessions a check failed but the agent either never saw the
+    failure or had to guess what to change.
+  continuous: >
+    Your hooks return failures the agent can act on, and it fixes them in its
+    next step.
+  slipped: >
+    A check failed without useful feedback reaching the agent, in {session}.
+
+next_step: >
+  Pick the check that fails most often in a project you work in. Make sure
+  its failure reaches the agent and says what to change, not just that
+  something failed.
+
+advice: >
+  An agent can only fix what it can see. A failure that reaches it with the
+  rule, the place and the expected fix gets fixed in one step; a bare "lint
+  failed", or output written somewhere the agent never reads, leads to
+  repeated attempts.
+
+fix_prompt: >
+  Look at the hooks and checks this project runs during agent work. Find the
+  one that fails most often, and show me exactly what you see when it fails.
+  Then propose how to make its failure reach you with the rule, the location
+  and what to change, using this harness's actual supported hook
+  configuration. Show me the change before writing it.

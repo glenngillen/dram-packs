@@ -1,0 +1,41 @@
+# Fix the harness (Guides, rung 7). Full definition: definition.md.
+#
+# Disabled: recognition needs a model judgement matching a correction to
+# earlier corrections of the same kind across sessions, the history of a
+# relevant harness change (rule, check or gate), and later applicable sessions
+# in the same repository where the correction did not recur. The pinned CLI
+# runs no block that sees configuration history or links corrections across
+# sessions, so no detection, applies_to or mechanism block is named here.
+id: glenngillen/fix-the-harness
+version: 1
+status: preview
+group: guides
+rung: 7
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    After correcting the agent on something they had corrected before, the
+    person made a harness change aimed at preventing it (an instruction rule,
+    a check or a gate), and at least two later applicable sessions in the same
+    repository within fourteen days ran without that correction recurring.
+    Unrelated guide changes, and rules after which the same correction
+    continues, do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person corrects the agent on something they have corrected before.
+    holds_when: >
+      Most recurring corrections in the window led to a harness fix, and after
+      each fix the correction stopped recurring in later applicable sessions.
+    not_holding_when: >
+      The same correction recurred in later applicable sessions after the
+      harness change meant to prevent it was in place.
+
+automate: >
+  When the same correction comes up a third time, have the agent propose the
+  rule, check or gate that would prevent it, and review it before adding it.
+  This is a later step, offered once several patterns already happen on their
+  own; it does not replace deciding which corrections matter.

@@ -1,0 +1,40 @@
+# Clear between tasks (Context, rung 1). Full definition: definition.md.
+#
+# Disabled: recognition needs a genuine /clear event, a count of the person's
+# prompts on the prior task and a model judgement that the next prompt starts
+# unrelated work. The pinned CLI supplies no clear-event or task-relatedness
+# evidence and runs no block that could express them, so no detection,
+# applies_to or mechanism block is named here.
+id: glenngillen/clear-between-tasks
+version: 1
+status: preview
+group: context
+rung: 1
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    After at least six of the person's own prompts on one task, the person
+    ran /clear and their next prompt started unrelated work. Compaction,
+    resuming a session and simply opening a new session are not a clear; a
+    clear after fewer prompts, or one followed by more of the same task, does
+    not count.
+
+continuous:
+  held:
+    applies_when: >
+      A session moves from substantial work on one task to unrelated work.
+    holds_when: >
+      A command or instruction rule the person owns that scopes each session
+      to one task was followed: the switch to unrelated work started from a
+      cleared or fresh context as the rule asks.
+    not_holding_when: >
+      While that rule was in place, an unrelated task still started on top of
+      the earlier task's context.
+
+automate: >
+  Add an instruction or saved command that keeps each session to one task and
+  starts the next task from a clean context. This is a later step, offered
+  once several patterns already happen on their own; it does not replace
+  clearing yourself when you switch work.

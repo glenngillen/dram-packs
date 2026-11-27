@@ -1,0 +1,43 @@
+# Define done (Briefing, rung 2). Full definition: definition.md.
+#
+# Disabled: recognition needs model judgement that person-authored criteria
+# came before implementation and that the work was later checked against
+# them. The pinned CLI runs no pack-authored judge and has no task
+# classification, attributable spec retrieval or event ordering for this, so
+# no detection, applies_to or mechanism block is named here.
+id: glenngillen/define-done
+version: 1
+status: preview
+group: briefing
+rung: 2
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    On feature or bug-fix work, the person supplied acceptance criteria,
+    examples, named tests or required behaviour before implementation began,
+    in the prompt or in a spec they authored and referenced, and the work was
+    then checked against them. "Make sure it works", criteria added after
+    completion, and agent-written criteria accepted without review do not
+    count.
+
+continuous:
+  held:
+    applies_when: >
+      The person starts feature or bug-fix work using a template, spec
+      location or command of their own that supplies or asks for done-when
+      criteria.
+    holds_when: >
+      The person used it in the window, its criteria were in place before
+      implementation, and the work was checked against them.
+    not_holding_when: >
+      Work started through the template or spec location went ahead without
+      criteria, or was never checked against them, and was later reopened
+      because it did not match intent.
+
+automate: >
+  Keep a spec location or command of your own that asks for two or three
+  "done when" lines before any code, and start features and fixes with it.
+  This is a later step, offered once several patterns already happen on
+  their own; a spec folder nobody uses is not a mechanism.

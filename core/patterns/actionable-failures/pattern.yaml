@@ -1,0 +1,45 @@
+# Make failures actionable (Checking the work, rung 4). Full definition:
+# definition.md.
+#
+# Disabled: the intended detection is a code check over hook execution, the
+# failure output actually delivered to the agent and the agent's linked fix in
+# its next step. The pinned CLI records none of that, and tool_call_matches or
+# tool_call_sequence would only match a command name, which is not feedback
+# the agent saw or a fix of the named problem. So no detection, applies_to or
+# mechanism block is named here.
+id: glenngillen/actionable-failures
+version: 1
+status: preview
+group: checking-the-work
+rung: 4
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a repository where agent-run hooks or checks apply, a hook or check
+    the person or their team configured fed its failure output back to the
+    agent, the agent visibly received it, and in its next step the agent
+    made a change that fixes the problem the failure named. Output the
+    agent never saw, a failure it ignored, or an unrelated later edit does
+    not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person works in a repository where their hooks or lint rules run
+      during agent work and fail at least once in the window.
+    holds_when: >
+      The hooks or lint rules with actionable fix guidance fed their failures
+      back to the agent, and the agent fixed the named problem in its next
+      step.
+    not_holding_when: >
+      A configured feedback hook failed during agent work but its output did
+      not reach the agent, or the agent repeated the failing attempt because
+      the message did not say what to change.
+
+automate: >
+  Give your most frequent check failures a fix message that names the rule,
+  where the right example lives and what to change, and make the hook return
+  it to the agent. This is a later step, offered once several patterns
+  already happen on their own; it does not replace reading what failed.

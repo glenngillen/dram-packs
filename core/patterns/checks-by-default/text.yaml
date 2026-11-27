@@ -1,0 +1,36 @@
+name: Checks by Default
+summary: Have your instructions or hooks run checks after changes, without asking.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    Checks ran after changes because your instructions or hooks asked for
+    them in {cases} of {applicable} code-changing sessions.
+  not_seen: >
+    {count} code-changing sessions ended without a check run after the last
+    edit.
+  continuous: >
+    Every repository you change code in runs its checks after edits without
+    you asking.
+  slipped: >
+    A code-changing session ended without the checks your instructions ask
+    for, in {session}.
+
+next_step: >
+  Add your project's real test or type-check command to its instruction
+  file, with a rule that the agent runs it after making changes.
+
+advice: >
+  Asking for checks every time depends on remembering. An instruction rule
+  or hook that says "after changing code, run these" makes the agent check
+  its own work by default. Use the commands your project really runs, and
+  read the result: a check that ran is not the same as a check that passed.
+
+fix_prompt: >
+  Find the test, type-check and lint commands this project actually uses.
+  Draft a short rule for the instruction file you load in this repository
+  saying to run the relevant ones after changing code and to show the
+  result. Show me the rule before saving it.

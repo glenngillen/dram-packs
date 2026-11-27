@@ -9,3 +9,4 @@
 - Pattern layout and rules: `core/reference/authoring.md`. Copy `core/patterns/give-it-instructions/` as the reference. Disabled patterns name no blocks; every case gets `unevaluable` and `packet: scenarios.md#<id>` unless a real fixture in the pinned shape can express it. Add the pattern to `core/groups.yaml` and flip its row in `core/reference/readiness.md`.
 - Expected `.tmp/dram pack eval core`: exit 1 (red), all cases unevaluable. Never "fix" that by relabelling cases `none`.
 - No tagged Dram release contains the pack loader, so `core/pack.yaml` has no `min_cli` (see `core/reference/compatibility.md`).
+- `tests/content/test_pattern_batch_content.py` holds per-pattern required phrases (spec distinctions) for authored patterns; extend it when authoring new patterns. After adding patterns, update `core/groups.yaml`, readiness rows (case counts from `.tmp/dram pack eval core`) and the `compatibility.md` checks-run table.
