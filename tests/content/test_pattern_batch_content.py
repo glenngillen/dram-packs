@@ -378,3 +378,58 @@ def test_keep_it_lean_guide_states_the_strict_cost_threshold():
     done = guide.split("**Done:**", 1)[1].split("\n\n", 1)[0]
     assert re.search(r"more than 12%", done), "Done must state the strict boundary"
     assert re.search(r"exactly 12% or below does not count", done)
+
+
+# Review F1 (learn-from-production): an owned trigger can supply the signal for
+# recognition (pos-3) and start the fix behind an opportunity (neg-9). Both keep
+# trigger provenance and an attributable person-authored citation.
+def test_learn_from_production_owned_trigger_branches_in_judge_and_definition():
+    assert "expect: seen" in _scenario("learn-from-production", "pos-3")
+    assert "expect: opportunity" in _scenario("learn-from-production", "neg-9")
+    judge = _section(
+        (PATTERNS / "learn-from-production" / "judge.md").read_text(encoding="utf-8"),
+        "Output expectations",
+    )
+    definition = (PATTERNS / "learn-from-production" / "definition.md").read_text(encoding="utf-8")
+    for name, text in (
+        ("judge.md", judge),
+        ("definition.md / Evidence", _section(definition, "Evidence")),
+        ("definition.md / Opportunities", _section(definition, "Opportunities and coaching")),
+    ):
+        flat = " ".join(text.split())
+        assert re.search(r"owned trigger", flat, re.I), f"{name}: no owned-trigger branch"
+        assert re.search(r"trigger provenance", flat, re.I), f"{name}: trigger provenance not kept"
+        assert re.search(r"person-authored", flat, re.I), f"{name}: no person-authored citation"
+    recognize = re.search(r"^- Recognize.*?(?=^- )", judge, re.M | re.S).group(0)
+    assert re.search(r"owned trigger", recognize, re.I)
+    opportunity = next(l for l in judge.splitlines() if l.startswith("- Report an opportunity"))
+    assert re.search(r"owned trigger", opportunity, re.I)
+    assert re.search(r"merge|accept", opportunity, re.I)
+
+
+# Review F2 (learn-from-production): recurrence after a fix that did add a
+# regression check is not holding and cannot support Continuous.
+def test_learn_from_production_holding_requires_no_recurrence():
+    import json
+    import yaml
+
+    data = yaml.safe_load((PATTERNS / "learn-from-production" / "pattern.yaml").read_text(encoding="utf-8"))
+    holds = " ".join(data["continuous"]["held"]["holds_when"].split())
+    assert re.search(r"did not recur|no recurrence", holds, re.I)
+    not_holding = " ".join(data["continuous"]["held"]["not_holding_when"].split())
+    assert re.search(r"recur", not_holding, re.I)
+    body = _scenario("learn-from-production", "pos-5")
+    assert "- kind: boundary" in body
+    assert re.search(r"regression (test|check)", body, re.I)
+    assert re.search(r"recurred", body, re.I)
+    assert re.search(r"not holding", body, re.I)
+    assert re.search(r"cannot support Continuous|not Continuous", body)
+    cases = {
+        c["id"]: c
+        for c in (
+            json.loads(l)
+            for l in (PATTERNS / "learn-from-production" / "eval" / "cases.jsonl").read_text().splitlines()
+            if l.strip()
+        )
+    }
+    assert cases["pos-5"]["expect"] != "continuous"

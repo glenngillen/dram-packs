@@ -17,10 +17,10 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
 
 **Seen** needs both:
 
-1. **An actual production signal supplied to the agent**: the person's request carries a real alert, error, stack trace, log excerpt or SLO breach (redacted as needed), not a paraphrase such as "fix the bug in payments".
+1. **An actual production signal supplied to the agent**: the person's request carries a real alert, error, stack trace, log excerpt or SLO breach (redacted as needed), not a paraphrase such as "fix the bug in payments"; or an owned trigger (configured by the person or their team) started the fix from that signal, with the person's review or merge of the fix as the person-authored citation (scenario pos-3).
 2. **A preventive check in the fix**: the change includes a new check (typically a regression test reproducing the failure) that would catch the same problem next time, and it was run.
 
-Completing evidence: the person request carrying the signal and the new check. The fix-to-check relation is a model judgement: does the check exercise the failure the signal shows?
+Completing evidence: the person request carrying the signal (or, for an owned trigger, the trigger provenance plus the person's review or merge of the fix) and the new check. The fix-to-check relation is a model judgement: does the check exercise the failure the signal shows?
 
 Completion follows the [stage-dependent rule](../../reference/progression.md#stage-dependent-completion). A request inside the window whose check lands after it is credited to the window where the check finished.
 
@@ -35,7 +35,9 @@ Completion follows the [stage-dependent rule](../../reference/progression.md#sta
 
 ## Evidence
 
-- **Cite** the person request carrying the signal (quoted exactly, redacted) and the new check with its run. Opportunities cite the person's request that started the production fix ([opportunities](../../reference/evidence.md#opportunities)).
+- **Cite**, for a person request, the person-authored request carrying the signal (quoted exactly, redacted) and the new check with its run.
+- **Cite**, for an owned trigger, the trigger provenance (configuration attributable to the person or team, and the run record carrying the signal), the new check with its run, and at least one attributable person-authored moment for that fix, such as the person's review or merge approval. Without a person-authored moment a triggered fix is neither recognized nor an opportunity.
+- Opportunities cite the person's request that started the production fix, or, for an owned trigger, the trigger provenance and the person-authored prompt that accepted or merged the fix ([opportunities](../../reference/evidence.md#opportunities)).
 - **Attribution**: for a triggered fix, the trigger configuration must be attributable to the person or their team. A trigger supplies the intentional action through that configuration; an agent starting itself does not.
 - **Privacy**: production signals stay on the person's machine as case content ([privacy](../../reference/evidence.md#privacy)). This pack never fetches production logs, connects to error services or commits production credentials or real incident content. All fixtures are synthetic.
 - **Evidence the pinned CLI does not supply**: whether text in a request is an actual production signal (signal provenance); fix-to-check judgement; trigger configuration and run provenance for headless fixes; whether a service is a production service.
@@ -67,7 +69,7 @@ The mechanism is a person- or team-configured alert or error trigger that starts
 
 ## Opportunities and coaching
 
-- **Opportunity**: a production fix that added no regression check, citing the person's request that started it.
+- **Opportunity**: a production fix that added no regression check, citing the person-authored request that started it, or, when an owned trigger started it, the trigger provenance and the person-authored prompt that accepted or merged the fix (scenario neg-9). Truncated or missing change evidence is insufficient, not an opportunity.
 - **Coaching**: the [guide](guide.md) asks the person to use a real, redacted production error from their own work and to request a reproducing test before the fix. It never fetches production data or connects to services.
 - `automate` advice (a configured trigger) is offered only after the [automation gate](../../reference/progression.md#automation-gate), and after Scope permissions for the unattended run ([safety prerequisites](../../reference/progression.md#safety-prerequisites)).
 

@@ -22,8 +22,8 @@ Applicable work is fix work on a production service.
 
 - kind: source-positive
 - expect: seen
-- Setup: as pos-2 but in an earlier window with only one trigger firing: the headless fix added `test_null_currency_defaults_to_account` reproducing the tracked error, and the person merged it.
-- Why: the trigger supplies the intentional action through team configuration; the fix includes a regression check.
+- Setup: as pos-2 but in an earlier window with only one trigger firing: the headless fix added `test_null_currency_defaults_to_account` reproducing the tracked error, and the person reviewed it and merged it with "Reviewed, merge it".
+- Why: the trigger supplies the intentional action through team configuration; the fix includes a regression check. The citation keeps the trigger provenance (team configuration and the run carrying the tracked error) and the person-authored merge approval.
 
 ## pos-4 Guided: real redacted error, test before fix
 
@@ -31,6 +31,13 @@ Applicable work is fix work on a production service.
 - expect: seen
 - Setup: following the guide, the person pastes a redacted log excerpt from `petrel-queue` ("`TimeoutError: lease renewal exceeded 30s for job <id>`") and asks for a failing test first. The agent writes a test simulating a slow renewal, shows it failing, then fixes the retry logic.
 - Why: the guided step was taken on real work with the signal and a preventive check. Guided work earns Seen only.
+
+## pos-5 Regression check added, but the problem recurred
+
+- kind: boundary
+- expect: seen
+- Setup: the team's error-tracker trigger on `gannet-payments` fired once in the window. The headless fix added `test_refund_currency_mismatch_rejected`, which reproduced the tracked error and passed after the fix, and the person merged it with "Looks right, merge it". Ten days later, on applicable later work, the same `CurrencyMismatchError` recurred through a second refund path the new test did not cover.
+- Why: the single fix met Seen when it landed (owned trigger, signal, regression check run, person-authored merge approval). The recurrence makes the mechanism not holding, so this cannot support Continuous even though a regression check exists.
 
 ## neg-1 Fix the bug in payments, no signal
 

@@ -12,7 +12,9 @@ For each production fix in the packet, decide:
 
 ## Output expectations
 
-- Recognize only when (1) and (2) both hold, citing the request carrying the signal (exact quote, redacted) and the new check.
-- Report an opportunity only when a person-authored request started production fix work and the fix added no preventive check; cite that request.
+- Recognize only when (1) and (2) both hold, through one of two branches:
+  - **Person request**: cite the person-authored request carrying the signal (exact quote, redacted) and the new check with its run.
+  - **Owned trigger**: an alert or error trigger attributable to the person or their team started the fix from the signal. Cite the trigger provenance (the attributable configuration and the run record carrying the signal), the new check with its run, and at least one attributable person-authored moment for that fix, such as the person's review or merge approval. A triggered fix with no person-authored moment is not recognized.
+- Report an opportunity only when production fix work added no preventive check and started from a person-authored request (cite that request) or from an owned trigger whose fix the person accepted or merged (cite the trigger provenance and the person-authored merge or acceptance prompt). A triggered fix nobody accepted, or one backed only by agent or tool output, yields no opportunity.
 - Return insufficient evidence when the change, the check or its run is missing or truncated. Never infer a miss from missing data.
 - Never reproduce credentials, customer identifiers or unredacted incident content in the citation beyond what the case already shows.

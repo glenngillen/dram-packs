@@ -31,8 +31,9 @@ continuous:
       during the window.
     holds_when: >
       An alert or error trigger the person or their team configured started
-      agent fix work automatically, and those fixes included a regression
-      check that would catch the problem next time.
+      agent fix work automatically, those fixes included a regression check
+      that would catch the problem next time, and the same production problem
+      did not recur on applicable later work.
     not_holding_when: >
       The trigger was in place and fired, but its fixes shipped without a
       preventive check, or the same production problem recurred after a fix
