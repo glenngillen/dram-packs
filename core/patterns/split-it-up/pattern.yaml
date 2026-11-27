@@ -1,0 +1,42 @@
+# Split it up (Delegation, rung 2). Full definition: definition.md.
+#
+# Disabled: recognition needs the person's request for a subagent (model
+# judgement) or provenance showing the subagent the agent chose is one the
+# person defined, linked to the actual subagent start. A tool_call_matches on
+# a Task call would count spontaneous built-in and plugin subagents, which
+# the definition excludes, and the pinned CLI has no agent provenance or
+# parent-child linkage. So no detection, applies_to or mechanism block is
+# named here.
+id: glenngillen/split-it-up
+version: 1
+status: preview
+group: delegation
+rung: 2
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    A side task was handed to a subagent on purpose: the person asked for a
+    subagent to take it (for example "use a subagent to update the
+    snapshots") and one actually started, or the agent chose a subagent the
+    person defined themselves. A built-in or plugin subagent the agent
+    started on its own is not the person's delegation.
+
+continuous:
+  held:
+    applies_when: >
+      The person's main sessions break off to side tasks in the window.
+    holds_when: >
+      The person's own subagents were invoked for side tasks because an
+      instruction rule they or their team maintain says to, and the side
+      work came back to the main session.
+    not_holding_when: >
+      The rule and the person's subagents were in place, but side tasks the
+      rule covers were still done in the main session instead.
+
+automate: >
+  Define your own subagents for the side tasks you hand off most, and add an
+  instruction rule saying when to use them, so delegation happens without
+  asking. This is a later step, offered once several patterns already
+  happen on their own.

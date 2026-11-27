@@ -1,0 +1,42 @@
+# Save it (Guides, rung 4). Full definition: definition.md.
+#
+# Disabled: recognition needs a model judgement that requests were repeated
+# nearly word-for-word across sessions, plus command/skill provenance (the
+# person's own, newly saved) and the person's own invocation and completed
+# run. The pinned CLI runs no block that can establish ownership, first use or
+# who invoked a command, so no detection, applies_to or mechanism block is
+# named here.
+id: glenngillen/save-it
+version: 1
+status: preview
+group: guides
+rung: 4
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    After repeating a request nearly word-for-word across at least two
+    sessions, the person saved it as their own command or skill and then
+    invoked it themselves in the window, and the run completed. Built-in or
+    plugin commands, a command saved but never run, and a skill the agent
+    invoked unasked do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person makes a request they have made before, nearly word-for-word,
+      in another session.
+    holds_when: >
+      Repeated requests go through the person's saved commands or skills,
+      which they invoke and which complete, and no request is repeated by hand
+      across three or more sessions without a saved version.
+    not_holding_when: >
+      A request is repeated by hand across three or more sessions in the
+      window although the person has a saved version of it, or without one.
+
+automate: >
+  Keep your saved commands and skills somewhere every project can reach, and
+  add one whenever you notice yourself typing the same request a third time.
+  This is a later step, offered once several patterns already happen on their
+  own; it does not replace noticing the repetition yourself.

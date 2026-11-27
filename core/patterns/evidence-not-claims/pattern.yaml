@@ -1,0 +1,45 @@
+# Evidence, not claims (Checking the work, rung 2). Full definition:
+# definition.md.
+#
+# Disabled: recognition needs model judgement comparing an agent's summary
+# with the recorded result it contradicts, the person's challenge and the
+# agent's later response. The pinned CLI runs no block that can compare a
+# claim to a result or recognize a challenge, and declared hook checks do not
+# execute, so no detection, applies_to or mechanism block is named here.
+id: glenngillen/evidence-not-claims
+version: 1
+status: preview
+group: checking-the-work
+rung: 2
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    The agent's summary contradicted a recorded result (failures, errors or
+    skipped cases it reported as passing or complete), and the person
+    identified that gap in a prompt. Seen completes on the person's
+    challenge, whether the response is pending or ignored; later stages
+    count only challenges whose response addressed the result.
+
+continuous:
+  held:
+    applies_when: >
+      The agent makes a completion claim about work with recorded check
+      output, in a repository where the person's evidence-enforcing Stop hook
+      or instruction rule is in place.
+    holds_when: >
+      The hook or rule applied and completion claims came with the actual
+      check output, and claims contradicting recorded results were caught
+      before the person accepted them.
+    not_holding_when: >
+      While the hook or rule was in place and applied, the agent still
+      claimed success that recorded failures, errors or skipped cases
+      contradicted, without the output alongside.
+
+automate: >
+  Have the harness insist on evidence: an instruction rule, or a Stop hook,
+  that requires the actual check output alongside any completion claim. Then
+  a summary that disagrees with the output is visible without you having to
+  spot it. This is a later step, offered once several patterns already
+  happen on their own.

@@ -1,0 +1,31 @@
+[project]
+name = "dram-pack-tools"
+version = "0.1.0"
+description = "Local authoring and structural validation tools for the glenngillen/core Dram pack. Not packaged with the pack; contains no detectors."
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = [
+    "PyYAML>=6.0.2,<7",
+    "jsonschema>=4.23,<5",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3,<9",
+    "hypothesis>=6.100,<7",
+]
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tools/dram_pack_tools"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tools", "."]
+addopts = "-ra --strict-markers"
+markers = [
+    "content: read-only structural checks over this repository's real pack content (not detector evaluation)",
+]

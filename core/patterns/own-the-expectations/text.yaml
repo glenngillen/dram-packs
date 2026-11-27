@@ -1,0 +1,34 @@
+name: Set the expectations yourself
+summary: Own the tests before the implementation exists, so the code cannot define its own success.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    {cases} of {applicable} changes with tests were made to pass expectations
+    you wrote or reviewed before the code existed.
+  not_seen: >
+    {count} changes had tests written after the code that repeated a bug
+    instead of catching it.
+  continuous: >
+    Your test-first rule is followed: you review the tests before any
+    implementation, and the code is made to pass them.
+  slipped: >
+    Tests were written after the code without your review, in {session}.
+
+next_step: >
+  On your next real bug, ask for a failing test that reproduces it, read
+  that test yourself, and only then ask for the fix.
+
+advice: >
+  Tests written after the code tend to describe what the code does, bugs
+  included, so they pass straight away and prove little. Expectations you
+  wrote or read before the implementation are independent of it, and a pass
+  then means something.
+
+fix_prompt: >
+  Before fixing anything, write a test that reproduces this bug and show me
+  that it fails. Don't change the implementation yet. I'll read the test,
+  and once I agree it captures the problem, make it pass.

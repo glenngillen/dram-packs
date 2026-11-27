@@ -1,0 +1,48 @@
+# Scope Permissions (Safety, rung 2). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over the effective allow
+# list for a session (after settings precedence), the session's permission
+# mode and its run type (interactive or unattended). The pinned permission
+# block is declared deny-only, with no allow-list or mode contract and no
+# fixed-pattern execution, and the collected-history shape records neither
+# effective settings nor permission mode. So no detection, applies_to or
+# mechanism block is named. Permission bypass inside a qualifying sandbox is
+# neutral here and belongs to Sandbox autonomy.
+id: glenngillen/scope-permissions
+version: 1
+status: preview
+group: safety
+rung: 2
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    A session ran under an effective, scoped allow list that the person or
+    their team configured (approving the specific commands and tools the
+    work needs, such as running the tests or checking git status), without
+    bypassing permissions. "Effective" means after settings precedence: a
+    narrow file that a broader setting overrides does not count. An
+    unrestricted entry such as `Bash(*)` is not scoped. A bypassed session
+    inside a qualifying sandbox is neither credit nor a miss here.
+
+continuous:
+  held:
+    applies_when: >
+      The person has main sessions in the window, interactive or unattended,
+      other than permission-bypassed sessions inside a qualifying sandbox,
+      which are excluded.
+    holds_when: >
+      Every applicable session, including unattended ones, ran under an
+      effective scoped allow list without bypassing permissions, and no
+      broad entry took effect.
+    not_holding_when: >
+      While the scoped configuration was in place, a session bypassed
+      permissions outside a sandbox, or a broader setting took precedence so
+      that the session effectively ran with unrestricted approval.
+
+automate: >
+  Keep a scoped allow list in your user-level or team settings for the
+  commands you approve in every project, and use it for unattended runs as
+  well as interactive ones. This is a later step, offered once several
+  patterns already happen on their own; it never means approving everything.

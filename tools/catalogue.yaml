@@ -1,0 +1,35 @@
+# Authoring catalogue for the glenngillen/core pack (source IDs, group order).
+# Source: specs/core-catalogue.md. This is authoring metadata, not a Dram file,
+# and is deliberately kept outside the packaged core/ tree.
+#
+# require_complete is true from the complete-catalogue integration slice on:
+# every catalogue pattern must exist, and a missing one fails the checks.
+require_complete: true
+groups:
+  - name: Briefing
+    patterns: [brief-it, define-done, plan-first, own-the-expectations]
+  - name: Guides
+    patterns: [give-it-instructions, write-it-down, keep-it-lean, save-it, script-it, reuse-your-harness, fix-the-harness]
+  - name: Context
+    patterns: [clear-between-tasks, hand-it-off, point-dont-paste]
+  - name: Checking the work
+    patterns:
+      - prove-it
+      - evidence-not-claims
+      - checks-by-default
+      - actionable-failures
+      - gate-done
+      - gate-each-step
+      - back-it-up-in-ci
+      - second-opinion
+      - test-behaviour
+      - schedule-the-clean-up
+      - learn-from-production
+  - name: Correcting course
+    patterns: [steer, set-checkpoints]
+  - name: Delegation
+    patterns: [size-it, split-it-up, fan-out, hands-off, isolate-the-run, two-at-once]
+  - name: Economics
+    patterns: [right-size-it, mind-the-cache, harness-carries-it, right-cadence]
+  - name: Safety
+    patterns: [keep-secrets-out, scope-permissions, guard-destructive, sandbox-autonomy]

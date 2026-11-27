@@ -1,0 +1,39 @@
+name: Scope Permissions
+summary: Approve the commands and tools the work needs, not everything.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    {cases} of {applicable} sessions ran under a scoped allow list you or
+    your team set, without bypassing permissions.
+  not_seen: >
+    {count} sessions bypassed permissions outside a sandbox, in places with
+    production access or deploy scripts.
+  continuous: >
+    Your sessions, unattended ones included, run under a scoped allow list
+    rather than broad approval.
+  slipped: >
+    A session ran with permissions bypassed outside a sandbox, in {session}.
+
+next_step: >
+  Look at the commands you approve most often in one real repository, and
+  ask your agent to add only those to an allow list, instead of approving
+  everything or bypassing permissions.
+
+advice: >
+  Bypassing permissions on your own machine lets one wrong command reach
+  your credentials, production access and other projects. A short allow
+  list of the commands the work really needs keeps the prompts down without
+  handing over everything. If you want fully hands-off runs, contain them in
+  a sandbox (Sandbox autonomy) rather than bypassing on your host.
+
+fix_prompt: >
+  Look at this harness's actual supported permission configuration and at
+  which settings files apply to this repository and in what order. From the
+  commands you have actually needed to run here, propose a narrow allow list
+  (specific test, build and read-only git commands, not wildcards that
+  approve every command). Tell me if any broader setting would override it,
+  and show me the change before writing it.

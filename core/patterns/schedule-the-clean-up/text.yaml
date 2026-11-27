@@ -1,0 +1,37 @@
+name: Schedule the Clean-up
+summary: Run routine maintenance with a scheduled agent and act on what it produces.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    A scheduled maintenance run produced output you used in {cases} of
+    {applicable} maintained repositories.
+  not_seen: >
+    {count} maintained repositories had recurring maintenance done by hand,
+    without a scheduled run whose output was used.
+  continuous: >
+    Your scheduled maintenance ran on time through the window and its output
+    was used.
+  slipped: >
+    A scheduled maintenance run was missed or its output went unused, in
+    {session}.
+
+next_step: >
+  Pick the maintenance chore you keep doing by hand in a repository you
+  maintain. Run it once headless, use the result, then decide with your team
+  whether to schedule it.
+
+advice: >
+  Dependency updates, flaky-test sweeps and similar chores come back every
+  week. A headless agent run on a schedule can do the first pass, but it only
+  helps when someone merges, files or fixes what it finds.
+
+fix_prompt: >
+  Help me turn a maintenance chore I keep doing by hand in this repository
+  into a headless agent run. Ask me which chore it is, draft the command or
+  prompt the run should use, and explain what scheduling options this
+  repository and my setup already support. Do not change any schedule,
+  CI or settings without asking me first.

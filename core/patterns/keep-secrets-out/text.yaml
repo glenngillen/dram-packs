@@ -1,0 +1,43 @@
+name: Keep Secrets Out
+summary: Keep secret files out of the agent's reach and credentials out of your prompts.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    A deny rule covering where secrets actually live was in effect in {cases}
+    of {applicable} repositories that contain secret files.
+  not_seen: >
+    In {count} sessions the agent read a secret file that no effective rule
+    covered, or a credential-like string was detected locally in a prompt.
+    Only the fact and its local location are shown, never the value.
+  continuous: >
+    Every repository you work in with secret files has an effective deny
+    rule for its real secret locations, and no credential turned up in your
+    prompts.
+  slipped: >
+    A secret file was read without an effective rule, or a credential-like
+    string was detected locally in a prompt, in {session}.
+
+next_step: >
+  Pick a repository you work in that has secret files. Find where its
+  secrets actually live, without opening them, and add a deny rule that
+  covers those locations.
+
+advice: >
+  An agent that is told to be careful can still read a secret file while
+  debugging, and what it reads can end up in its context. A deny rule that
+  covers the real locations, not just `.env`, keeps those files out of
+  reach. Keep credentials out of your prompts too: point the agent at where
+  a value is configured instead of pasting it.
+
+fix_prompt: >
+  Without opening or printing any secret file, list the paths in this
+  repository that are likely to hold secrets (names only, for example
+  `.env*`, credential files or a secrets config), and look at this harness's
+  actual supported permission configuration. Propose deny rules that keep
+  you from reading those paths by any tool, explain which settings file they
+  belong in and what takes precedence over it, and show me the change before
+  writing it.

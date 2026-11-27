@@ -1,0 +1,45 @@
+# Brief it (Briefing, rung 1). Full definition: definition.md.
+#
+# Disabled: recognition needs model judgement of a person's first request of
+# a piece of work (a goal plus a substantive constraint or relevant context)
+# and, for later stages only, of the later work that shows the context was
+# used. The pinned CLI runs no pack-authored judge and has no task-boundary
+# or template-use evidence, so no detection, applies_to or mechanism block is
+# named here.
+id: glenngillen/brief-it
+version: 1
+status: preview
+group: briefing
+rung: 1
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    The person's first request of a piece of work, including a new task
+    within a session, gave the agent the goal plus at least one substantive
+    constraint or relevant contextual fact the work needed. Seen completes
+    when that brief is sent; evidence that the later work applied the
+    context without guessing is corroboration, counted only for Forming and
+    Established. A goal alone, background irrelevant to the work, or an
+    agent-written brief accepted with "ok" does not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person starts a new piece of work with a saved command, skill or
+      issue template they use that asks for the goal and the constraints.
+    holds_when: >
+      The person used that command, skill or template in the window, the
+      requests it produced carried the goal and a substantive constraint, and
+      the work that followed did not have to guess about them.
+    not_holding_when: >
+      Work started through the template still lacked the constraints that
+      mattered, and the person had to correct a wrong assumption the brief
+      should have prevented.
+
+automate: >
+  Save a command, skill or issue template of your own that asks for the goal,
+  what done looks like and what must not change, and start new work with it.
+  This is a later step, offered once several patterns already happen on their
+  own; it does not replace thinking about the brief for each task.

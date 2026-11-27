@@ -1,0 +1,35 @@
+name: Second Opinion
+summary: Get an independent review of a change, and use what it finds, before accepting it.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You had a reviewer that did not write the change return a review for
+    {cases} of {applicable} changes.
+  not_seen: >
+    {count} changes were accepted without an independent review.
+  continuous: >
+    An independent review ran on your changes and its findings were used
+    before they were accepted.
+  slipped: >
+    A change was accepted without its independent review being used, in
+    {session}.
+
+next_step: >
+  Before you accept your next real change, ask a reviewer that did not write
+  it (a review command, another model or a fresh session) to look at the diff,
+  then act on what it finds.
+
+advice: >
+  The session that wrote a change tends to agree with itself. A reviewer that
+  did not write it reads the diff without that history and catches what the
+  author missed. The review only helps if you act on its findings.
+
+fix_prompt: >
+  Review the current diff as an independent reviewer: you did not write it.
+  Look for bugs, missed edge cases and behaviour changes callers would notice.
+  List each finding with the file and line, and say which you think must be
+  fixed before this change is accepted. Do not edit anything.

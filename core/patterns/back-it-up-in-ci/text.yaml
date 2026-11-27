@@ -1,0 +1,34 @@
+name: Back It Up in CI
+summary: Send agent changes to the default branch through a branch or pull request where CI runs the tests.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    Agent changes reached the default branch through tested CI in {cases} of
+    {applicable} cases.
+  not_seen: >
+    {count} agent changes reached the default branch before any CI run had
+    tested them.
+  continuous: >
+    Every agent change that reached the default branch went through CI that
+    ran the tests.
+  slipped: >
+    An agent change reached the default branch without tested CI, in {session}.
+
+next_step: >
+  For your next agent change, push it to a branch and open a pull request so
+  the CI tests run before it merges, instead of pushing to the default branch.
+
+advice: >
+  Local checks are fast and catch most problems while you work. CI runs the
+  slower checks in a clean environment, so a change that only passes on your
+  machine is caught before it reaches everyone else.
+
+fix_prompt: >
+  Look at this repository's CI configuration and tell me which workflows run
+  the tests and on which events. Then help me put this change on a branch and
+  open a pull request so those tests run before it merges. Do not change the
+  CI configuration or push to the default branch without asking me.

@@ -1,0 +1,40 @@
+# Reuse your harness (Guides, rung 6). Full definition: definition.md.
+#
+# Disabled: the intended code check needs configuration identity and
+# provenance (the same owned command, skill, hook or rule, not a diverged copy
+# or a third-party plugin), its use in each repository, and configuration
+# history. The pinned CLI runs no block that sees any of these, and matching
+# filenames would not prove sharing, so no detection, applies_to or mechanism
+# block is named here.
+id: glenngillen/reuse-your-harness
+version: 1
+status: preview
+group: guides
+rung: 6
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    The person worked in at least two repositories in the window and the same
+    command, skill, hook or rule they own was used in at least two of them,
+    through their user configuration, their own plugin or a template they
+    maintain. Diverged copies and built-in or third-party plugins they did not
+    build do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person works in at least two repositories in the window.
+    holds_when: >
+      Their maintained harness applied to every repository they worked in, was
+      actually used there, and was updated in the last four weeks.
+    not_holding_when: >
+      A repository they worked in ran without the shared harness while it was
+      in place, or a copy of it was defined separately there and diverged.
+
+automate: >
+  Keep your commands, skills, hooks and rules in one place you maintain (user
+  configuration, your own plugin or a template) so every repository you work
+  in picks them up. This is a later step, offered once several patterns
+  already happen on their own.

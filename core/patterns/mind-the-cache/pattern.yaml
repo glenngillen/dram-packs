@@ -1,0 +1,44 @@
+# Mind the cache (Economics, rung 2). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over turn timestamps,
+# prior context size, the cache lifetime and how the person returned to the
+# same work after a long break (a fresh start from a handoff or /clear, or
+# continuing the cold context). The recommendation system's cache-rebuild
+# signal is a related input for cost, but the pinned CLI runs no pattern
+# block that expresses gaps, context size, fresh/clear/resume provenance or
+# handoff pairing, so no detection, applies_to or mechanism block is named.
+id: glenngillen/mind-the-cache
+version: 1
+status: preview
+group: economics
+rung: 2
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    After a break longer than the cache lasts (more than one hour by
+    default) from a large context (more than 150,000 tokens by default), the
+    person returned to the same work with a fresh start, from a handoff or
+    after /clear, instead of continuing the large cold context.
+
+continuous:
+  held:
+    applies_when: >
+      The person returned to the same work after a break longer than the
+      cache lasts, from a large context, and has an end-of-day command or a
+      Stop mechanism of their own that writes a handoff.
+    holds_when: >
+      The mechanism produced a handoff before the break and the person
+      started fresh from it after the break, on each such return in the
+      window.
+    not_holding_when: >
+      The mechanism was in place but the person continued the large cold
+      context after a qualifying break, or the handoff it produced was not
+      used.
+
+automate: >
+  Once starting fresh after long breaks is a habit, an end-of-day command
+  or a Stop hook of your own can write the handoff for you, so the next
+  session starts from it. This is a later step, offered once several
+  patterns already happen on their own.

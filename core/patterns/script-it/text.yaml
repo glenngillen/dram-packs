@@ -1,0 +1,34 @@
+name: Script it
+summary: Use a script, codemod or tool for mechanical edits across many files.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    A script or tool you asked for made the change in {cases} of {applicable}
+    mechanical changes across many files.
+  not_seen: >
+    {count} mechanical changes were made by editing each file by hand.
+  continuous: >
+    Your repository's saved scripts handle the mechanical changes you make
+    again.
+  slipped: >
+    A mechanical change you have a saved script for was made by hand in
+    {session}.
+
+next_step: >
+  On your next real rename or migration, ask your agent to write a script or
+  codemod for it, review the script, then have it run.
+
+advice: >
+  An agent editing forty files one by one is slow and can drift between
+  files. A script makes the same change everywhere, is easy to review once,
+  and can be run again.
+
+fix_prompt: >
+  This change is mechanical and touches many files. Instead of editing each
+  file by hand, write a script or codemod that makes it. Show me the script
+  and which files it will change before running it, then run it and show me
+  the result.

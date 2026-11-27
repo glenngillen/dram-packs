@@ -1,0 +1,45 @@
+# Sandbox Autonomy (Safety, rung 4). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over attributable launch
+# and execution-environment facts (container, devcontainer, VM or remote
+# sandbox) and the permission mode of permission-bypassed and unattended
+# runs. The pinned collected-history shape records no environment, launch
+# provenance or permission mode, and no implemented block expresses them, so
+# no detection, applies_to or mechanism block is named. This pattern is about
+# system containment, not working-copy isolation (Isolate the run).
+id: glenngillen/sandbox-autonomy
+version: 1
+status: preview
+group: safety
+rung: 4
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    A permission-bypassed or unattended run that the person launched ran
+    inside an observable contained environment (a container, devcontainer,
+    VM or remote sandbox), shown by attributable launch and environment
+    facts together with its permission mode. A separate working copy on the
+    person's own machine is not containment, and a container label alone is
+    not taken as proof that credentials or production were out of reach.
+
+continuous:
+  held:
+    applies_when: >
+      The person ran permission-bypassed or unattended work in the window.
+    holds_when: >
+      Every bypassed or unattended run in the window ran inside the contained
+      environment through the person's mechanism (for example a devcontainer
+      configuration or launch script), and none ran on the credentialed
+      host.
+    not_holding_when: >
+      While the mechanism was in place, a bypassed or unattended run ran on
+      the person's credentialed host instead of inside it.
+
+automate: >
+  Make your container or sandbox the default way unattended and bypassed
+  runs start, through a launch script or devcontainer configuration you
+  own, so none of them reaches your host by accident. This is a later step,
+  offered once several patterns already happen on their own; it does not
+  replace scoping permissions and guarding destructive commands.

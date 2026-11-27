@@ -1,0 +1,44 @@
+# Fan out (Delegation, rung 3). Full definition: definition.md.
+#
+# Disabled: recognition needs model judgement that the work had several
+# independent parts and that the person asked for parallel subagents, plus
+# concurrent subagent timing and evidence the combined result was used. The
+# pinned CLI has no concurrency, child-session or result-use facts, and a
+# tool_call_matches on Task calls cannot tell parallel from sequential runs
+# or used from discarded results. So no detection, applies_to or mechanism
+# block is named here.
+id: glenngillen/fan-out
+version: 1
+status: preview
+group: delegation
+rung: 3
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    For work with three or more independent parts, the person asked for
+    parallel subagents (for example one per service), the subagents
+    actually ran at the same time, and their combined result was brought
+    together and used. One subagent, subagents run one after another, or
+    parallel results thrown away do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person has work with three or more independent parts in the
+      window.
+    holds_when: >
+      A saved command or workflow the person or their team owns caused the
+      fan-out: it ran one subagent per part concurrently, and the combined
+      result was used.
+    not_holding_when: >
+      The command or workflow was in place and used, but the parts ran one
+      after another, or the combined result was discarded.
+
+automate: >
+  Save the fan-out you repeat as a command or workflow you own (for example
+  one that audits every service in parallel and summarises), so it runs the
+  same way every time. This is a later step, offered once several patterns
+  already happen on their own, and after the Safety mechanisms for
+  parallel work are in place.

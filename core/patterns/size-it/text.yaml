@@ -1,0 +1,35 @@
+name: Size It
+summary: Break large work into tasks the agent can finish one at a time.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You broke large work into smaller tasks and finished the first of them,
+    in {cases} of {applicable} pieces of substantial work.
+  not_seen: >
+    {count} sessions took on one large goal, or several goals together, in a
+    single attempt that did not finish cleanly.
+  continuous: >
+    Substantial work starts from a plan of smaller tasks you own, and gets
+    done one task at a time.
+  slipped: >
+    Large work was attempted all together instead of one piece at a time, in
+    {session}.
+
+next_step: >
+  Take the largest real task on your list and ask the agent to break it into
+  steps that each fit one session. Then do only the first step.
+
+advice: >
+  An agent given one huge goal tends to spread itself thin and finish
+  nothing cleanly. Breaking the work into session-sized tasks, and finishing
+  them one at a time, gives you a checkable result at each step.
+
+fix_prompt: >
+  Before changing anything, break this work into smaller steps that could
+  each be done and checked in one session. List them in order with what
+  "finished" means for each. Then stop and wait for me to pick the first
+  step; do not start the others.

@@ -1,0 +1,43 @@
+# Give it instructions (Guides, rung 1). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over which instruction
+# files the agent actually loaded, per repository, across the person's
+# sessions. The pinned CLI runs no block that can see that (repo_file_matches
+# is declared but not implemented, and a file's presence is not proof it was
+# loaded), so no detection, applies_to or mechanism block is named here.
+id: glenngillen/give-it-instructions
+version: 1
+status: preview
+group: guides
+rung: 1
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a repository with at least three of the person's sessions in the
+    window, the agent read a non-trivial CLAUDE.md, AGENTS.md or rules file
+    in a session: one with real content such as build commands or
+    conventions, not a heading, an empty file, an unfilled template or
+    auto-memory.
+
+continuous:
+  held:
+    applies_when: >
+      The person works in a repository with at least three of their sessions
+      in the window.
+    holds_when: >
+      Every applicable repository's sessions loaded meaningful instructions,
+      either the repository's own file or a user-level instruction file that
+      applies everywhere and was substantively updated in the last four
+      weeks.
+    not_holding_when: >
+      An applicable repository's sessions ran without loading meaningful
+      instructions while the file or user-level instructions were in place.
+
+automate: >
+  Keep a user-level instruction file with the conventions you carry between
+  projects, and refresh it when a correction recurs. Then every repository
+  starts with them, including ones you have not set up yet. This is a later
+  step, offered once several patterns already happen on their own; it does
+  not replace writing a project's own instructions.

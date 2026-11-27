@@ -1,0 +1,42 @@
+# Set the expectations yourself (Briefing, rung 4). Full definition:
+# definition.md.
+#
+# Disabled: recognition needs test authorship or substantive person review
+# before implementation, ordered against the implementation and its passing
+# run, using git attribution. The pinned CLI runs no pack-authored judge and
+# has no git authorship or ordered test/implementation evidence, so no
+# detection, applies_to or mechanism block is named here.
+id: glenngillen/own-the-expectations
+version: 1
+status: preview
+group: briefing
+rung: 4
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    On feature or fix work that adds or changes tests, the person wrote the
+    tests or examples, or substantively reviewed and approved agent-written
+    ones, before the implementation, and the implementation was then made to
+    pass them. Agent tests written after the implementation, and unread
+    approval such as "ok, go", do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person does feature or fix work that adds or changes tests with a
+      test-first instruction or command of their own in place.
+    holds_when: >
+      The rule or command was followed in the window: tests came first, the
+      person reviewed them before implementation, and the implementation was
+      made to pass them.
+    not_holding_when: >
+      With the rule in place, tests were written after the implementation or
+      approved without review, so they mirrored what the code already did.
+
+automate: >
+  Keep a test-first rule or command of your own that has the agent write
+  failing tests, stop for your review, and only then implement. This is a
+  later step, offered once several patterns already happen on their own; the
+  review before implementation is still yours.

@@ -1,0 +1,48 @@
+# Set Checkpoints (Correcting course, rung 2). Full definition: definition.md.
+#
+# Disabled: recognition needs a person's request to stop before a risky step,
+# evidence that the agent actually stopped there, and the person's decision,
+# in that order; the mechanism needs an instruction or ask-permission rule
+# that actually stopped the agent. The pinned CLI runs no block that can
+# express person intent or that decision sequence, and its permission_rule
+# block accepts deny only (and has no fixed-pattern execution), so no ask
+# binding is invented. No detection, applies_to or mechanism block is named.
+id: glenngillen/set-checkpoints
+version: 1
+status: preview
+group: correcting-course
+rung: 2
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    Before a risky or hard-to-undo step (a migration, a deploy, a deletion,
+    a public API change), the person asked the agent to stop and check with
+    them first (for example "draft the migration and ask before running
+    it"), the agent actually stopped at that point, and the person made the
+    decision (for example "run it, skip the backfill"). A question the agent
+    asked on its own, or a checkpoint nobody answered, is not this pattern.
+
+continuous:
+  held:
+    applies_when: >
+      The person's main sessions in the window reached a risky step
+      (migration, deploy, deletion or public API change) covered by an
+      instruction or ask-permission rule that the person or their team
+      configured.
+    holds_when: >
+      The instruction or ask rule actually stopped the agent before each
+      covered risky step in the window, and the person made the decision
+      each time.
+    not_holding_when: >
+      The rule or instruction was in place but the agent went ahead with a
+      covered risky step without stopping, or the stop was bypassed by
+      automatic approval or a permission-skipping mode.
+
+automate: >
+  Once you checkpoint risky steps by habit, have them stop the agent every
+  time: an instruction rule saying which steps need your decision, or an
+  ask-permission rule on the commands that run them (for example your
+  migration command). This is a later step, offered once several patterns
+  already happen on their own; the decision itself stays yours.

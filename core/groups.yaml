@@ -1,0 +1,92 @@
+# The eight groups in catalogue order. Each group's patterns are listed in
+# rung order, foundational first, as they are authored; a group with no
+# authored pattern yet has no patterns list.
+groups:
+  - id: briefing
+    name: Briefing
+    description: >
+      Giving the agent the goal, the constraints and how the work will be
+      judged before it starts.
+    patterns:
+      - brief-it
+      - define-done
+      - plan-first
+      - own-the-expectations
+  - id: guides
+    name: Guides
+    description: >
+      Instructions, commands and tooling the person maintains so the agent
+      starts from what they already know.
+    patterns:
+      - give-it-instructions
+      - write-it-down
+      - keep-it-lean
+      - save-it
+      - script-it
+      - reuse-your-harness
+      - fix-the-harness
+  - id: context
+    name: Context
+    description: >
+      Keeping the agent's working memory relevant: clearing, handing off and
+      pointing at what matters.
+    patterns:
+      - clear-between-tasks
+      - hand-it-off
+      - point-dont-paste
+  - id: checking-the-work
+    name: Checking the work
+    description: >
+      Evidence that agent work does what it claims, from asking for proof to
+      gates, CI and review.
+    patterns:
+      - prove-it
+      - evidence-not-claims
+      - checks-by-default
+      - actionable-failures
+      - gate-done
+      - gate-each-step
+      - back-it-up-in-ci
+      - second-opinion
+      - test-behaviour
+      - schedule-the-clean-up
+      - learn-from-production
+  - id: correcting-course
+    name: Correcting course
+    description: >
+      Redirecting a wrong approach and deciding before risky steps.
+    patterns:
+      - steer
+      - set-checkpoints
+  - id: delegation
+    name: Delegation
+    description: >
+      Sizing, splitting and running work in parallel or unattended, safely
+      isolated.
+    patterns:
+      - size-it
+      - split-it-up
+      - fan-out
+      - hands-off
+      - isolate-the-run
+      - two-at-once
+  - id: economics
+    name: Economics
+    description: >
+      Choosing models and check cadence that fit the work, and not paying to
+      rebuild context.
+    patterns:
+      - right-size-it
+      - mind-the-cache
+      - harness-carries-it
+      - right-cadence
+  - id: safety
+    name: Safety
+    description: >
+      Keeping secrets out, scoping permissions, guarding destructive commands
+      and containing autonomous runs.
+    patterns:
+      - keep-secrets-out
+      - scope-permissions
+      - guard-destructive
+      - sandbox-autonomy

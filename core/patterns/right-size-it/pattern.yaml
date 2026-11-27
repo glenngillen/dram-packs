@@ -1,0 +1,53 @@
+# Right-size it (Economics, rung 1). Full definition: definition.md.
+#
+# This is model selection: the person deliberately choosing a lighter model
+# for routine work. It is unrelated to the built-in IaC pattern
+# infracost/right-size-it (infrastructure resource sizing), whose findings
+# and history are never reused here.
+#
+# Disabled: recognition needs model judgement that the work is routine and
+# that the person chose the lower tier, plus model-choice provenance, the
+# person's usual model, pricing tiers and edit linkage. The pinned CLI runs
+# no block that expresses these (the recommendation system's model and
+# model-switch signals are related inputs, not this recognizer), so no
+# detection, applies_to or mechanism block is named here.
+id: glenngillen/right-size-it
+version: 1
+status: preview
+group: economics
+rung: 1
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    Before routine work (a rename, docstrings, formatting, a version bump or
+    a simple fix), the person deliberately chose a model tier below the one
+    they usually use, with a model command, a launch flag or a setting, and
+    the agent then made edits for that work on the lighter tier. Normal use
+    of the usual model, an automatic fallback after a limit and an ordinary
+    lighter-model subagent do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person did routine work in the window and has a mechanism in
+      place for it: a lighter default with an explicit escalation for hard
+      tasks, premium planning with lighter execution, or an owned command
+      or subagent pinned to a lighter model.
+    holds_when: >
+      Routine work in the window actually ran through that mechanism on the
+      lighter tier, and harder work was escalated deliberately rather than
+      by an automatic fallback.
+    not_holding_when: >
+      The mechanism was in place but routine work kept running on the
+      premium tier, the pinned command or subagent was bypassed or overridden
+      for routine work, or lighter runs were routinely finished on the
+      premium tier after failing.
+
+automate: >
+  Once choosing a lighter model for routine work is a habit, you can make it
+  the default: a lighter default model with an explicit way to escalate hard
+  tasks, or your own command or subagent pinned to a lighter model for the
+  routine jobs you repeat. This is a later step, offered once several
+  patterns already happen on their own.

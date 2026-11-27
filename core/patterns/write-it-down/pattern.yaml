@@ -1,0 +1,40 @@
+# Write it down (Guides, rung 2). Full definition: definition.md.
+#
+# Disabled: recognition needs model judgement that a person corrected a
+# convention (not a one-off defect) and deliberately asked for it to be
+# persisted, plus the instruction-file diff that followed and later relevant
+# sessions. The pinned CLI supplies none of these and runs no pack-authored
+# judge, so no detection, applies_to or mechanism block is named here.
+id: glenngillen/write-it-down
+version: 1
+status: preview
+group: guides
+rung: 2
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    After correcting a convention or preference, the person asked the agent
+    to record it as a rule, added a `#` memory entry, or ran `/init`, and a
+    substantive rule was then added to an instruction file. An unprompted
+    agent edit, a typo fix, or "remember this" with no persisted change does
+    not count.
+
+continuous:
+  held:
+    applies_when: >
+      Later sessions do work the persisted rule covers, while the rule is in
+      place in an instruction file the agent loads.
+    holds_when: >
+      In that later relevant work the agent followed the rule and the person
+      did not have to correct the same convention again.
+    not_holding_when: >
+      The person corrected the same convention again in relevant work while
+      the rule was in place and loaded.
+
+automate: >
+  Once several patterns already happen on their own, ask your agent to
+  propose an instruction-file rule whenever you correct the same convention
+  twice, for you to approve. This is a later step; it does not replace
+  deciding which conventions are worth writing down.

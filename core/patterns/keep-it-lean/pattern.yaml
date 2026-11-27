@@ -1,0 +1,46 @@
+# Keep it lean (Guides, rung 3). Full definition: definition.md.
+#
+# Disabled: recognition needs a model-judged contradiction between two cited
+# instruction lines, or a code-computed instruction cost from actual resolved
+# instruction sizes, plus the person's request (Seen) and, for later stages,
+# the resolving edit kept in the default branch. The pinned CLI supplies none of these facts and runs no
+# pack-authored judge, so no detection, applies_to or mechanism block is
+# named here.
+id: glenngillen/keep-it-lean
+version: 1
+status: preview
+group: guides
+rung: 3
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    After a flagged contradiction between two cited instruction lines, or
+    after instruction files measurably loaded more than the cost threshold of
+    the initial context, the person asked the agent to reconcile, trim or
+    split them while keeping every rule they still want. Seen completes on
+    that request; the resolving edit, kept for the fourteen-day kept window,
+    is follow-through counted only for Forming and Established.
+    Agent-initiated rewrites and requests that only add content do not
+    count.
+
+continuous:
+  held:
+    applies_when: >
+      The person's repository and user instruction files are loaded in
+      sessions in the window.
+    holds_when: >
+      A recurring contradiction check in the person's harness ran, and the
+      loaded instruction files stayed free of unresolved contradictions and
+      below the cost threshold.
+    not_holding_when: >
+      While the check was in place and running, a contradiction it should
+      have caught remained, or the instruction files grew past the cost
+      threshold unflagged.
+
+automate: >
+  Once several patterns already happen on their own, add a recurring check to
+  your harness that looks for contradictory instruction lines and reports
+  their loading cost, so you review them before they pile up. It suggests a
+  review; it never deletes rules by itself.

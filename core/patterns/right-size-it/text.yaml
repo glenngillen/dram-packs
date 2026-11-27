@@ -1,0 +1,38 @@
+name: Right-size It
+summary: Choose a lighter model on purpose for routine work.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You chose a lighter model before routine work and the edits were made on
+    it, in {cases} of {applicable} routine tasks.
+  not_seen: >
+    {count} routine tasks ran for a long stretch on your usual premium model.
+  continuous: >
+    Routine work runs on a lighter model through your own default, command or
+    subagent, with hard tasks escalated on purpose.
+  slipped: >
+    Routine work ran on the premium model despite your lighter setup, in
+    {session}.
+
+next_step: >
+  Next time you start a routine task (a rename, docstrings, a version bump),
+  switch to a lighter model before the work begins, and switch back if the
+  task turns out to be harder.
+
+advice: >
+  Routine edits rarely need the most capable model. Choosing a lighter one
+  for them, on purpose and before the work starts, keeps the premium model
+  for the work that needs it. Your checks, not the model name, tell you
+  whether the result is good enough.
+
+fix_prompt: >
+  This next task is routine. Tell me which models this harness actually
+  supports and how to switch between them here, and which of them are
+  lighter than my usual model (the one I normally work on, not necessarily
+  the one selected now). If you cannot tell what my usual model is, say so.
+  I will decide whether to switch. If the task
+  turns out to need more, say so and I will switch back.

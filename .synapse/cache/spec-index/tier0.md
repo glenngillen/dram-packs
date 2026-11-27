@@ -1,0 +1,54 @@
+# Spec Catalog
+
+Generated from specs/*.md. Authoritative requirements remain in the spec files.
+
+- actionable-failures.md: Make Failures Actionable
+- back-it-up-in-ci.md: Back It Up in CI
+- brief-it.md: Brief It
+- checks-by-default.md: Checks by Default
+- clear-between-tasks.md: Clear Between Tasks
+- coaching-content.md: Coaching Content
+- core-catalogue.md: Core Catalogue
+- define-done.md: Define Done
+- evaluation-readiness.md: Evaluation Readiness
+- evidence-not-claims.md: Evidence, Not Claims
+- fan-out.md: Fan Out
+- fix-the-harness.md: Fix the Harness
+- gate-done.md: Gate Done
+- gate-each-step.md: Gate Each Step
+- give-it-instructions.md: Give It Instructions
+- guard-destructive.md: Guard Destructive Commands
+- hand-it-off.md: Hand It Off
+- hands-off.md: Hands Off
+- harness-carries-it.md: Let the Harness Carry It
+- isolate-the-run.md: Isolate the Run
+- keep-it-lean.md: Keep It Lean
+- keep-secrets-out.md: Keep Secrets Out
+- learn-from-production.md: Learn From Production
+- mind-the-cache.md: Mind the Cache
+- outcome-content.md: Outcome Content
+- own-the-expectations.md: Set the Expectations Yourself
+- pack-compatibility.md: Pack Compatibility
+- pattern-evidence.md: Pattern Evidence
+- pattern-parameters.md: Pattern Parameters
+- pattern-progression.md: Pattern Progression
+- plan-first.md: Plan First
+- point-dont-paste.md: Point, Don't Paste
+- prove-it.md: Prove It
+- requirements-evidence.md: Requirements Evidence
+- reuse-your-harness.md: Reuse Your Harness
+- right-cadence.md: Check at the Right Cadence
+- right-size-it.md: Right-size It
+- sandbox-autonomy.md: Sandbox Autonomy
+- save-it.md: Save It
+- schedule-the-clean-up.md: Schedule the Clean-up
+- scope-permissions.md: Scope Permissions
+- script-it.md: Script It
+- second-opinion.md: Second Opinion
+- set-checkpoints.md: Set Checkpoints
+- size-it.md: Size It
+- split-it-up.md: Split It Up
+- steer.md: Steer, Don't Stop
+- test-behaviour.md: Test Behaviour
+- two-at-once.md: Two at Once
+- write-it-down.md: Write It Down

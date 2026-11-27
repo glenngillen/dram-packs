@@ -1,0 +1,37 @@
+name: Evidence, Not Claims
+summary: Challenge the agent's summary when the recorded result says otherwise.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You challenged a summary that the recorded output contradicted in
+    {cases} of {applicable} cases.
+  not_seen: >
+    {count} summaries said all was well while the output above showed
+    failures, errors or skipped cases.
+  continuous: >
+    Completion claims arrive with the check output, so contradictions are
+    visible straight away.
+  slipped: >
+    A summary contradicted by the recorded output was accepted, in
+    {session}.
+
+next_step: >
+  The next time the agent summarises its work as passing or complete, read
+  the actual check output above it and ask about anything that does not
+  match.
+
+advice: >
+  An agent's summary can say "all tests pass" while the output above it
+  shows failures or skipped cases. The output is the evidence; the summary
+  is a claim. When they disagree, point at the difference and ask the agent
+  to deal with it before you move on.
+
+fix_prompt: >
+  Compare your summary with the actual output above it. List any failures,
+  errors or skipped cases the output shows that the summary does not
+  mention, quote the lines, and fix them or explain why they are expected
+  before calling this done.

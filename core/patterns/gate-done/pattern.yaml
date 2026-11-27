@@ -1,0 +1,43 @@
+# Gate "done" (Checking the work, rung 5). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over an attributable final
+# gate (a Stop hook or equivalent running tests, a build or type checking) and
+# its actual firing and enforcement. The pinned CLI records no hook execution
+# or enforcement, hook_configured is declared but not implemented, and a
+# tool_call_matches on a test command would match the agent choosing to run
+# tests, not a gate. So no detection, applies_to or mechanism block is named.
+id: glenngillen/gate-done
+version: 1
+status: preview
+group: checking-the-work
+rung: 5
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a repository with checks where the person works, a Stop hook or
+    equivalent final gate that the person or their team configured, running
+    tests, a build or type checking (not only a formatter), actually fired
+    in a session as the agent finished, and would block on failure rather
+    than silently ignore it.
+
+continuous:
+  held:
+    applies_when: >
+      The person works in a repository that has tests, a build or type
+      checks, with agent sessions ending in the window.
+    holds_when: >
+      Every applicable repository is covered by the final gate, it fired in
+      the window, and where it failed the agent was blocked and fixed the
+      failure before finishing.
+    not_holding_when: >
+      The gate was in place but a session finished with its failure
+      unresolved: the failure was bypassed, ignored, or the gate did not
+      fire.
+
+automate: >
+  Put the final gate in user-level settings so it runs each project's own
+  test or build command in every repository you work in. This is a later
+  step, offered once several patterns already happen on their own; it does
+  not replace choosing a check that actually tests the work.

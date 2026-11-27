@@ -1,0 +1,15 @@
+id: glenngillen/core
+name: Core
+version: 0.1.0
+# min_cli is deliberately absent. No tagged Dram release at or before the
+# pinned revision contains the pack loader (it first appears after
+# v0.1.0-preview.4), and the field only takes major.minor.patch, so it cannot
+# name the pinned commit. See reference/compatibility.md.
+channel: dev
+description: >
+  Evidence-based coaching about how a person works with coding agents: 41
+  patterns in eight groups, from briefing the agent to running it safely
+  unattended. Findings describe work, never the person. There is no grade,
+  score or ranking. This version is content only: every pattern is disabled,
+  because the detection each one needs is not yet in the Dram CLI.
+section: Working with agents

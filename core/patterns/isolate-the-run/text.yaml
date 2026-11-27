@@ -1,0 +1,37 @@
+name: Isolate the Run
+summary: Give each unattended or parallel run its own working copy.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    Unattended or overlapping runs worked in their own working copy in
+    {cases} of {applicable} cases.
+  not_seen: >
+    {count} unattended or overlapping runs shared a working copy with
+    another active session.
+  continuous: >
+    Every unattended or parallel run starts in its own working copy through
+    a command or setup you own.
+  slipped: >
+    A run shared a working copy with another active session, in {session}.
+
+next_step: >
+  Before your next unattended task, or the next time you start a second
+  session alongside one that is working, create a separate worktree or clone
+  for it and run the session there.
+
+advice: >
+  Two agents editing the same directory overwrite each other's files and
+  mix their changes. Switching branches does not help, because it rewrites
+  the same files. A separate working copy, such as a git worktree, a second
+  clone or a container with its own checkout, keeps each run's changes apart.
+
+fix_prompt: >
+  I want my next unattended or parallel run to have its own working copy.
+  Check how this repository is set up and propose the simplest way to give
+  the run a separate checkout (for example a git worktree or a second
+  clone). Show me the commands and where the copy will live before running
+  anything, and do not touch my current working copy's uncommitted changes.

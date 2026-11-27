@@ -1,0 +1,34 @@
+name: Brief it
+summary: Start each piece of work with the goal and the constraints the agent would otherwise guess.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    {cases} of {applicable} new pieces of work started with a brief from you:
+    the goal plus a constraint or context the agent would otherwise guess.
+  not_seen: >
+    {count} pieces of work started from a bare goal and later needed you to
+    correct a wrong assumption.
+  continuous: >
+    Your own brief template asks for the goal and constraints, and the work
+    started with it did not have to guess.
+  slipped: >
+    Work started without the constraint it needed, in {session}.
+
+next_step: >
+  Before your next real request, write one line for what done looks like and
+  one for what must not change, and send both with the goal.
+
+advice: >
+  A goal alone leaves the agent to guess the parts you already know: which
+  service to reuse, what must stay untouched, how a limit should behave. One
+  or two sentences of constraint up front saves a correction later.
+
+fix_prompt: >
+  Before you start, here is the brief for this task. Goal: [what to build or
+  fix]. Constraints: [what to reuse, what must not change, limits that
+  matter]. If anything you need to decide is not covered here, ask me rather
+  than assuming.

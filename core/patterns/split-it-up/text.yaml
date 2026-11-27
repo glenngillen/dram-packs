@@ -1,0 +1,35 @@
+name: Split It Up
+summary: Hand a side task to a subagent on purpose, so the main session stays on track.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You handed a side task to a subagent on purpose in {cases} of
+    {applicable} sessions that broke off to a side task.
+  not_seen: >
+    {count} sessions took a side task in the main conversation and lost
+    track of the main work.
+  continuous: >
+    Your own subagents take side tasks when your instructions say so, and
+    the main session stays on its task.
+  slipped: >
+    A side task was done in the main session instead of being handed off, in
+    {session}.
+
+next_step: >
+  The next time a real side task comes up mid-task (updating snapshots,
+  checking a library, fixing a flaky test), ask the agent to use a subagent
+  for it and bring back a short result.
+
+advice: >
+  Side tasks fill the main session's context with detail it does not need.
+  Handing them to a subagent keeps the main conversation focused and brings
+  back only the result.
+
+fix_prompt: >
+  This is a side task. Use a subagent for it instead of doing it here: give
+  it a short brief with what to do and what to return, then bring back only
+  the result I need to continue the main task.

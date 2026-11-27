@@ -1,0 +1,46 @@
+# Check at the right cadence (Economics, rung 4). Full definition: definition.md.
+#
+# Disabled: the intended detection is a code check over the person's
+# model-conditioned check configuration and its actual runs: per-step checks
+# on lighter-model work, fewer or no per-step checks on premium work, and a
+# final gate kept for both. The pinned CLI records no hook runs, no model per
+# hook run and no configuration history, and whether a harness supports
+# model-specific hooks at all must be confirmed rather than assumed. So no
+# detection, applies_to or mechanism block is named here.
+id: glenngillen/right-cadence
+version: 1
+status: preview
+group: economics
+rung: 4
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    In a repository with per-step checks and a final gate, used across
+    model tiers, the person configured step checks to run on lighter-model
+    work and to run less or not at all on premium-model work, and both paths
+    were actually observed running as configured, with the final gate still
+    in place. Only one observed path, the same heavy checks at every edit
+    on every model, or no checks at all do not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person worked in the window in repositories with step checks and
+      a final gate, on more than one model tier, with their differentiated
+      cadence configuration in place.
+    holds_when: >
+      All such work ran with the configured cadence for its model, both
+      paths were observed, and the final gate ran on work from both tiers.
+    not_holding_when: >
+      The differentiated configuration was in place but work on one tier
+      ran with the other tier's cadence, the final gate was removed or
+      skipped, or problems the reduced checks would have caught escaped past
+      the final gate.
+
+automate: >
+  Once a differentiated cadence is working in one repository, you can carry
+  the same configuration to others you work in, keeping each one's final
+  gate. This is a later step, offered once several patterns already happen
+  on their own.

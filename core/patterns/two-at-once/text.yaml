@@ -1,0 +1,36 @@
+name: Two at Once
+summary: Use the wait on a long agent turn for independent work in a second, isolated session.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    You ran two isolated sessions doing real edits at the same time in
+    {cases} of {applicable} long agent turns.
+  not_seen: >
+    {count} long agent turns were waited out with no other work running.
+  continuous: >
+    A command or script you own starts two isolated sessions, and both do
+    real work.
+  slipped: >
+    Two sessions ran at once without separate working copies, or one sat
+    idle, in {session}.
+
+next_step: >
+  The next time a real agent turn will take several minutes, start an
+  independent real task in a second session in its own worktree or clone,
+  and let both work.
+
+advice: >
+  A long agent turn is waiting time. An independent task in a second
+  session can use it, but only in its own working copy, so neither session
+  changes the other's files. Two sessions on different branches in one
+  directory still share files.
+
+fix_prompt: >
+  I want to work on a second, independent task while another session is
+  busy. Propose a separate working copy for it (for example a git worktree
+  or a second clone), show me the commands and where it will live, and do
+  not touch the other session's directory or uncommitted changes.

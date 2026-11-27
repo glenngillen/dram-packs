@@ -1,0 +1,45 @@
+# Schedule the clean-up (Checking the work, rung 10). Full definition:
+# definition.md.
+#
+# Disabled: the intended detection is a code check linking a headless
+# maintenance session to the person's or team's own schedule or trigger, and
+# that session's output to a later merge, filed issue or other use. The pinned
+# CLI supplies no launch provenance, schedule facts or output-action linkage
+# and runs no block that could express them, so no detection, applies_to or
+# mechanism block is named here.
+id: glenngillen/schedule-the-clean-up
+version: 1
+status: preview
+group: checking-the-work
+rung: 10
+enabled: false
+opportunities: true
+
+seen:
+  when: >
+    For a person who maintains at least one repository, a headless
+    maintenance session was launched by a schedule or trigger the person or
+    their team owns, and its output was used: a pull request merged, an issue
+    filed and acted on, or the result otherwise taken up. A headless run
+    alone, an unused scheduled report or one-off interactive maintenance does
+    not count.
+
+continuous:
+  held:
+    applies_when: >
+      The person maintains at least one repository and owns a scheduled or
+      triggered maintenance run for it during the window.
+    holds_when: >
+      The scheduled run happened according to its schedule throughout the
+      window and its output was used each time it produced something worth
+      acting on.
+    not_holding_when: >
+      The schedule was in place but runs stopped happening, or its output
+      repeatedly went unused, while the maintenance chore it covers was still
+      being done by hand.
+
+automate: >
+  Once a maintenance run you rely on works, keep it on a schedule your team
+  owns and make acting on its output part of the routine. This is a later
+  step, offered once several patterns already happen on their own; it never
+  replaces looking at what the run produced.

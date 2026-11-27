@@ -1,0 +1,36 @@
+name: Test Behaviour
+summary: Check the behaviour callers and users rely on, not just the code's internals.
+
+preview_note: >
+  Preview content. Detection for this pattern is not available yet, so Dram
+  cannot recognize it in your sessions. Nothing here reflects on your work.
+
+report:
+  seen: >
+    A behaviour-level check was requested or reviewed and then run for {cases}
+    of {applicable} behaviour-changing changes.
+  not_seen: >
+    {count} behaviour-changing changes passed the checks that ran, then broke
+    a caller or user.
+  continuous: >
+    Behaviour checks ran automatically on your behaviour-changing changes.
+  slipped: >
+    A behaviour-changing change went without its behaviour checks, in
+    {session}.
+
+next_step: >
+  On your next change to an API or user flow, ask for one check written from
+  the caller's side: what they send, what they get back, and what side
+  effects they rely on. Then run it.
+
+advice: >
+  Tests the agent writes after the code tend to check what the code does, not
+  what callers need. A check written from the caller's side, or a recorded
+  output you have actually read, catches a change that passes unit tests but
+  breaks someone downstream.
+
+fix_prompt: >
+  For the change we are making, list the callers or users who rely on this
+  behaviour and what they expect. Write one check from the caller's side that
+  asserts those expectations, show it to me before running it, then run it and
+  show me the result.
