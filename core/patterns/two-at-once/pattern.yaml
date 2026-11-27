@@ -34,10 +34,16 @@ continuous:
       parallel sessions, and has agent turns long enough to wait on.
     holds_when: >
       The owned command or script started isolated parallel sessions in the
-      window, and both sessions did real editing in their own working copies.
+      window, and each pair it started did qualifying paired work: each
+      session in its own working copy, at least one of them interactive, both
+      making edits during overlapping minutes, and the overlap falling during
+      an agent turn of at least five minutes (long_turn) in one of them.
+      Pairs that overlapped only during shorter turns, or with no interactive
+      session, are outside applicable work and do not show it holding.
     not_holding_when: >
       While in place, the command or script started sessions that shared a
-      working copy, or one of them sat idle while the person waited.
+      working copy, or one of them sat idle while the person waited through
+      a long turn.
 
 automate: >
   Once running two isolated sessions is a habit, a command or script you own

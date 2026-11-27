@@ -57,8 +57,8 @@ Applicable work is a repository with per-step checks and a final gate, where the
 
 - kind: source-negative
 - expect: opportunity
-- Setup: in `petrel-api`, which has a Stop gate, the premium main session runs a four-minute integration suite after every edit. Over the window it ran 60 times and caught nothing the Stop gate did not also catch. The person's prompt "refactor the billing module" started that work.
-- Why: an opportunity phrased neutrally: what ran and what it caught, beside the outcomes, citing the person's prompt. It does not say the checks are worthless or that premium work needs no checks.
+- Setup: in `petrel-api`, which has both per-step checks (Gate each step) and a Stop gate, the person's work in the window runs on two tiers: a premium main session and lighter subagents that, in the same window, update fixtures and docs in the same repository. The premium main session runs a four-minute integration suite after every edit, as does the lighter tier. Over the window the suite ran 60 times on premium work and caught nothing the Stop gate did not also catch. The person's prompt "refactor the billing module" started that work.
+- Why: the repository is applicable: both kinds of check and more than one model tier in use. An opportunity phrased neutrally: what ran and what it caught, beside the outcomes, citing the person's prompt. It does not say the checks are worthless or that premium work needs no checks.
 
 ## neg-6 Final gate removed to save time
 

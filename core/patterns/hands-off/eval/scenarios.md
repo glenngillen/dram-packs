@@ -36,8 +36,8 @@ Applicable work is an owned command or skill already run interactively at least 
 
 - kind: mechanism-held
 - expect: continuous
-- Setup: the person's team configured a weekly schedule running their own `/triage` skill in `orchard-jobs`. It ran every week of the window and each time the person applied the proposed labels.
-- Why: in place, applied and held: the configured trigger ran the owned workflow and its output was used. No block reaches `continuous` in the pinned build.
+- Setup: before the window, the person ran their own `/triage` skill interactively in `orchard-jobs` in three earlier interactive runs, watching each. Their team then configured a weekly schedule running `/triage` there. It ran every week of the window and each time the person applied the proposed labels.
+- Why: the three prior interactive runs make the owned workflow applicable. In place, applied and held: the configured trigger ran the owned workflow and its output was used. No block reaches `continuous` in the pinned build.
 
 ## neg-1 Same command run only interactively
 

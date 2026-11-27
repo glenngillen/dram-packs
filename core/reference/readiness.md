@@ -40,7 +40,7 @@ The eight code-checked patterns named as the first activation candidates are Giv
 | `fan-out` | [Fan Out](../patterns/fan-out/definition.md) | Delegation | 3 | Authored; structurally valid; not evaluable (13 of 13 cases unevaluable); disabled |
 | `hands-off` | [Hands Off](../patterns/hands-off/definition.md) | Delegation | 4 | Authored; structurally valid; not evaluable (17 of 17 cases unevaluable); disabled |
 | `isolate-the-run` | [Isolate the Run](../patterns/isolate-the-run/definition.md) | Delegation | 5 | Authored; structurally valid; not evaluable (18 of 18 cases unevaluable); disabled |
-| `two-at-once` | [Two at Once](../patterns/two-at-once/definition.md) | Delegation | 6 | Authored; structurally valid; not evaluable (18 of 18 cases unevaluable); disabled |
+| `two-at-once` | [Two at Once](../patterns/two-at-once/definition.md) | Delegation | 6 | Authored; structurally valid; not evaluable (20 of 20 cases unevaluable); disabled |
 | `right-size-it` | [Right-size It](../patterns/right-size-it/definition.md) | Economics | 1 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |
 | `mind-the-cache` | [Mind the Cache](../patterns/mind-the-cache/definition.md) | Economics | 2 | Authored; structurally valid; not evaluable (15 of 15 cases unevaluable); disabled |
 | `harness-carries-it` | [Let the Harness Carry It](../patterns/harness-carries-it/definition.md) | Economics | 3 | Authored; structurally valid; not evaluable (14 of 14 cases unevaluable); disabled |

@@ -62,8 +62,8 @@ The mechanism is an **owned command or script that starts isolated parallel sess
 | --- | --- |
 | In place | The attributable command or script existed during the window. |
 | Applied | It started parallel sessions in the window. |
-| Held | The sessions it started each ran in their own working copy and both did real editing. |
-| Not holding | While in place, it started sessions that shared a working copy, or one of the pair sat idle. |
+| Held | Each pair it started did qualifying paired work: each session in its own working copy, at least one interactive, both making edits during overlapping minutes, and the overlap falling during a turn of at least five minutes (`long_turn`) in one of them. Pairs overlapping only during shorter turns, or with no interactive session, are outside applicable work: they neither show it held nor not holding. |
+| Not holding | While in place, it started sessions that shared a working copy, or one of the pair sat idle while the person waited through a long turn. |
 | Untested | Configured but not used in the window. |
 
 ## Opportunities and coaching

@@ -807,3 +807,60 @@ def test_judge_citations_are_branch_specific(pid):
     assert not re.search(r"^Every finding cites .*? with exact quotations of", citations)
     for shared in (r"exact quot", r"never cite an ID not in the packet", r"outside the analysis window", r"person-authored"):
         assert re.search(shared, citations, re.I), f"{pid}: lost shared rule {shared!r}"
+
+
+# Review F1 (size-it): citations are branch-specific; an opportunity has no
+# breakdown to quote, so it cites the prompt that started the unsized work.
+def test_size_it_judge_citations_are_branch_specific():
+    citations = " ".join(_section(_read("size-it", "judge.md"), "Citations").split())
+    assert not re.search(r"Every finding cites .{0,80}breakdown request", citations)
+    assert re.search(r"For \*\*seen\*\*.{0,250}breakdown.{0,200}first (sub-?task|completed task)", citations)
+    assert re.search(r"For an \*\*opportunity\*\*.{0,250}started the unsized work", citations)
+    assert re.search(r"no breakdown (is needed|to quote)", citations)
+    for shared in (r"exact quot", r"never cite an ID not in the packet", r"outside the analysis window", r"person-authored"):
+        assert re.search(shared, citations, re.I), shared
+    assert "expect: opportunity" in _scenario("size-it", "neg-1")
+    assert "Do the whole migration" in _scenario("size-it", "neg-1")
+
+
+# Review F2 (two-at-once): Continuous holds only on qualifying paired activity.
+QUALIFYING = [r"overlapping minutes", r"interactive", r"long_turn|five minutes"]
+
+
+def test_two_at_once_continuous_requires_qualifying_paired_activity():
+    import yaml
+
+    held = yaml.safe_load(_read("two-at-once", "pattern.yaml"))["continuous"]["held"]
+    holds = " ".join(held["holds_when"].split())
+    for pattern in QUALIFYING:
+        assert re.search(pattern, holds), pattern
+    mechanism = " ".join(_section(_read("two-at-once", "definition.md"), "Mechanism").split())
+    held_row = re.search(r"\| Held \|[^|]*\|", mechanism).group(0)
+    for pattern in QUALIFYING:
+        assert re.search(pattern, held_row), pattern
+    pos5 = _scenario("two-at-once", "pos-5")
+    assert "expect: continuous" in pos5
+    assert re.search(r"interactive", pos5) and re.search(r"overlapping minutes", pos5)
+    assert re.search(r"\d+-minute turn", pos5)
+    for cid, needle in (("neg-14", r"4-minute"), ("neg-15", r"headless")):
+        scenario = _scenario("two-at-once", cid)
+        assert "expect: none" in scenario and re.search(needle, scenario)
+        assert re.search(r"bin/pair-start", scenario)
+        assert _case("two-at-once", cid)["expect"] == "none"
+
+
+# Review F3 (hands-off): the Continuous scenario establishes applicability.
+def test_hands_off_pos_5_establishes_three_interactive_runs():
+    scenario = _scenario("hands-off", "pos-5")
+    assert "expect: continuous" in scenario
+    assert re.search(r"three (earlier |prior )?interactive runs", scenario)
+    assert re.search(r"before the (window|schedule)", scenario)
+
+
+# Review F4 (right-cadence): the opportunity scenario uses more than one tier.
+def test_right_cadence_neg_5_establishes_multiple_tiers():
+    scenario = _scenario("right-cadence", "neg-5")
+    assert "expect: opportunity" in scenario
+    assert re.search(r"lighter", scenario)
+    assert re.search(r"same (repository and )?window|in the same window", scenario)
+    assert re.search(r"Gate each step|per-step checks", scenario)

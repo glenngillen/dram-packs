@@ -36,8 +36,8 @@ Applicable work is an agent turn running at least 5 minutes while the person wai
 
 - kind: mechanism-held
 - expect: continuous
-- Setup: the person's `bin/pair-start` script creates a worktree and opens a second session in it. Across the window they use it four times in `orchard-jobs`, and each time both sessions make real edits.
-- Why: in place, applied and held. No block reaches `continuous` in the pinned build.
+- Setup: the person's `bin/pair-start` script creates a worktree and opens a second session in it. Across the window they use it four times in `orchard-jobs` while an interactive session runs a long turn. Each time the person prompts the first, interactive session (for example "port the scheduler to the new queue"), it runs a 12-minute turn, and during that turn they write a prompt in the second session; both sessions make edits in the overlapping minutes.
+- Why: in place, applied and held: every pair it started had separate working copies, an interactive session, edits in both during overlapping minutes, and the overlap inside a turn of at least `long_turn`. No block reaches `continuous` in the pinned build.
 
 ## neg-1 One working session, one idle
 
@@ -129,3 +129,17 @@ Applicable work is an agent turn running at least 5 minutes while the person wai
 - expect: none
 - Setup: Isolate the run is Seen for the person. In `tidepool-web`, the first session runs a 4-minute turn after "rename the cart helpers". During it, the person opens a second session in a separate worktree and writes "fix the footer link"; both sessions make edits in the overlapping minutes. No turn in either session reaches 5 minutes.
 - Why: separate working copies and real paired edits, but no turn meets `long_turn`, so this is outside applicable work: neither Seen nor an opportunity.
+
+## neg-14 Pairing script used only during short turns
+
+- kind: boundary
+- expect: none
+- Setup: in `tidepool-web`, the person runs `bin/pair-start` three times in the window. Each time both interactive sessions make edits in overlapping minutes, but every turn in either session finishes within a 4-minute turn or less.
+- Why: no overlap falls during a turn of at least `long_turn`, so the pairs are outside applicable work: the mechanism is neither shown holding (no Continuous) nor not holding, and there is no Seen or opportunity.
+
+## neg-15 Pairing script starts two headless sessions
+
+- kind: boundary
+- expect: none
+- Setup: in `orchard-jobs`, the person's `bin/pair-start` launches two headless sessions in separate worktrees that both edit for 20 overlapping minutes; the person never has an interactive session open during them.
+- Why: with no interactive session, nobody was waiting, so this is unattended work (Hands off or Isolate the run territory), not two at once. The pairs do not show the mechanism holding: no Continuous, no Seen and no opportunity.

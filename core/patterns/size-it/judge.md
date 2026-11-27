@@ -26,4 +26,9 @@ Report an **opportunity** only when a session attempted large work (or several l
 
 ## Citations
 
-Every finding cites supplied evidence IDs, with exact quotations of the person's breakdown request. Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.
+Every finding cites supplied evidence IDs and at least one person-authored moment; what it cites depends on the branch:
+
+- For **seen**, cite the person's breakdown request (or their adoption of the agent's proposal), quoted exactly, and the evidence that the first sub-task finished within the analysis window.
+- For an **opportunity**, there is no breakdown to quote, so no breakdown is needed: cite, with an exact quotation, the person prompt that started the unsized work (for example "Do the whole migration", or a prompt abandoning an adopted breakdown), plus the evidence that it did not finish cleanly.
+
+Never paraphrase inside a quotation, never cite an ID not in the packet, and never cite a completion outside the analysis window.

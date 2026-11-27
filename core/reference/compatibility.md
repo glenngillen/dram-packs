@@ -44,7 +44,7 @@ Run on 2026-11-27 in this repository, against the pinned build at `.tmp/dram`:
 | --- | --- | --- |
 | `.tmp/dram pack validate .` | exit 0: `dram.yaml is valid: 1 pack offered`, `glenngillen/core 0.1.0 41 patterns` | The index and pack load beside the built-in packs, with no ID collision. Structural only. |
 | `.tmp/dram pack validate core` | exit 0: `glenngillen/core 0.1.0 is valid: 41 patterns` | As above. |
-| `.tmp/dram pack eval core` | exit 1 (red): 0 passed, 0 failed, 605 unevaluable, 0 errors; all 41 authored patterns held to nothing | **No case was judged.** The red verdict is the expected, honest result for disabled content; it is not hidden or patched. |
+| `.tmp/dram pack eval core` | exit 1 (red): 0 passed, 0 failed, 607 unevaluable, 0 errors; all 41 authored patterns held to nothing | **No case was judged.** The red verdict is the expected, honest result for disabled content; it is not hidden or patched. |
 | `.tmp/dram pack show --dir core --json` | all 41 patterns: `enabled: false`, `status: preview`, `blocks: []` | Each pattern is loadable without presenting an executable recognizer. |
 | `bash scripts/run-tests.sh` | 363 passed, 0 skipped (with the pinned checkout and `.tmp/dram` present) | Local structural checks: schema and registry against the pinned files, references, placeholders, cases, links, parameters, catalogue order. **Not an evaluation.** |
 
