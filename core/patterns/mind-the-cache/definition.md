@@ -21,7 +21,7 @@ Both thresholds are strict ([boundaries](../../reference/parameters.md)):
 
 | Fact | Inside | Outside |
 | --- | --- | --- |
-| Gap | More than 1 hour (for example two hours) | Five minutes; **exactly 1 hour** |
+| Gap (default `cache_gap`, no lifetime supplied) | More than 1 hour (for example two hours) | Five minutes; **exactly 1 hour** |
 | Prior context | More than 150,000 tokens | 40,000 tokens; **exactly 150,000** tokens |
 
 If the CLI supplies the model's known cache lifetime as a fact, that lifetime replaces the default gap ([`cache_gap`](../../reference/parameters.md#cache_gap)); when no lifetime fact is supplied, the documented default (more than 1 hour) applies. A missing lifetime fact is therefore not a gap in the evidence.
@@ -42,7 +42,7 @@ Completing evidence: the timestamps establishing the gap, the prior context size
 
 ## Exclusions
 
-- **Short gaps** (exactly 1 hour or less) and **small contexts** (exactly 150,000 tokens or less): outside applicable work, neither hit nor miss.
+- **Short gaps** (no longer than the applicable cache lifetime: exactly 1 hour or less by default, or the supplied lifetime when one is known) and **small contexts** (exactly 150,000 tokens or less): outside applicable work, neither hit nor miss. With a supplied five-minute lifetime, a twenty-minute return is applicable.
 - **Compaction** on resume: the harness summarising the cold context is not the person's fresh start.
 - **A handoff written but not used**: creating `NOTES.md` before the break and then continuing the old session afterwards is a cold resume.
 - **Guided handoff creation** without the later fresh start after a qualifying gap.
@@ -103,7 +103,7 @@ The pinned CLI (revision `bdea6f6`) runs only `tool_call_matches` and `tool_call
 
 - A two-hour gap then a fresh start from a `NOTES.md` handoff is recognized; a five-minute resume is outside scope.
 - An end-of-day handoff used the next morning is recognized as mechanism evidence; resuming a large 150k-token-plus context after lunch is a miss, not successful cache management.
-- Exactly 1 hour and exactly 150,000 tokens are outside.
+- With the default lifetime, exactly 1 hour is outside; with a supplied lifetime, a gap no longer than that lifetime is outside. Exactly 150,000 tokens is outside.
 - A fresh start after a qualifying gap counts in the denominator alongside cold resumes.
 - Guided handoff creation without the later fresh start is incomplete.
 - With no cache-lifetime fact supplied, the default `cache_gap` applies; a supplied lifetime replaces it.

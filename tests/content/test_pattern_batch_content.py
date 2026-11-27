@@ -747,3 +747,31 @@ def test_mind_the_cache_guide_uses_the_applicable_cache_lifetime():
     assert re.search(r"no longer than the cache lasts", not_done)
     assert re.search(r"one hour (is only )?the default|default.{0,40}one hour", not_done)
     assert re.search(r"(known|supplied).{0,40}lifetime", not_done)
+
+
+# Hand-off review (final batch) F1: two-at-once lets the first initiating
+# prompt precede the overlap (pos-1) while requiring edits in both during it.
+def test_two_at_once_initiating_prompt_may_precede_overlap():
+    assert "expect: seen" in _scenario("two-at-once", "pos-1")
+    for name in ("definition.md", "judge.md", "pattern.yaml"):
+        flat = " ".join(_read("two-at-once", name).split())
+        assert re.search(r"may (come before|precede) the overlap", flat), f"{name}: first prompt must be allowed before the overlap"
+        assert not re.search(r"prompt starting work during the overlap", flat), f"{name}: still requires both prompts inside the overlap"
+
+
+# F2: hands-off neg-11 expects an opportunity, so it must establish the
+# Scope permissions prerequisite the judge requires.
+def test_hands_off_neg_11_establishes_scope_permissions_prerequisite():
+    scenario = _scenario("hands-off", "neg-11")
+    assert "expect: opportunity" in scenario
+    assert re.search(r"Scope permissions is already Seen for an unattended session", scenario)
+
+
+# F3: mind-the-cache's short-gap exclusion follows the applicable lifetime,
+# with one hour only as the default.
+def test_mind_the_cache_short_gap_follows_applicable_lifetime():
+    text = " ".join(_read("mind-the-cache", "definition.md").split())
+    exclusion = re.search(r"\*\*Short gaps\*\*[^\n]*?outside applicable work", text).group(0)
+    assert re.search(r"applicable cache lifetime", exclusion)
+    assert re.search(r"by default", exclusion)
+    assert re.search(r"five-minute lifetime, a twenty-minute return is applicable", text)

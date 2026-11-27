@@ -20,8 +20,8 @@ seen:
   when: >
     Two of the person's main sessions, each in its own separate working copy
     and at least one of them interactive, did real editing in overlapping
-    minutes: the person started work in each with a prompt and each made an
-    edit during the overlap. An idle second session, two sessions sharing
+    minutes: the person started work in each with a prompt (the first may
+    precede the overlap) and both made edits during the overlap. An idle second session, two sessions sharing
     one directory, or a session with its own subagent does not count. The
     overlap must fall during an agent turn lasting at least five minutes
     (long_turn) in one of the sessions; paired editing while every turn is

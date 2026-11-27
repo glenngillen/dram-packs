@@ -20,10 +20,10 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
 
 1. **Two main sessions**, each in its own **separate working copy** as defined in [Isolate the run](../isolate-the-run/definition.md#recognition) (a worktree, separate clone, container or VM checkout). Two different repositories are separate working copies.
 2. **At least one** of them **interactive**.
-3. **Real editing in overlapping minutes**: in each session, a person prompt starting work during the overlap and an agent edit during the overlap.
+3. **Real editing in overlapping minutes**: each session has a person prompt that started its work, and **both** sessions make agent edits during the overlap. The first session's initiating prompt may come before the overlap begins (the second session usually opens while the first is already working, as in pos-1); what must fall inside the overlap is active editing in both.
 4. **During an applicable turn**: the overlap falls during an agent turn of at least 5 minutes ([`long_turn`](../../reference/parameters.md#long_turn), inclusive) in one of the sessions. Paired editing during only shorter turns (for example 4 minutes) is outside applicable work: neither Seen nor a miss.
 
-Completing evidence: **each session's person prompt** starting work during the overlap, **an edit in each**, and the turn duration showing the applicable long turn. One session's evidence alone does not complete the pattern ([cross-session evidence](../../reference/evidence.md#cross-session-evidence)).
+Completing evidence: **each session's initiating person prompt** (the first may precede the overlap), **an edit in each during the overlap**, and the turn duration showing the applicable long turn. One session's evidence alone does not complete the pattern ([cross-session evidence](../../reference/evidence.md#cross-session-evidence)).
 
 Session start and end intervals alone overcount: two sessions open at the same time are not two sessions working. Edit and turn evidence is required.
 

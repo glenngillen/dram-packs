@@ -113,7 +113,7 @@ Applicable work is an owned command or skill already run interactively at least 
 
 - kind: mechanism-not-holding
 - expect: opportunity
-- Setup: the team's weekly schedule runs the owned `/triage` skill in `orchard-jobs` throughout the window. Its proposed labels are never applied; each week the person writes "/triage" in an interactive session and applies those results instead.
+- Setup: the team's weekly schedule runs the owned `/triage` skill in `orchard-jobs` throughout the window. Its proposed labels are never applied; each week the person writes "/triage" in an interactive session and applies those results instead. Scope permissions is already Seen for an unattended session of theirs, so the prerequisite flag is true.
 - Why: applied but not holding: the trigger's output went unused and the work was redone by hand. The opportunity cites the person's interactive "/triage" prompt.
 
 ## neg-12 Fourteen minutes without a person prompt
