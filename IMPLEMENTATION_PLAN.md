@@ -173,5 +173,5 @@ Every following slice delivers complete pattern directories, their synthetic sce
 
 ### Human follow-up
 
-- (human: if required by the schema) Confirm maintainer identity for `dram.yaml`/`pack.yaml`; until then use a neutral placeholder and record it as open.
+- Confirm maintainer identity for `dram.yaml`/`pack.yaml`; until then use a neutral placeholder and record it as open.
 - (human: before release or activation) Review final coaching copy and resolve applicable semantic decisions; undertake private staff evaluation against the recorded stable-quality bars only when detectors are executable. Keep personal histories outside repository artifacts and retain only non-sensitive aggregate readiness evidence.
