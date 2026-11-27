@@ -259,3 +259,64 @@ def test_back_it_up_in_ci_holding_predicates_exclude_known_bypasses():
     assert re.search(r"Continuous", body)
     # The unresolved Seen question for pending or failing runs is preserved.
     assert re.search(r"pending or failing count for Seen", text)
+
+
+# Review v1 F1: report.not_seen copy must stay true for every opportunity
+# scenario. It must not assert absent configuration, unseen feedback or a test
+# classification that the scenario contradicts.
+NOT_SEEN_COPY_MUST_NOT_CLAIM = {
+    "save-it": (["neg-2", "neg-9"], [r"no saved", r"without a saved"]),
+    "write-it-down": (["neg-7"], [r"without being written", r"never written", r"not written"]),
+    "fix-the-harness": (["neg-1", "neg-5"], [r"no rule", r"with no (rule|check|gate)", r"without a (rule|check|gate)"]),
+    "actionable-failures": (["neg-2"], [r"never saw", r"had to guess", r"guess"]),
+    "test-behaviour": (["neg-2"], [r"implementation tests", r"only by"]),
+}
+
+
+def _report_not_seen(pid: str) -> str:
+    import yaml
+
+    data = yaml.safe_load((PATTERNS / pid / "text.yaml").read_text(encoding="utf-8"))
+    return " ".join(data["report"]["not_seen"].split())
+
+
+@pytest.mark.parametrize("pid", sorted(NOT_SEEN_COPY_MUST_NOT_CLAIM))
+def test_report_not_seen_copy_holds_for_every_opportunity_scenario(pid):
+    scenarios, phrases = NOT_SEEN_COPY_MUST_NOT_CLAIM[pid]
+    for sid in scenarios:
+        assert "expect: opportunity" in _scenario(pid, sid), f"{pid} {sid} must be an opportunity"
+    copy = _report_not_seen(pid)
+    assert "{count}" in copy
+    for phrase in phrases:
+        assert not re.search(phrase, copy, re.I), f"{pid}: report.not_seen contradicts a scenario {phrase!r}"
+
+
+# Review v1 F2: the judge and definition opportunity branches must cover every
+# scenario that expects an opportunity with a mechanism present (saved but
+# unused command, rule loaded but correction recurring, harness change in place
+# but correction recurring), while insufficient evidence stays unassessed.
+OPPORTUNITY_BRANCHES = {
+    "save-it": (["neg-2", "neg-9"], r"saved version existed but (was not|wasn't) (invoked|used)"),
+    "write-it-down": (["neg-7"], r"corrected again .*while the (persisted )?rule was in place and loaded"),
+    "fix-the-harness": (["neg-1", "neg-5"], r"recurred .*after a relevant (harness )?change was in place"),
+}
+
+
+def _opportunity_text(pid: str, name: str) -> str:
+    text = (PATTERNS / pid / name).read_text(encoding="utf-8")
+    lines = [l for l in text.splitlines() if re.search(r"opportunity", l, re.I) and re.search(r"^\s*(-|\d+\.)", l)]
+    return " ".join(lines)
+
+
+@pytest.mark.parametrize("pid", sorted(OPPORTUNITY_BRANCHES))
+def test_opportunity_branches_cover_mechanism_present_scenarios(pid):
+    scenarios, branch = OPPORTUNITY_BRANCHES[pid]
+    for sid in scenarios:
+        assert "expect: opportunity" in _scenario(pid, sid), f"{pid} {sid} must be an opportunity"
+    for name in ("judge.md", "definition.md"):
+        text = _opportunity_text(pid, name)
+        assert re.search(branch, text, re.I), f"{pid} {name}: opportunity omits mechanism-present branch"
+        assert re.search(r"insufficient", text, re.I), f"{pid} {name}: opportunity must keep insufficient evidence unassessed"
+    # The original absent-mechanism branch is preserved alongside.
+    judge = _opportunity_text(pid, "judge.md")
+    assert re.search(r"no saved version|without a persisted rule|no guide change", judge, re.I)

@@ -10,8 +10,8 @@ report:
     A behaviour-level check was requested or reviewed and then run for {cases}
     of {applicable} behaviour-changing changes.
   not_seen: >
-    {count} behaviour-changing changes were checked only by implementation
-    tests.
+    {count} behaviour-changing changes passed the checks that ran, then broke
+    a caller or user.
   continuous: >
     Behaviour checks ran automatically on your behaviour-changing changes.
   slipped: >

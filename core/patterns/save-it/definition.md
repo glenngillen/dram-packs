@@ -69,7 +69,7 @@ The mechanism is the person's library of saved commands and skills, used in plac
 
 ## Opportunities and coaching
 
-- **Opportunity**: a request repeated nearly word-for-word across sessions with no saved version. It cites the person's repeated prompts ([opportunities](../../reference/evidence.md#opportunities)).
+- **Opportunity**: a request repeated nearly word-for-word across sessions with no saved version of the person's own, **or** retyped by hand while the person's saved version existed but was not invoked (saved but never run, or not holding). An absent saved command and an unused saved command are distinct findings with the same coaching need. Missing or truncated invocation records are insufficient, not an opportunity. It cites the person's repeated prompts ([opportunities](../../reference/evidence.md#opportunities)).
 - **Coaching**: the [guide](guide.md) uses the person's real repeated requests to make the repetition visible, asks them to request a saved command, then has them run it on another real case.
 - `automate` advice is offered only after the [automation gate](../../reference/progression.md#automation-gate).
 

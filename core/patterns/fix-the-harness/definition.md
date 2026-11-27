@@ -67,7 +67,7 @@ The mechanism is the harness change itself (rule, check or gate) aimed at a recu
 
 ## Opportunities and coaching
 
-- **Opportunity**: the same correction in at least three sessions without a guide change. It cites the person's correction prompts ([opportunities](../../reference/evidence.md#opportunities)).
+- **Opportunity**: the same correction in at least three sessions without a guide change, **or** the correction recurred in a later applicable session after a relevant harness change was in place (not holding). An absent fix and a fix that did not hold are distinct findings. Insufficient later work stays insufficient (untested), not an opportunity. It cites the person's correction prompts ([opportunities](../../reference/evidence.md#opportunities)).
 - **Coaching**: the [guide](guide.md) presents the person's actual repeated corrections and asks them to choose one to prevent with a rule or check.
 - `automate` advice is offered only after the [automation gate](../../reference/progression.md#automation-gate).
 

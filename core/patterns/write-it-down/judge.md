@@ -16,5 +16,5 @@ A session packet: person prompts, agent turns, tool calls, and instruction-file 
 ## Output
 
 - `seen` only with a person-authored citation for steps 2 and an edit citation for step 3, both with exact quotes and existing IDs, inside the window.
-- `opportunity` only when the same convention was corrected in two sessions without a persisted rule, citing the person's correcting prompt.
+- `opportunity` only when the same convention was corrected in two sessions without a persisted rule, **or** the same convention was corrected again in relevant work while the persisted rule was in place and loaded (not holding, step 4). Cite the person's correcting prompt. If whether the rule existed or was loaded in that session is unavailable, return insufficient: not an opportunity.
 - Otherwise nothing. Missing, truncated or unanalysed evidence is insufficient, never a miss.

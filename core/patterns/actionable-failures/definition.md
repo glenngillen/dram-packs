@@ -69,7 +69,7 @@ The mechanism is hooks or lint rules with actionable fix guidance that return fa
 
 ## Opportunities and coaching
 
-- **Opportunity**: in an applicable repository, the agent made repeated attempts at the same failure because the error was uninformative or never reached it. It cites a person-authored moment, such as the prompt that started the work or the person's message pointing out the repeated failure ([opportunities](../../reference/evidence.md#opportunities)). Repeated attempts visible only in agent output, with no person-authored moment, are not reported.
+- **Opportunity**: in an applicable repository, the agent made repeated attempts at the same failure because the error was uninformative or never reached it, or the failure reached it with actionable detail and the agent ignored it. It cites a person-authored moment, such as the prompt that started the work or the person's message pointing out the repeated failure ([opportunities](../../reference/evidence.md#opportunities)). Repeated attempts visible only in agent output, with no person-authored moment, are not reported.
 - **Coaching**: the [guide](guide.md) has the person pick a real, frequently failing check and wire actionable feedback into their harness.
 - `automate` advice is offered only after the [automation gate](../../reference/progression.md#automation-gate).
 

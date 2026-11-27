@@ -11,8 +11,8 @@ report:
     named problem next, in {cases} of {applicable} sessions where a check
     failed.
   not_seen: >
-    In {count} sessions a check failed but the agent either never saw the
-    failure or had to guess what to change.
+    In {count} sessions a check failed and the agent did not fix the problem
+    in its next step.
   continuous: >
     Your hooks return failures the agent can act on, and it fixes them in its
     next step.

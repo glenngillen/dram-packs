@@ -10,8 +10,8 @@ report:
     You ran your own saved command or skill for {cases} of {applicable}
     requests you had repeated across sessions.
   not_seen: >
-    {count} requests were typed out again in another session with no saved
-    command or skill for them.
+    {count} requests you had repeated across sessions were typed out by hand
+    again instead of going through a command or skill you saved and ran.
   continuous: >
     The requests you repeat go through commands and skills you saved and run
     yourself.

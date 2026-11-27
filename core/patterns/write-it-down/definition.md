@@ -68,7 +68,7 @@ The mechanism is the persisted rule itself: an instruction the agent loads that 
 
 ## Opportunities and coaching
 
-- **Opportunity**: the **same convention corrected in two sessions** with no persisted rule. It cites the person's second correcting prompt ([opportunities](../../reference/evidence.md#opportunities)).
+- **Opportunity**: the **same convention corrected in two sessions** with no persisted rule, **or** the same convention corrected again in relevant work while the persisted rule was in place and loaded (not holding). A missing rule and a rule that did not hold are distinct findings. Missing historical loading evidence is insufficient, not an opportunity. It cites the person's second correcting prompt ([opportunities](../../reference/evidence.md#opportunities)).
 - **Coaching**: the [guide](guide.md) asks what the person keeps correcting and has them request a persistent instruction.
 - The outcome to watch is **Corrections** ([outcomes](../../reference/outcomes.md)); no improvement is claimed without observed data.
 - **Fix the harness is broader**: it requires a prior recurring correction and demonstrated prevention, and may use checks or gates as well as instructions. A Write it down recognition does not automatically earn Fix the harness.

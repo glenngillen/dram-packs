@@ -10,8 +10,8 @@ report:
     A harness change you made stopped a recurring correction in {cases} of
     {applicable} cases.
   not_seen: >
-    {count} corrections came up again in later sessions with no rule, check
-    or gate to prevent them.
+    {count} corrections came up again in later sessions; no harness change
+    you had made was stopping them.
   continuous: >
     The corrections you keep making turn into harness fixes, and they stop
     recurring.
