@@ -10,8 +10,9 @@ report:
     A final gate running your tests, build or type check fired when the agent
     finished, in {cases} of {applicable} repositories with checks.
   not_seen: >
-    In {count} repositories with checks, the agent could finish without a
-    final gate running them.
+    In {count} repositories with checks, the agent finished with checks
+    failing because nothing enforced them: there was no gate, the gate was
+    bypassed, or it ran something that ignored the failure or did not block.
   continuous: >
     Every repository you work in with checks runs a final gate before the
     agent finishes, and failures get fixed rather than bypassed.

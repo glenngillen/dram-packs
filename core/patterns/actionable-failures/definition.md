@@ -64,7 +64,7 @@ The mechanism is hooks or lint rules with actionable fix guidance that return fa
 | In place | The owned hook or lint configuration existed during the window and is set to return failure output to the agent. |
 | Applied | A check actually failed during agent work and its output was delivered to the agent. |
 | Held | The agent fixed the named problem in its next step. |
-| Not holding | The check failed during agent work but the agent did not receive the output, or received output too vague to act on and repeated the failing attempt. |
+| Not holding | The check failed during agent work but the agent did not receive the output; or received output too vague to act on and repeated the failing attempt; or received actionable feedback and ignored it or did not resolve the named problem in its next qualifying response (step or turn: see [open questions](#open-questions)), as in scenario `neg-2`. |
 | Untested | Configured, but no failure occurred during agent work in the window. A quiet hook proves nothing. |
 
 ## Opportunities and coaching

@@ -35,8 +35,11 @@ continuous:
       step.
     not_holding_when: >
       A configured feedback hook failed during agent work but its output did
-      not reach the agent, or the agent repeated the failing attempt because
-      the message did not say what to change.
+      not reach the agent; or the agent repeated the failing attempt because
+      the message did not say what to change; or actionable feedback was
+      delivered and the agent ignored it or did not resolve the named problem
+      in its next qualifying response (whether that is the next step or turn
+      is an open question in definition.md).
 
 automate: >
   Give your most frequent check failures a fix message that names the rule,

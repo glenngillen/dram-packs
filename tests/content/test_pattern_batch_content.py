@@ -450,3 +450,42 @@ def test_learn_from_production_holding_requires_no_recurrence():
         )
     }
     assert cases["pos-5"]["expect"] != "continuous"
+
+
+# Review F1 (gate-done copy): in neg-3 and neg-4 the checks ran and failed, but
+# enforcement was bypassed or swallowed. report.not_seen must describe finishing
+# with failing checks without effective enforcement (absent, bypassed or
+# non-enforcing gates), not claim that no gate ran the checks.
+def test_gate_done_not_seen_covers_bypassed_and_non_enforcing_gates():
+    for sid in ("neg-3", "neg-4"):
+        body = _scenario("gate-done", sid)
+        assert "expect: opportunity" in body
+        assert re.search(r"fail", body, re.I)
+    copy = _report_not_seen("gate-done")
+    assert "{count}" in copy
+    assert not re.search(r"without a final gate running", copy, re.I)
+    assert re.search(r"fail", copy, re.I)
+    for phrase in (r"no gate|absent|without a gate", r"bypass", r"ignor|swallow|did not block|didn't block"):
+        assert re.search(phrase, copy, re.I), f"gate-done report.not_seen omits {phrase!r}"
+
+
+# Review F2 (actionable-failures): neg-2 delivers actionable feedback that the
+# agent ignores. The not-holding predicate and the Mechanism table must cover
+# delivered feedback ignored or left unresolved in the agent's next qualifying
+# response, keeping the unresolved step/turn boundary.
+def test_actionable_failures_not_holding_covers_delivered_feedback_ignored():
+    import yaml
+
+    body = _scenario("actionable-failures", "neg-2")
+    assert "expect: opportunity" in body
+    assert re.search(r"returns .*to the agent", body)
+    assert re.search(r"unrelated|ignor", body, re.I)
+    data = yaml.safe_load((PATTERNS / "actionable-failures" / "pattern.yaml").read_text(encoding="utf-8"))
+    not_holding = " ".join(data["continuous"]["held"]["not_holding_when"].split())
+    text = (PATTERNS / "actionable-failures" / "definition.md").read_text(encoding="utf-8")
+    row = next(l for l in _section(text, "Mechanism").splitlines() if l.startswith("| Not holding |"))
+    for name, flat in (("pattern.yaml", not_holding), ("definition.md / Mechanism", row)):
+        assert re.search(r"ignor", flat, re.I), f"{name}: ignored delivered feedback missing"
+        assert re.search(r"did not resolve|does not resolve|left .*unresolved", flat, re.I), f"{name}: unresolved feedback missing"
+        assert re.search(r"next qualifying response", flat, re.I), f"{name}: next-response boundary missing"
+        assert re.search(r"open question|step or turn|step/turn", flat, re.I), f"{name}: boundary must stay unresolved"
