@@ -6,6 +6,15 @@ This summary is authoring progress, not detector evaluation.
 
 from __future__ import annotations
 
+from hypothesis import settings
+
+# Many property tests build real files under tmp_path, so per-example time
+# depends on disk and machine load, not on the code under test. A wall-clock
+# deadline only makes them flaky (DeadlineExceeded under load); correctness is
+# what they check.
+settings.register_profile("default", deadline=None)
+settings.load_profile("default")
+
 
 def pytest_terminal_summary(terminalreporter):
     from dram_pack_tools.catalogue import coverage, load_catalogue
