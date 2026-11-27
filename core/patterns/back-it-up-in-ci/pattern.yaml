@@ -29,10 +29,13 @@ continuous:
       the window.
     holds_when: >
       All agent work that reached the default branch in the window went through
-      a branch or pull request on which test-running CI actually ran.
+      a branch or pull request on which test-running CI actually ran, and none
+      of it reached the default branch through a known bypass of a required
+      check (an override, a skipped check or a merge past it).
     not_holding_when: >
-      Agent work reached the default branch without a test-running CI run while
-      the workflow was in place, for example a direct push or a bypassed check.
+      Agent work reached the default branch without a test-running CI run, or
+      through a known bypass of a required check after a run, while the
+      workflow was in place, for example a direct push or a bypassed check.
 
 automate: >
   Make the merge path to the default branch go through a pull request whose

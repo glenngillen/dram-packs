@@ -191,3 +191,71 @@ def test_gate_each_step_established_counts_qualifying_instances():
     assert re.search(r"block|feed", row, re.I)
     body = _scenario("gate-each-step", "stage-boundary Quiet")
     assert re.search(r"not (Seen|Forming|Established)", body)
+
+
+# F1: report.seen copy describes only the qualifying Seen event, never the
+# follow-through that pending (pos-6) and ignored (pos-7) scenarios lack.
+SEEN_COPY_MUST_NOT_CLAIM = {
+    "brief-it": (["pos-6"], [r"relied on", r"\bthen\b", r"applied", r"used\b"]),
+    "second-opinion": (["pos-6", "pos-7"], [r"used\b", r"acted on", r"\bfixed\b", r"accepted"]),
+}
+
+
+def _report_seen(pid: str) -> str:
+    import yaml
+
+    data = yaml.safe_load((PATTERNS / pid / "text.yaml").read_text(encoding="utf-8"))
+    return " ".join(data["report"]["seen"].split())
+
+
+@pytest.mark.parametrize("pid", sorted(SEEN_COPY_MUST_NOT_CLAIM))
+def test_report_seen_copy_holds_for_pending_and_ignored_seen_scenarios(pid):
+    scenarios, phrases = SEEN_COPY_MUST_NOT_CLAIM[pid]
+    for sid in scenarios:
+        assert "expect: seen" in _scenario(pid, sid), f"{pid} {sid} must earn Seen"
+    seen = _report_seen(pid)
+    for phrase in phrases:
+        assert not re.search(phrase, seen, re.I), f"{pid}: report.seen claims follow-through {phrase!r}"
+
+
+# F2: an owned, independent automated review whose findings were ignored is
+# Seen with failed follow-through (judge.md), and a not-holding mechanism; it
+# is not an opportunity, which requires acceptance without independent review.
+def test_second_opinion_owned_automated_ignored_review_is_seen_not_opportunity():
+    import json
+
+    body = _scenario("second-opinion", "pos-8")
+    assert "expect: seen" in body
+    assert "- kind: mechanism-not-holding" in body
+    setup = next(l for l in body.splitlines() if l.startswith("- Setup:"))
+    assert re.search(r"owned|team's .*configuration|person's .*configuration", setup, re.I)
+    assert re.search(r"did not write", setup, re.I)
+    assert re.search(r"not holding", body, re.I)
+    assert re.search(r"Forming|later stages", body)
+    cases = [
+        json.loads(l)
+        for l in (PATTERNS / "second-opinion" / "eval" / "cases.jsonl").read_text().splitlines()
+        if l.strip()
+    ]
+    assert next(c for c in cases if c["id"] == "pos-8")["expect"] == "seen"
+    judge = (PATTERNS / "second-opinion" / "judge.md").read_text(encoding="utf-8")
+    assert re.search(r"opportunity\*\*: an applicable change accepted without independent review", judge)
+
+
+# F3: a CI run followed by bypassing its required check must not satisfy the
+# holding predicates.
+def test_back_it_up_in_ci_holding_predicates_exclude_known_bypasses():
+    import yaml
+
+    data = yaml.safe_load((PATTERNS / "back-it-up-in-ci" / "pattern.yaml").read_text(encoding="utf-8"))
+    holds = " ".join(data["continuous"]["held"]["holds_when"].split())
+    assert re.search(r"bypass", holds, re.I)
+    text = (PATTERNS / "back-it-up-in-ci" / "definition.md").read_text(encoding="utf-8")
+    held = next(l for l in text.splitlines() if l.startswith("| Held |"))
+    assert re.search(r"bypass", held, re.I)
+    body = _scenario("back-it-up-in-ci", "stage-boundary CI ran but its required check was bypassed")
+    assert "- kind: stage-boundary" in body
+    assert re.search(r"not holding", body, re.I)
+    assert re.search(r"Continuous", body)
+    # The unresolved Seen question for pending or failing runs is preserved.
+    assert re.search(r"pending or failing count for Seen", text)

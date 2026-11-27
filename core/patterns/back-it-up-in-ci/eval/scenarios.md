@@ -126,6 +126,13 @@ Applicable work is an agent change from the person's main sessions reaching the 
 - Expected: Seen from the first qualifying merge. Forming, with instances credited to weeks 2 and 3, the weeks the merges finished.
 - Why no case: `expect` accepts only `seen`, `continuous`, `opportunity` and `none`.
 
+### stage-boundary CI ran but its required check was bypassed
+
+- kind: stage-boundary
+- Setup: in `wrenfield-api`, every agent change in the window goes through a pull request with a linked test-running CI run. For one of them, the run reports a failing required test check, and the change is merged by overriding that required check.
+- Expected: the mechanism is not holding, so the window cannot reach Continuous even though every change had a linked run. The bypass is reported faithfully. Whether that merge counts for Seen is the separately unresolved pending-or-failing question in the definition's open questions; this scenario does not decide it.
+- Why no case: `expect` accepts only `seen`, `continuous`, `opportunity` and `none`, and cannot express "not Continuous" for a mechanism.
+
 ### stage-boundary Merge outside the window
 
 - kind: stage-boundary

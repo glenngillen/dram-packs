@@ -64,7 +64,7 @@ The mechanism is the merge path itself: test-running CI on every branch or pull 
 | --- | --- |
 | In place | A test-running CI workflow triggered on branches or pull requests, attributable to the person's or team's repository configuration, existed during the window. |
 | Applied | Agent changes reached the default branch through branches or pull requests on which it ran. |
-| Held | Every agent change that reached the default branch in the window had a linked test-running CI run before merging. |
+| Held | Every agent change that reached the default branch in the window had a linked test-running CI run before merging, and none reached it through a known bypass of a required check (an override, a skipped check or a merge past it). A run that happened is not enough when its required check was then bypassed. |
 | Not holding | An agent change reached the default branch without a CI run while the workflow was in place: a direct push, a merge before CI finished, or a bypassed required check. Known failures and bypasses must be reported faithfully, never hidden. |
 | Untested | The workflow was in place but no agent change reached the default branch in the window. |
 

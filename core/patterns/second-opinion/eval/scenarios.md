@@ -54,6 +54,13 @@ Applicable work is an agent change from the person's main sessions committed or 
 - Setup: in `marram-ui`, the person asks a fresh session that did not write the change to review the branch. It reports a null-handling bug. The person writes "merge it" without fixing or answering the finding.
 - Why: the person's independent review request with its result is the qualifying Seen event. Ignoring the findings is failed follow-through: it never counts toward Forming or Established, but it does not retract Seen. (The source's "findings ignored" negative is rejected for those later stages; see the stage-boundary scenario below.)
 
+## pos-8 Owned automated review ran, findings ignored
+
+- kind: mechanism-not-holding
+- expect: seen
+- Setup: the pull request review job in `heathrow-ledger`, owned by the person's team through the repository's own review configuration, ran on the person's pull request. Its reviewer is a separate model run that did not write the change. It flagged an unchecked error before merge. The person wrote "approve and merge" without addressing it; a fix-up followed.
+- Why: an owned, independent review returned a result before acceptance, so the judge's Seen questions are all answered yes and the case is Seen with failed follow-through (`seen-ignored`). It is not an opportunity: an opportunity requires acceptance *without* independent review. Separately, and outside what the case format can label: the ignored findings make the owned mechanism not holding, so it cannot support Continuous, and the review never counts toward Forming or Established. The person's prompt is the attributable citation.
+
 ## neg-1 "Looks right to you?" in the implementing session
 
 - kind: source-negative
@@ -102,13 +109,6 @@ Applicable work is an agent change from the person's main sessions committed or 
 - expect: none
 - Setup: the pull request review job is in place in `marram-ui` but the person opened no pull request there in the window.
 - Why: in place but never applied is untested, not held.
-
-## neg-8 Automated review ran, findings ignored
-
-- kind: mechanism-not-holding
-- expect: opportunity
-- Setup: the pull request review job in `heathrow-ledger` ran on the person's pull request and flagged an unchecked error. The person wrote "approve and merge" without addressing it; a fix-up followed.
-- Why: the mechanism was in place and applied but its findings were not used, so it is not holding. The person's prompt is the citation.
 
 ## neg-9 Spontaneous agent self-review, merged without fix-ups
 

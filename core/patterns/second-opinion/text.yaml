@@ -7,8 +7,8 @@ preview_note: >
 
 report:
   seen: >
-    An independent review was run and used for {cases} of {applicable}
-    changes you accepted.
+    You had a reviewer that did not write the change return a review for
+    {cases} of {applicable} changes.
   not_seen: >
     {count} changes were accepted without an independent review.
   continuous: >

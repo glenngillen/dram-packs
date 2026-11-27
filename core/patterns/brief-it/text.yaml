@@ -7,8 +7,8 @@ preview_note: >
 
 report:
   seen: >
-    {cases} of {applicable} new pieces of work started with the goal and a
-    constraint or context the work then relied on.
+    {cases} of {applicable} new pieces of work started with a brief from you:
+    the goal plus a constraint or context the agent would otherwise guess.
   not_seen: >
     {count} pieces of work started from a bare goal and later needed you to
     correct a wrong assumption.
