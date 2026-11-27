@@ -2,10 +2,9 @@
 # Source: specs/core-catalogue.md. This is authoring metadata, not a Dram file,
 # and is deliberately kept outside the packaged core/ tree.
 #
-# require_complete stays false while patterns are authored incrementally;
-# pending IDs are reported on every test run. The complete-catalogue slice
-# switches it to true, after which every missing pattern fails the checks.
-require_complete: false
+# require_complete is true from the complete-catalogue integration slice on:
+# every catalogue pattern must exist, and a missing one fails the checks.
+require_complete: true
 groups:
   - name: Briefing
     patterns: [brief-it, define-done, plan-first, own-the-expectations]

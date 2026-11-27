@@ -13,6 +13,7 @@ Evidence-based coaching about how a person works with coding agents: 41 patterns
 | [Progression](reference/progression.md) | Stages, stage-dependent completion, guided Seen-only, the automation gate, safety prerequisites, next-step ordering. |
 | [Outcomes](reference/outcomes.md) | The five intended quality measures and their groups. |
 | [Authoring and readiness](reference/authoring.md) | The pattern directory, the per-pattern checklist and the readiness vocabulary. |
+| [Verification scenarios](reference/verification.md) | Pack-wide rejections a recognizer must make (fabricated citations, changed quotes, agent-only attribution, out-of-window completion), all unevaluable at the pinned CLI. |
 | [Compatibility](reference/compatibility.md) | Pinned CLI revision, `min_cli`, identity, what runs and the checks performed. |
 | [Readiness](reference/readiness.md) | One status row per pattern. |
 

@@ -62,7 +62,7 @@ def test_manifest_identity_and_no_unverified_release_claims():
     manifest = load_yaml(PACK / "pack.yaml")
     assert manifest["id"] == PACK_ID
     assert "min_cli" not in manifest, "no tagged release contains the pack loader; see reference/compatibility.md"
-    assert "maintainers" not in manifest, "maintainer identity is unresolved"
+    assert "maintainers" not in manifest, "maintainers needs a scoped org/name; the confirmed identity glenngillen is not one"
     assert manifest.get("channel") == "dev"
 
 

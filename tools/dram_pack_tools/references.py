@@ -83,3 +83,30 @@ def find_executables(root: Path) -> list[Diagnostic]:
             if stat.S_ISREG(mode) and mode & exec_bits:
                 found.append(Diagnostic(str(full), "tree-executable", "packaged trees must not contain executable files"))
     return found
+
+
+# The only file types a declarative pack ships: YAML definitions, Markdown
+# prose, JSONL cases and JSON fixtures. Anything else (scripts, binaries,
+# policy code, extension-less files) could be mistaken for detection code.
+PACKAGED_SUFFIXES = frozenset({".yaml", ".md", ".jsonl", ".json"})
+
+
+def find_code_files(root: Path) -> list[Diagnostic]:
+    """Report files that are not declarative data or prose under ``root``.
+
+    A file is reported when its suffix is not in :data:`PACKAGED_SUFFIXES`
+    or when it starts with a shebang, whatever its name.
+    """
+    found: list[Diagnostic] = []
+    for dirpath, _dirnames, filenames in os.walk(root, followlinks=False):
+        for name in sorted(filenames):
+            full = Path(dirpath) / name
+            if full.is_symlink():
+                continue  # reported by find_symlinks
+            if full.suffix.lower() not in PACKAGED_SUFFIXES:
+                found.append(Diagnostic(str(full), "tree-code", f"packaged trees hold only {', '.join(sorted(PACKAGED_SUFFIXES))} files"))
+                continue
+            with full.open("rb") as f:
+                if f.read(2) == b"#!":
+                    found.append(Diagnostic(str(full), "tree-code", "packaged files must not be scripts (shebang)"))
+    return found

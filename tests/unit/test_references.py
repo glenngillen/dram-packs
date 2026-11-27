@@ -9,7 +9,7 @@ from hypothesis import given
 from hypothesis import strategies as st
 
 from dram_pack_tools.diagnostics import PackContentError
-from dram_pack_tools.references import find_executables, find_symlinks, resolve_reference
+from dram_pack_tools.references import PACKAGED_SUFFIXES, find_code_files, find_executables, find_symlinks, resolve_reference
 from tests.helpers.tree import write_tree
 
 
@@ -113,6 +113,28 @@ class TestTreeHygiene:
         assert diag.path == str(script)
 
 
+class TestNoDetectionCode:
+    def test_given_only_data_and_prose_files_then_no_findings(self, pack):
+        write_tree(pack, {"patterns/p/guide.md": "# g\n", "patterns/p/eval/cases.jsonl": "{}\n", "patterns/p/eval/f.json": "{}\n"})
+        assert find_code_files(pack) == []
+
+    @pytest.mark.parametrize("name", ["detect.py", "check.sh", "run.js", "main.go", "rule.rego", "Makefile", "judge.MD.py"])
+    def test_given_code_or_unknown_file_type_then_reported(self, pack, name):
+        write_tree(pack, {f"patterns/p/{name}": "print(1)\n"})
+        [diag] = find_code_files(pack)
+        assert diag.code == "tree-code"
+        assert diag.path == str(pack / "patterns/p" / name)
+
+    def test_given_shebang_in_an_allowed_suffix_then_reported(self, pack):
+        write_tree(pack, {"patterns/p/notes.md": "#!/usr/bin/env python3\nprint(1)\n"})
+        [diag] = find_code_files(pack)
+        assert diag.code == "tree-code"
+
+    def test_given_uppercase_allowed_suffix_then_accepted(self, pack):
+        write_tree(pack, {"README.MD": "# r\n"})
+        assert find_code_files(pack) == []
+
+
 segment = st.sampled_from(["a", "b", "..", ".", "patterns", "p", "text.yaml", ""])
 
 
@@ -129,6 +151,13 @@ class TestProperties:
         else:
             assert resolved.is_file()
             assert resolved.resolve().is_relative_to(root.resolve())
+
+    @given(st.text(alphabet=st.characters(categories=["Ll", "Nd"], max_codepoint=127), min_size=1, max_size=8), st.sampled_from([".md", ".yaml", ".jsonl", ".json", ".py", ".sh", ".txt", ""]))
+    def test_a_file_is_reported_exactly_when_its_suffix_is_not_packaged(self, tmp_path_factory, stem, suffix):
+        root = tmp_path_factory.mktemp("prop-code")
+        write_tree(root, {f"d/{stem}{suffix}": "data\n"})
+        reported = len(find_code_files(root)) == 1
+        assert reported == (suffix not in PACKAGED_SUFFIXES)
 
     @given(st.text(max_size=30))
     def test_arbitrary_reference_never_raises_unexpected_errors(self, tmp_path_factory, ref):

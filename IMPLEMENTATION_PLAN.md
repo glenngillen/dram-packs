@@ -149,13 +149,13 @@ Every following slice delivers complete pattern directories, their synthetic sce
 
 ### Integration and hand-off
 
-- [ ] Enforce complete catalogue and CLI compatibility acceptance.
+- [x] Enforce complete catalogue and CLI compatibility acceptance.
   - Require exactly 41 unique qualified IDs in the eight groups and source order, complete content/scenario coverage, explicit disabled status, valid references, supported fields/blocks/placeholders and no packaged symlinks or executable detection code.
   - Extend integration coverage to load alongside the supplied built-in IaC and recommendation packs, including both right-size-it IDs, without replacing recommendation behavior.
   - Run local tooling checks and the pinned CLI's supported validation/evaluation commands during building only. Record actual pass/fail/unevaluable counts and precise capability reasons; do not patch the evaluator or hide its expected red verdict for unsupported recognition.
   - Verify rejection of fabricated citations, changed quotes, inappropriate attribution and out-of-window evidence wherever the pinned evaluator can express them; otherwise preserve those scenarios as explicitly unevaluable.
 
-- [ ] Publish repository installation guidance and an evidence-backed readiness inventory.
+- [x] Publish repository installation guidance and an evidence-backed readiness inventory.
   - Write the root README and compatibility/readiness notes with verified installation commands, pack/rule versions, CLI revision/release, evaluation date, actual commands/results and one status row per pattern.
   - Explain disabled content availability, schema validation, evaluability and activation separately; document unresolved dependencies and keep all 41 recognizers disabled for this delivery.
   - Review copy against the guides' real-work, positive-completion and no-action branches, safety prerequisites and prohibited scoring/savings claims. Record the review actually performed and any outstanding owner review.

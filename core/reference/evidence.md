@@ -21,6 +21,8 @@ A verified recognition requires all of:
 3. at least one attributable, person-authored citation; configuration evidence can supply attribution where the pattern says so;
 4. completion inside the analysis window, in the person's local time (see [completion windows](#completion-windows)).
 
+The pack-wide rejection scenarios for these rules (fabricated citation, changed quote, agent-only recognition or opportunity, out-of-window completion and more) are in [verification scenarios](verification.md). None can run at the pinned CLI; each is kept as unevaluable.
+
 Pending: whether a held case must also cite the configuration that produced it. Do not weaken invariant 3 to make an example pass while this is open.
 
 ## Opportunities

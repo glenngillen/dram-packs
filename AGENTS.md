@@ -1,7 +1,7 @@
 # Agent notes
 
 - Run tests with `bash scripts/run-tests.sh` (uv + pytest; `uv sync` first if `.venv` is missing). Pytest `pythonpath` covers `tools/` and the repo root.
-- `tools/catalogue.yaml` lists the 41 source IDs; `require_complete: false` until the complete-catalogue slice. Pending patterns print in the terminal summary.
+- `tools/catalogue.yaml` lists the 41 source IDs; `require_complete: true` (integration slice), so a missing pattern fails `tests/content/test_complete_catalogue.py`. The packaged `core/` tree may hold only `.yaml`, `.md`, `.jsonl`, `.json` files (`references.find_code_files`).
 - `tests/unit/` must use synthetic `tmp_path` trees only; `tests/content/` reads real repo content read-only.
 - The Dram schema/loader is not vendored here: read it from the CLI checkout at `/Volumes/Development/infracost/dram` (pinned `bdea6f6`, read-only; `internal/pack/schema.json`, `blocks.json`, `packs/`). Do not invent schema fields; `dram_pack_tools.schema` converts that schema's errors to diagnostics.
 - Structural checks are never evaluation verdicts; keep that distinction in docs and output.
@@ -11,3 +11,5 @@
 - No tagged Dram release contains the pack loader, so `core/pack.yaml` has no `min_cli` (see `core/reference/compatibility.md`).
 - All 41 patterns are authored (as of the second pattern-content batch); `.tmp/dram pack eval core` reports 607 unevaluable cases and no totals line, so sum the per-pattern counts. Mind the cache reuses the CLI's real `cache-rebuild` recommendation signal (`docs/recommendations.md` at `bdea6f6`) for cost wording only.
 - `tests/content/test_pattern_batch_content.py` holds per-pattern required phrases (spec distinctions) for authored patterns; extend it when authoring new patterns. After adding patterns, update `core/groups.yaml`, readiness rows (case counts from `.tmp/dram pack eval core`) and the `compatibility.md` checks-run table.
+- `tests/content/test_cli_loader.py` simulates an install by copying `core/` to `<tmp>/packs/glenngillen/core` plus a `packs.json` record and running `.tmp/dram --state-dir <tmp> pack list/show`; no network. Pack-wide citation/quote/attribution/window rejections live in `core/reference/verification.md` (unevaluable at `bdea6f6`), not in per-pattern cases.
+- Hand-off docs (`README.md`, `core/reference/readiness.md`, `core/reference/compatibility.md` checks-run table) are guarded by `tests/content/test_handoff_docs.py`; update recorded test/eval counts when they change.
