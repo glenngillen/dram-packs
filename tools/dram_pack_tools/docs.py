@@ -59,17 +59,23 @@ def slugify(heading: str) -> str:
 
 
 def heading_slugs(text: str) -> set[str]:
-    seen: dict[str, int] = {}
-    out: set[str] = set()
+    """Anchors GitHub assigns to the headings in ``text``.
+
+    Mirrors github-slugger: a repeated slug takes the next ``-N`` suffix that
+    no earlier heading (suffixed or not) already holds, so ``A``, ``A-1``,
+    ``A`` yields ``a``, ``a-1``, ``a-2``.
+    """
+    occurrences: dict[str, int] = {}
     for _number, line in _prose_lines(text):
         m = _HEADING.match(line)
         if not m:
             continue
-        base = slugify(m.group(2).strip())
-        count = seen.get(base, 0)
-        seen[base] = count + 1
-        out.add(base if count == 0 else f"{base}-{count}")
-    return out
+        base = result = slugify(m.group(2).strip())
+        while result in occurrences:
+            occurrences[base] += 1
+            result = f"{base}-{occurrences[base]}"
+        occurrences[result] = 0
+    return set(occurrences)
 
 
 def check_links(md_path: Path, root: Path) -> list[Diagnostic]:

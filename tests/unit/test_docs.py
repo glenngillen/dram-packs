@@ -34,6 +34,11 @@ def test_heading_slugs_number_repeats():
     assert heading_slugs("# A\n## A\n```\n# B\n```\n") == {"a", "a-1"}
 
 
+def test_heading_slugs_skip_suffixes_already_taken():
+    # The third heading cannot reuse "a-1"; GitHub gives it "a-2".
+    assert heading_slugs("# A\n# A-1\n# A\n") == {"a", "a-1", "a-2"}
+
+
 def test_check_links_reports_missing_escaping_and_bad_anchor(tmp_path):
     write_tree(
         tmp_path,
@@ -129,6 +134,16 @@ class TestProperties:
         slugs = heading_slugs(text)
         assert len(slugs) == repeats
         assert slugify(title) in slugs
+
+    @given(st.lists(st.tuples(heading_text, st.integers(min_value=0, max_value=3)), min_size=1, max_size=8))
+    def test_every_heading_gets_its_own_anchor_even_with_suffix_collisions(self, specs):
+        # Headings that already end in "-N" collide with generated suffixes;
+        # every heading must still receive a distinct anchor.
+        titles = [t if n == 0 else f"{t}-{n}" for t, n in specs]
+        text = "\n\n".join("# " + t for t in titles) + "\n"
+        slugs = heading_slugs(text)
+        assert len(slugs) == len(titles)
+        assert {slugify(t) for t in titles} <= slugs
 
     @given(st.lists(st.tuples(param_name, anchor, param_path), max_size=6))
     def test_parameter_links_preserve_names_anchors_and_order(self, links):

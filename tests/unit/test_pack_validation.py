@@ -15,6 +15,9 @@ from hypothesis import strategies as st
 from dram_pack_tools.pack import (
     IMPLEMENTED_CHECKS,
     IMPLEMENTED_GATES,
+    PLACEHOLDERS,
+    _check_text,
+    _entry_path_problem,
     block_refs,
     executable_refs,
     validate_index,
@@ -259,3 +262,46 @@ class TestProperties:
         raw["moments"] = [{"signal": n} for n in moments]
         expected += [(f"moments[{i}]", n, "moment") for i, n in enumerate(moments)]
         assert [(r.field, r.name, r.kind) for r in block_refs(raw)] == expected
+
+    # Synthetic path segments and text fields for the path and placeholder rules.
+    segment = st.from_regex(r"[A-Za-z0-9_-][A-Za-z0-9_.-]{0,8}", fullmatch=True).filter(lambda x: x not in (".", ".."))
+    rel_path = st.lists(segment, min_size=1, max_size=5).map("/".join)
+
+    @given(rel_path)
+    def test_contained_relative_paths_are_accepted(self, path):
+        assert _entry_path_problem(path) is None
+
+    @given(rel_path)
+    def test_absolute_paths_are_rejected(self, path):
+        assert _entry_path_problem("/" + path) == f"/{path} is absolute"
+
+    @given(st.lists(segment, max_size=3), st.sampled_from([".", ".."]), st.lists(segment, max_size=3))
+    def test_dot_segments_anywhere_are_rejected(self, before, dot, after):
+        path = "/".join(before + [dot] + after)
+        assert _entry_path_problem(path) == f"{path} leaves the repository"
+
+    field_paths = st.sampled_from(sorted(PLACEHOLDERS) + [("name",), ("summary",), ("report", "other"), ("guide", "intro")])
+    ph_name = st.from_regex(r"[a-z_]{1,10}", fullmatch=True)
+
+    @staticmethod
+    def _nest(path, value):
+        for key in reversed(path):
+            value = {key: value}
+        return value
+
+    @given(field_paths, st.lists(ph_name, max_size=4))
+    def test_placeholders_pass_only_where_supported(self, path, names):
+        allowed = PLACEHOLDERS.get(path, set())
+        text = self._nest(path, "x " + " ".join("{" + n + "}" for n in names))
+        diags = _check_text(text, "text.yaml")
+        unsupported = [n for n in names if n not in allowed]
+        assert len(diags) == len(unsupported)
+        assert all(d.code == "placeholder" and d.path == "text.yaml" for d in diags)
+        for d, n in zip(diags, unsupported):
+            assert "{" + n + "}" in d.message and ".".join(path) in d.message
+
+    @given(field_paths)
+    def test_supported_placeholders_alone_never_produce_diagnostics(self, path):
+        allowed = sorted(PLACEHOLDERS.get(path, set()))
+        text = self._nest(path, " ".join("{" + n + "}" for n in allowed) or "plain text")
+        assert _check_text(text, "text.yaml") == []
