@@ -649,6 +649,11 @@ def test_two_at_once_requires_the_long_turn_for_recognition_and_guide():
     assert "expect: none" in scenario and re.search(r"4-minute", scenario)
     assert re.search(r"second session", scenario)
     assert _case("two-at-once", "neg-13")["expect"] == "none"
+    import yaml
+
+    seen_when = " ".join(yaml.safe_load(_read("two-at-once", "pattern.yaml"))["seen"]["when"].split())
+    assert re.search(r"at least five minutes", seen_when)
+    assert re.search(r"long_turn", seen_when)
 
 
 def test_two_at_once_shared_directory_mechanism_case_is_not_an_opportunity():
@@ -719,3 +724,15 @@ def test_set_checkpoints_unapproved_deploy_request_is_preparation_only():
     scenario = _scenario("set-checkpoints", "neg-7")
     assert "ship it" not in scenario
     assert re.search(r"do not deploy|don't deploy", scenario)
+
+
+def test_harness_carries_it_failed_lighter_trials_are_not_opportunities():
+    for cid in ("neg-2", "neg-9"):
+        scenario = _scenario("harness-carries-it", cid)
+        assert "expect: none" in scenario
+        assert _case("harness-carries-it", cid)["expect"] == "none"
+    assert "kind: mechanism-not-holding" in _scenario("harness-carries-it", "neg-9")
+    assert re.search(r"not holding", _scenario("harness-carries-it", "neg-9"))
+    opportunities = _section(_read("harness-carries-it", "definition.md"), "Opportunities and coaching")
+    assert re.search(r"[Ff]ailed lighter trials are not an opportunity", opportunities)
+    assert re.search(r"never tried on the lighter model", opportunities)

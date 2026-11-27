@@ -91,9 +91,9 @@ Applicable work is routine work ([`routine_work`](../../../reference/parameters.
 ## neg-9 Mechanism in place, lighter work keeps failing
 
 - kind: mechanism-not-holding
-- expect: opportunity
+- expect: none
 - Setup: the person's lighter default is in place. In `puffin-api` three routine tasks in the window fail the Stop gate on the lighter model, and each time the person writes "switch to opus and finish it".
-- Why: in place and applied, but lighter routine work routinely failed and was finished on premium: not holding. The opportunity cites the person's prompts and points at the failing gate output, not at the person.
+- Why: in place and applied, but lighter routine work routinely failed and was finished on premium: the mechanism is not holding, so it cannot support Continuous. Failed lighter trials are not premium work a lighter model could have carried, so this is not an opportunity to try another lighter run; as in neg-2, work finished on premium after a lighter failure yields neither recognition nor an opportunity.
 
 ## neg-10 Pinned subagent unused
 

@@ -70,6 +70,7 @@ A mechanism of the person's own that sends routine work to a lighter model (a li
 ## Opportunities and coaching
 
 - **Opportunity**: routine work ran on a premium model in a repository where effective gates ran on that work and could have judged a lighter model's result. It cites the person prompt that started the work ([opportunities](../../reference/evidence.md#opportunities)). Without effective gates there is no opportunity here; that is a Checking-the-work matter first.
+- **Failed lighter trials are not an opportunity.** Work that the lighter model attempted, failed and that was finished on premium (neg-2, and repeatedly under a lighter default in neg-9) is evidence that the lighter model is not carrying that work, or that the mechanism is not holding. It never supports recommending another lighter trial; only premium work never tried on the lighter model, in a gated repository, can be an opportunity.
 - Copy makes no savings or billing claim ([outcomes](../../reference/outcomes.md#rules)).
 - **Coaching**: the [guide](guide.md) proposes a real routine task on a lighter model and lets the actual checks assess it.
 - `automate` advice is offered only after the [automation gate](../../reference/progression.md#automation-gate).
