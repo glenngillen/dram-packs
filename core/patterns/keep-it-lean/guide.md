@@ -18,7 +18,9 @@ Ask your agent:
 
 Look only at what it can show you: both conflicting lines, or a measured size. Do not act on a guess about cost, and do not remove a rule only because it is old or rarely needed.
 
-- If there is no contradiction and the files are a small share of the context, **stop here**. They are already lean; nothing to do.
+Size only counts as a cost problem when the measured share is **more than 12%** of the starting context ([`instruction_cost_share`](../../reference/parameters.md#instruction_cost_share), a provisional, tunable default). The boundary is strict: exactly 12% does not cross it.
+
+- If there is no contradiction and the measured share is 12% or less (or there is no measurement), **stop here**. There is no conflict or cost problem to act on.
 
 ## 3. Decide what to keep
 
@@ -30,7 +32,7 @@ Ask your agent to make the change, for example:
 
 > Our two test commands disagree. Keep `make test` and remove the old `npm test` line. Show me the diff first.
 
-**Done:** you asked for the reconciliation, trim or split after seeing the actual conflict or measured cost. That request is what this pattern recognizes as Seen once detection is available. When the edit is made and still in the default branch two weeks later, it has also stuck, and that is what counts toward the later stages.
+**Done:** you asked for the reconciliation after seeing both conflicting lines, or for the trim or split after seeing a measured cost of more than 12% of the starting context. A request made at exactly 12% or below does not count for cost. That request is what this pattern recognizes as Seen once detection is available. When the edit is made and still in the default branch two weeks later, it has also stuck, and that is what counts toward the later stages.
 
 **Not done yet:** if you looked at the conflict or the size and asked for nothing, or the agent rewrote the file without you asking, the step has not happened yet. That is fine and nothing is recorded against you; the next step is still to ask for the change.
 

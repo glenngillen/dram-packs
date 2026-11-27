@@ -364,3 +364,17 @@ def test_hand_it_off_guide_states_the_24_hour_window():
     assert not re.search(r"within 24 hours of (writing|the handoff)", guide)
     params = (PATTERNS.parent / "reference" / "parameters.md").read_text(encoding="utf-8")
     assert re.search(r"ended within 24 hours", params)
+
+
+# F1: the guide states the strict instruction_cost_share boundary, so a
+# below-threshold (or exactly 12%) cost cannot be presented as qualifying.
+def test_keep_it_lean_guide_states_the_strict_cost_threshold():
+    assert "expect: none" in _scenario("keep-it-lean", "neg-7")
+    guide = (PATTERNS / "keep-it-lean" / "guide.md").read_text(encoding="utf-8")
+    assert "../../reference/parameters.md#instruction_cost_share" in guide
+    assert re.search(r"more than 12%", guide)
+    assert re.search(r"exactly 12% does not", guide, re.I)
+    assert "a small share" not in guide
+    done = guide.split("**Done:**", 1)[1].split("\n\n", 1)[0]
+    assert re.search(r"more than 12%", done), "Done must state the strict boundary"
+    assert re.search(r"exactly 12% or below does not count", done)
