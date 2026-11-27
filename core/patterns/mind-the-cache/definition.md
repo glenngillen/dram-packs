@@ -24,7 +24,9 @@ Both thresholds are strict ([boundaries](../../reference/parameters.md)):
 | Gap | More than 1 hour (for example two hours) | Five minutes; **exactly 1 hour** |
 | Prior context | More than 150,000 tokens | 40,000 tokens; **exactly 150,000** tokens |
 
-If the CLI supplies the model's known cache lifetime as a fact, that lifetime replaces the default gap ([`cache_gap`](../../reference/parameters.md#cache_gap)). **Unknown** cache lifetime, context size or timestamps produce no recognition, no miss and no cost ([insufficient evidence](../../reference/evidence.md#insufficient-evidence)).
+If the CLI supplies the model's known cache lifetime as a fact, that lifetime replaces the default gap ([`cache_gap`](../../reference/parameters.md#cache_gap)); when no lifetime fact is supplied, the documented default (more than 1 hour) applies. A missing lifetime fact is therefore not a gap in the evidence.
+
+The **required recognition inputs** are the turn timestamps that establish the gap and the prior context size. If either is unknown, there is no recognition, no miss and no cost ([insufficient evidence](../../reference/evidence.md#insufficient-evidence)). Usage and pricing are **optional cost inputs**: unknown usage or pricing removes the cost line only and does not prevent the return being assessed (see [Evidence](#evidence)).
 
 "Same work" means the same task continued: the cold session itself, or a new session in the same repository picking the task up. Unrelated new work after a break is not a return. A window with no qualifying return is **no applicable work**.
 
@@ -94,7 +96,7 @@ The pinned CLI (revision `bdea6f6`) runs only `tool_call_matches` and `tool_call
 - **Gap and context facts** per return: the gap length, prior context tokens and the model's cache lifetime.
 - **Session-start provenance**: fresh start, `/clear`, resume, compaction.
 - **Pairing** of a return with the earlier work, including a fresh session in the same repository, and with the handoff file it read.
-- **Cost reuse**: the `cache-rebuild` estimate exposed to pattern copy, with unknown usage or pricing producing nothing.
+- **Cost reuse**: the `cache-rebuild` estimate exposed to pattern copy, with unknown usage or pricing producing no cost line (the return is still assessed).
 - **Mechanism attribution and evaluation**: an owned command or Stop hook writing handoffs; nothing reaches the `continuous` stage in the pinned build.
 
 ## Verify before enabling
@@ -104,5 +106,7 @@ The pinned CLI (revision `bdea6f6`) runs only `tool_call_matches` and `tool_call
 - Exactly 1 hour and exactly 150,000 tokens are outside.
 - A fresh start after a qualifying gap counts in the denominator alongside cold resumes.
 - Guided handoff creation without the later fresh start is incomplete.
-- Unknown cache lifetime, context size, usage or pricing produces no recognition and no cost.
+- With no cache-lifetime fact supplied, the default `cache_gap` applies; a supplied lifetime replaces it.
+- Unknown timestamps or context size produce no recognition, no miss and no cost.
+- Unknown usage or pricing suppresses only the cost line; recognition or a miss is still assessed.
 - Every case in `eval/cases.jsonl` runs (none unevaluable) and passes on the enabling CLI build.

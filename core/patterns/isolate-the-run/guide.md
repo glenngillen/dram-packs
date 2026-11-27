@@ -8,7 +8,7 @@ Give your next unattended or parallel run its own working copy, so it cannot tra
 
 You need one of:
 
-- a real task you are about to let the agent run **unattended** (headless, or working for a long stretch without you); or
+- a real task you are about to let the agent run **unattended** (headless, or an interactive session working for **at least fifteen minutes** without a prompt from you); or
 - a real task you want to run in a **second session** while another session is still working in the same repository.
 
 If you have neither right now, **stop here**. There is no exercise and nothing to recognize; come back when you next run work unattended or in parallel.
@@ -25,9 +25,9 @@ Review the commands, then let it create the worktree (or clone, or container wit
 
 Start the unattended or second session **inside the new working copy** and let it do the real work.
 
-**Done:** the run did its work in its own working copy while the other copy was left alone. That is this pattern.
+**Done:** the run was unattended (headless, or at least fifteen minutes of continued agent work without a prompt from you) or overlapped another working session, and it did its work in its own working copy while the other copy was left alone. That is this pattern.
 
-**Not done yet:** if you created the worktree but have not run anything in it, or both sessions still worked in one directory on different branches, the pattern has not happened yet. That is fine. Nothing is recorded against you; use the worktree for your next qualifying task.
+**Not done yet:** if you created the worktree but have not run anything in it, the run was interactive and stopped for your prompts in under fifteen minutes with no second session working at the same time, or both sessions still worked in one directory on different branches, the pattern has not happened yet. That is fine. Nothing is recorded against you; use the worktree for your next qualifying task.
 
 ## Later
 

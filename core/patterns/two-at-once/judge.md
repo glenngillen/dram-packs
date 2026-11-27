@@ -13,8 +13,9 @@ A pair of main sessions with code-computed facts supplied, never inferred by you
 3. Is either a subagent of the other? If so, stop: not a pair.
 4. In the overlapping minutes, did **each** session have a person prompt starting work and an agent edit? An open session with no prompt or edit in the overlap is idle.
 5. Is the work in each real and independent (not one session merely watching or repeating the other)?
+6. Does the overlap fall during an **applicable turn of at least 5 minutes** (`long_turn`, inclusive) in one of the sessions, per the supplied turn durations? Paired editing during only shorter turns, for example 4 minutes, is not applicable work. If turn durations are absent, report nothing.
 
-Recognize **seen** only when 1–5 hold. Cite both sides.
+Recognize **seen** only when 1–6 hold. Cite both sides.
 
 Reject idle overlap, shared directories, parent-plus-subagent pairs, non-overlapping sessions and guided setup without paired active work.
 

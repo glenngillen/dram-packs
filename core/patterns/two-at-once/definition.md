@@ -21,8 +21,9 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
 1. **Two main sessions**, each in its own **separate working copy** as defined in [Isolate the run](../isolate-the-run/definition.md#recognition) (a worktree, separate clone, container or VM checkout). Two different repositories are separate working copies.
 2. **At least one** of them **interactive**.
 3. **Real editing in overlapping minutes**: in each session, a person prompt starting work during the overlap and an agent edit during the overlap.
+4. **During an applicable turn**: the overlap falls during an agent turn of at least 5 minutes ([`long_turn`](../../reference/parameters.md#long_turn), inclusive) in one of the sessions. Paired editing during only shorter turns (for example 4 minutes) is outside applicable work: neither Seen nor a miss.
 
-Completing evidence: **each session's person prompt** starting work during the overlap and **an edit in each**. One session's evidence alone does not complete the pattern ([cross-session evidence](../../reference/evidence.md#cross-session-evidence)).
+Completing evidence: **each session's person prompt** starting work during the overlap, **an edit in each**, and the turn duration showing the applicable long turn. One session's evidence alone does not complete the pattern ([cross-session evidence](../../reference/evidence.md#cross-session-evidence)).
 
 Session start and end intervals alone overcount: two sessions open at the same time are not two sessions working. Edit and turn evidence is required.
 
@@ -94,5 +95,6 @@ Recognition is a property of a pair of sessions, not one. The pinned CLI (revisi
 - Two sessions in one directory on different branches are rejected.
 - Guided setup without actual paired active work does not earn Seen.
 - Missing isolation prerequisite suppresses the suggestion.
-- A turn of exactly 5 minutes is applicable; 4 minutes is not.
+- A turn of exactly 5 minutes is applicable; 4 minutes is not, including when a second isolated session edits during it.
+- A pairing script that opens the second session in a shared working copy is mechanism-not-holding evidence, not an opportunity for this pattern.
 - Every case in `eval/cases.jsonl` runs (none unevaluable) and passes on the enabling CLI build.

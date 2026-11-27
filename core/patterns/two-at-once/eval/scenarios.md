@@ -119,6 +119,13 @@ Applicable work is an agent turn running at least 5 minutes while the person wai
 ## neg-12 Pairing script reused one directory
 
 - kind: mechanism-not-holding
-- expect: opportunity
+- expect: none
 - Setup: the person's `bin/pair-start` fails to create a worktree and opens the second session in the main checkout of `quillmark`. The person writes "update the README examples" there while the first session edits; both edit the same working copy.
-- Why: in place and applied, but not holding: the pair shared a working copy. The opportunity cites "update the README examples".
+- Why: in place and applied, but not holding: the pair shared a working copy, which is recorded as mechanism evidence for this pattern. It is not this pattern's opportunity: an opportunity here needs a long turn waited out with no other session working, and both sessions were working. Shared-directory editing is described separately as an Isolate the run opportunity (compare neg-4), citing "update the README examples".
+
+## neg-13 Paired editing during only 4-minute turns
+
+- kind: boundary
+- expect: none
+- Setup: Isolate the run is Seen for the person. In `tidepool-web`, the first session runs a 4-minute turn after "rename the cart helpers". During it, the person opens a second session in a separate worktree and writes "fix the footer link"; both sessions make edits in the overlapping minutes. No turn in either session reaches 5 minutes.
+- Why: separate working copies and real paired edits, but no turn meets `long_turn`, so this is outside applicable work: neither Seen nor an opportunity.

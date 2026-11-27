@@ -11,8 +11,8 @@ report:
     work, with the final gate kept, in {cases} of {applicable} repositories
     where you use more than one model.
   not_seen: >
-    In {count} repositories, the same heavy step checks ran after every edit
-    on every model. They may still be worth it; the outcomes show whether
+    In {count} repositories, heavy step checks ran after every edit in
+    premium-model work. They may still be worth it; the outcomes show whether
     they caught anything.
   continuous: >
     Each model's work runs with the check cadence you set for it, and the

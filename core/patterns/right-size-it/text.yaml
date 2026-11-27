@@ -31,6 +31,8 @@ advice: >
 
 fix_prompt: >
   This next task is routine. Tell me which models this harness actually
-  supports and how to switch between them here, and which one is lighter
-  than the one I am using now. I will decide whether to switch. If the task
+  supports and how to switch between them here, and which of them are
+  lighter than my usual model (the one I normally work on, not necessarily
+  the one selected now). If you cannot tell what my usual model is, say so.
+  I will decide whether to switch. If the task
   turns out to need more, say so and I will switch back.

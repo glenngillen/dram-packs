@@ -16,7 +16,9 @@ If you already use a lighter model as your usual model, this pattern is about ch
 
 Ask your agent:
 
-> Which models does this harness actually support here, how do I switch between them in this session, and which one is lighter than the one I am using now?
+> Which models does this harness actually support here, how do I switch between them in this session, and which of them are lighter than my usual model?
+
+Your **usual model** is the one you normally work on, not whichever is selected right now: if you are on a premium model today only for a one-off, switching back to your usual model is not choosing a lighter one. If you do not know what your usual model is, you can still try the step, but this guide cannot tell you whether it counts.
 
 Use the command, launch flag or setting it reports. Do not guess a model name or flag.
 
@@ -24,9 +26,9 @@ Use the command, launch flag or setting it reports. Do not guess a model name or
 
 Switch to the lighter model **before** the routine work starts, then ask for the change as you normally would. If the task turns out to be harder than it looked, switch back on purpose.
 
-**Done:** you chose the lighter model yourself and the agent then made the edits for the routine task on it. Your usual checks tell you whether the result is good enough.
+**Done:** you chose a model below your usual tier yourself and the agent then made the edits for the routine task on it. Your usual checks tell you whether the result is good enough.
 
-**Not done yet:** if you switched but did no work on the lighter model, or you only read about models, or the harness switched models on its own after a limit, the pattern has not happened yet. That is fine. Nothing is recorded against you; try it on your next routine task.
+**Not done yet:** if you switched but did no work on the lighter model, you only switched back to your usual model, you do not know which model is your usual one, or you only read about models, or the harness switched models on its own after a limit, the pattern has not happened yet. That is fine. Nothing is recorded against you; try it on your next routine task.
 
 ## Later
 

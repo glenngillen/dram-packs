@@ -11,7 +11,8 @@ report:
     of {applicable} repositories or unattended runs.
   not_seen: >
     In {count} sessions a destructive command ran without your approval:
-    nothing guarded it, or the session's mode skipped the guard.
+    nothing guarded it, the session's mode skipped the guard, or the guard
+    did not match the way the command was written.
   continuous: >
     Wherever unattended or parallel work runs, destructive commands are
     guarded, and the guards stopped them when it mattered.

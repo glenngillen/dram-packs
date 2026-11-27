@@ -10,8 +10,8 @@ report:
     You broke large work into smaller tasks and finished the first of them,
     in {cases} of {applicable} pieces of substantial work.
   not_seen: >
-    {count} sessions took on several large goals at once without any of them
-    finishing cleanly.
+    {count} sessions took on one large goal, or several goals together, in a
+    single attempt that did not finish cleanly.
   continuous: >
     Substantial work starts from a plan of smaller tasks you own, and gets
     done one task at a time.

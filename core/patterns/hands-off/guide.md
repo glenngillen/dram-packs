@@ -24,11 +24,11 @@ Review the list. If anything is broader than the command needs, narrow it before
 
 ## 4. Take the step: run it unattended on real work and use the output
 
-Start the run yourself, headless (or let it work without prompting it), on real work in your project. When it finishes, read the output and **use it**: publish the notes, apply the labels, merge or act on the result.
+Start the run yourself on real work in your project, either **headless** or interactively letting it work for **at least fifteen minutes** without prompting it. A shorter interactive run is not unattended. When it finishes, read the output and **use it**: publish the notes, apply the labels, merge or act on the result.
 
-**Done:** your own command ran unattended and you used what it produced. That is this pattern.
+**Done:** your own command ran unattended (headless, or at least fifteen minutes of continued agent work without a prompt from you) and you used what it produced. That is this pattern.
 
-**Not done yet:** if you only set up permissions, ran the command while watching it, or the output was thrown away, the pattern has not happened yet. That is fine. Nothing is recorded against you; try again when the next real use for the command comes up.
+**Not done yet:** if you only set up permissions, ran the command while watching it, ran it interactively for less than fifteen minutes without a qualifying headless or unprompted stretch, or the output was thrown away, the pattern has not happened yet. That is fine. Nothing is recorded against you; try again when the next real use for the command comes up.
 
 ## Later
 

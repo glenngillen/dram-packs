@@ -14,6 +14,7 @@ Shared rules: [evidence](../../reference/evidence.md), [parameters](../../refere
 - In a repository with **checks that run on the change**: [Checks by default](../checks-by-default/definition.md), [Gate "done"](../gate-done/definition.md), [Gate each step](../gate-each-step/definition.md) or [CI](../back-it-up-in-ci/definition.md) linked to the change.
 - What makes a model "lighter" uses the reference tier of [Right-size it](../right-size-it/definition.md); that reference is unresolved (see [open questions](#open-questions)). Unknown tiers are unassessed.
 - A window with no lighter routine work is **no applicable work**.
+- **Two different sets.** The lighter routine work above is the **recognition subset**: only it can earn Seen or Forming. The **coverage denominator** used by Established and Continuous is **all routine work** in gated repositories in the window, whatever model ran it, including deliberate escalations to premium; otherwise filtering to lighter work would make coverage trivially 100%. The same exclusions apply to both sets: immature changes (younger than `kept_window`) and changes with unavailable git history are unassessed and left out of both, and routine work whose checks did not run is not counted in either.
 
 ## Recognition
 
@@ -49,8 +50,8 @@ Uses the [stages](../../reference/progression.md#stages) with the [stage-depende
 | --- | --- |
 | Seen | One lighter routine change that passed its linked gates and was kept fourteen days. |
 | Forming | Such kept changes established in at least two distinct weeks of the last four. |
-| Established | [Most](../../reference/parameters.md#most) routine work (at least 60%, with at least four applicable changes) runs lighter, passes and is kept. |
-| Continuous | Most routine work runs lighter, passes and is kept, **and** the [mechanism](#mechanism) is in place, applied and holding. Coverage alone is not enough. |
+| Established | [Most](../../reference/parameters.md#most) of all routine changes in the coverage denominator (at least 60%, with at least four applicable changes, premium escalations included) ran lighter, passed and were kept. |
+| Continuous | Most of all routine changes in the coverage denominator ran lighter, passed and were kept, **and** the [mechanism](#mechanism) is in place, applied and holding. Coverage alone is not enough. |
 
 Immature changes are unassessed and count neither for nor against a stage.
 

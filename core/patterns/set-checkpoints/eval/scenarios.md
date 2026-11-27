@@ -78,8 +78,8 @@ Applicable work is a risky decision point (migration, deploy, deletion, public A
 
 - kind: boundary
 - expect: opportunity
-- Setup: in `pewter-tools`, the person asks "fix the config and ship it". The agent edits the config and runs the deploy. The person sees an error and writes "roll it back, that broke staging".
-- Why: a risky step went ahead without the person's approval and the person undid it: the coaching moment. The opportunity cites "fix the config and ship it" and "roll it back".
+- Setup: in `pewter-tools`, the person asks "fix the config so it's ready to deploy, but do not deploy it yet". The agent edits the config and then runs the deploy anyway. The person sees an error and writes "roll it back, that broke staging".
+- Why: the request was preparation only, so the deploy went ahead without the person's approval, and the person undid it: the coaching moment. Unapproved rests on the explicit "do not deploy it yet", not on the failure or rollback. The opportunity cites the preparation-only request and "roll it back".
 
 ## neg-8 Stop requested before a non-risky step
 

@@ -10,7 +10,7 @@ Two sessions must never share one directory, even on different branches: they wo
 
 ## 2. Pick two independent real tasks
 
-Choose two real tasks in your own projects that do not touch the same files: for example a refactor in one module and a bug fix in another, or work in two different repositories. One of them should be something the agent will take several minutes on.
+Choose two real tasks in your own projects that do not touch the same files: for example a refactor in one module and a bug fix in another, or work in two different repositories. One of them should be something the agent will take **at least five minutes** on in a single turn; a shorter turn is not the waiting time this pattern is about.
 
 If you do not have two independent tasks right now, **stop here**. There is no exercise and nothing to recognize.
 
@@ -24,9 +24,9 @@ If both tasks are in the same repository, ask your agent:
 
 Start the longer task in the first session. While it works, start the second session in the other working copy and give it its task. Let both make real edits.
 
-**Done:** both sessions, each in its own working copy, were editing during the same minutes, and you started the work in each. That is this pattern.
+**Done:** while one agent turn ran for at least five minutes, both sessions, each in its own working copy, were editing during the same minutes, and you started the work in each. That is this pattern.
 
-**Not done yet:** if the second session only sat open, the two shared a directory, or the second "session" was a subagent of the first, the pattern has not happened yet. That is fine. Nothing is recorded against you; try again on your next long turn.
+**Not done yet:** if the long turn finished in under five minutes, the second session only sat open, the two shared a directory, or the second "session" was a subagent of the first, the pattern has not happened yet. That is fine. Nothing is recorded against you; try again on your next long turn.
 
 ## Later
 

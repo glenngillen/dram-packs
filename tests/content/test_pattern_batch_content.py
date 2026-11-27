@@ -603,3 +603,119 @@ def test_guides_never_recommend_bypass_or_run_destructive_commands(pid):
         if line.startswith(">") or line.startswith("    "):
             assert not DESTRUCTIVE.search(line), f"{pid}: guide prompt includes a destructive or bypass command: {line}"
     assert not re.search(r"approve all|skip (the )?permissions", guide, re.I)
+
+
+# Review findings on the second pattern-content batch.
+def _read(pid: str, name: str) -> str:
+    return (PATTERNS / pid / name).read_text(encoding="utf-8")
+
+
+def _case(pid: str, cid: str) -> dict:
+    import json
+
+    for line in _read(pid, "eval/cases.jsonl").splitlines():
+        row = json.loads(line)
+        if row["id"] == cid:
+            return row
+    raise AssertionError(f"{pid}: no case {cid}")
+
+
+def _report(pid: str, key: str) -> str:
+    import yaml
+
+    return " ".join(yaml.safe_load(_read(pid, "text.yaml"))["report"][key].split())
+
+
+def test_sandbox_guide_makes_no_universal_containment_promise():
+    guide = _read("sandbox-autonomy", "guide.md")
+    assert "stays inside it" not in guide
+    intro = guide.split("## 1.", 1)[0]
+    assert re.search(r"reduces? (the )?risk", intro)
+    assert re.search(r"credential|privilege|network", intro)
+
+
+def test_two_at_once_requires_the_long_turn_for_recognition_and_guide():
+    judge = _read("two-at-once", "judge.md")
+    decide = _section(judge, "Decide")
+    assert re.search(r"at least 5 minutes", decide.split("Recognize **seen**", 1)[0])
+    assert "1–6" in decide
+    recognition = _section(_read("two-at-once", "definition.md"), "Recognition")
+    assert re.search(r"long_turn", recognition)
+    guide = _read("two-at-once", "guide.md")
+    assert "several minutes" not in guide
+    done = guide.split("**Done:**", 1)[1].split("\n\n", 1)[0]
+    assert re.search(r"at least five minutes", done)
+    scenario = _scenario("two-at-once", "neg-13")
+    assert "expect: none" in scenario and re.search(r"4-minute", scenario)
+    assert re.search(r"second session", scenario)
+    assert _case("two-at-once", "neg-13")["expect"] == "none"
+
+
+def test_two_at_once_shared_directory_mechanism_case_is_not_an_opportunity():
+    scenario = _scenario("two-at-once", "neg-12")
+    assert "expect: none" in scenario
+    assert re.search(r"Isolate the run", scenario)
+    assert _case("two-at-once", "neg-12")["expect"] == "none"
+
+
+@pytest.mark.parametrize("pid", ["hands-off", "isolate-the-run"])
+def test_unattended_guides_state_the_fifteen_minute_minimum(pid):
+    guide = _read(pid, "guide.md")
+    assert re.search(r"at least fifteen minutes", guide)
+    assert "long stretch" not in guide
+    assert not re.search(r"let it work without prompting it\)", guide)
+    not_done = guide.split("**Not done yet:**", 1)[1].split("\n\n", 1)[0]
+    assert re.search(r"fifteen minutes", not_done)
+
+
+def test_right_size_it_compares_against_the_usual_model():
+    guide = _read("right-size-it", "guide.md")
+    import yaml
+
+    fix = yaml.safe_load(_read("right-size-it", "text.yaml"))["fix_prompt"]
+    for text in (guide, fix):
+        assert "the one I am using now" not in text
+        assert re.search(r"usual", text)
+    done = guide.split("**Done:**", 1)[1].split("\n\n", 1)[0]
+    assert re.search(r"below your usual", done)
+    assert re.search(r"(do not|don't) know (what|which) your usual", guide)
+
+
+def test_mind_the_cache_separates_required_inputs_from_pricing():
+    text = _read("mind-the-cache", "definition.md")
+    applicable = _section(text, "Applicable work")
+    assert not re.search(r"\*\*Unknown\*\* cache lifetime", applicable)
+    assert re.search(r"no (cache-)?lifetime fact.*default", applicable, re.S)
+    verify = _section(text, "Verify before enabling")
+    assert "Unknown cache lifetime, context size, usage or pricing produces no recognition" not in verify
+    assert re.search(r"[Uu]nknown usage or pricing (suppresses|produces) (only )?(the )?cost", verify)
+
+
+def test_right_cadence_opportunity_copy_does_not_claim_every_model():
+    assert "every model" not in _report("right-cadence", "not_seen")
+
+
+def test_size_it_opportunity_copy_covers_one_large_goal():
+    copy = _report("size-it", "not_seen")
+    assert "several large goals at once" not in copy
+    assert re.search(r"one large goal", copy)
+
+
+def test_guard_destructive_opportunity_copy_covers_spelling_evasion():
+    copy = _report("guard-destructive", "not_seen")
+    assert re.search(r"did not (match|cover)", copy)
+
+
+def test_harness_carries_it_distinguishes_recognition_subset_from_coverage_denominator():
+    text = _read("harness-carries-it", "definition.md")
+    applicable = _section(text, "Applicable work")
+    assert re.search(r"coverage denominator", applicable)
+    assert re.search(r"all routine work", applicable)
+    progression = _section(text, "Progression")
+    assert re.search(r"all (applicable )?routine (work|changes)", progression)
+
+
+def test_set_checkpoints_unapproved_deploy_request_is_preparation_only():
+    scenario = _scenario("set-checkpoints", "neg-7")
+    assert "ship it" not in scenario
+    assert re.search(r"do not deploy|don't deploy", scenario)

@@ -2,7 +2,7 @@
 
 When a run goes unattended, give it a box to run in: a devcontainer or sandbox with its own checkout and none of your credentials.
 
-> **Detection is not available yet.** Dram cannot recognize this pattern in your sessions today, so finishing this guide will not show a recognition. The guide is still worth doing: a mistake made inside a container stays inside it.
+> **Detection is not available yet.** Dram cannot recognize this pattern in your sessions today, so finishing this guide will not show a recognition. The guide is still worth doing: a container or sandbox reduces the risk of an unattended mistake, but only as far as its actual access allows. Credentials, privileged or passthrough mounts, and network access it is given can still reach beyond it, so check what yours can reach.
 
 **Broad permissions are not part of this guide.** You can run in a container under the same scoped permissions you use now. Do not turn approvals off to try it.
 
