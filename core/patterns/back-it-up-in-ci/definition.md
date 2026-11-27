@@ -72,7 +72,8 @@ The source does **not** require branch protection. Its presence may help hold th
 
 ## Opportunities and coaching
 
-- **Opportunity**: agent work **pushed directly** to the default branch in a repository where the person's agent work lands. It cites a person-authored moment, such as the prompt asking the agent to commit and push to `main` ([opportunities](../../reference/evidence.md#opportunities)). A direct push made by an agent with no person turn that asked for it is not reported unless a person-authored moment in that work can be cited.
+- **Opportunity**: agent work **pushed directly** to the default branch in a repository where the person's agent work lands. It cites a person-authored moment, such as the prompt asking the agent to commit and push to `main` ([opportunities](../../reference/evidence.md#opportunities)). A direct push made by an agent with no person turn that asked for it is not reported unless a person-authored moment in that work can be cited. Tests that run only after the push do not change this: the change reached the default branch before CI tested it.
+- **Opportunity**: agent work merged through a branch or pull request whose CI **runs no tests** (for example docs-only or link-check workflows). It cites the person-authored moment that opened or merged the pull request. The route was right; the CI did not back the change up.
 - **Coaching**: the [guide](guide.md) explains fast local checks versus slower CI checks on the person's actual workflow, and has them send the next real agent change through a branch or pull request.
 - Escapes after merge (fix-ups or failing CI on agent work) relate to the **Escapes** [outcome](../../reference/outcomes.md); they are not wired.
 - `automate` advice is offered only after the [automation gate](../../reference/progression.md#automation-gate).

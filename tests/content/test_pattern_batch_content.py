@@ -320,3 +320,41 @@ def test_opportunity_branches_cover_mechanism_present_scenarios(pid):
     # The original absent-mechanism branch is preserved alongside.
     judge = _opportunity_text(pid, "judge.md")
     assert re.search(r"no saved version|without a persisted rule|no guide change", judge, re.I)
+
+
+# Review v1 (round 4) F1: schedule-the-clean-up neg-1 has an owned schedule
+# whose output went unused, so the copy must not claim no run existed.
+def test_schedule_the_clean_up_not_seen_covers_unused_scheduled_output():
+    assert "expect: opportunity" in _scenario("schedule-the-clean-up", "neg-1")
+    copy = _report_not_seen("schedule-the-clean-up")
+    assert not re.search(r"with no scheduled run", copy, re.I)
+    assert re.search(r"output was used", copy, re.I)
+
+
+# F2: direct pushes stay opportunities even when tests run afterwards, and
+# CI that runs no tests (neg-2) is its own opportunity branch.
+def test_back_it_up_in_ci_covers_docs_only_ci_and_timing():
+    assert "expect: opportunity" in _scenario("back-it-up-in-ci", "neg-2")
+    opportunities = _opportunity_text("back-it-up-in-ci", "definition.md")
+    assert re.search(r"pushed directly", opportunities, re.I)
+    assert re.search(r"runs no tests", opportunities, re.I)
+    assert re.search(r"after the push", opportunities, re.I)
+    copy = _report_not_seen("back-it-up-in-ci")
+    assert re.search(r"before any CI run had\s+tested", copy, re.I)
+
+
+# F3: unavailable follow-up limits later-stage corroboration, not Seen.
+def test_brief_it_unavailable_follow_up_does_not_undo_seen():
+    definition = (PATTERNS / "brief-it" / "definition.md").read_text(encoding="utf-8")
+    judge = (PATTERNS / "brief-it" / "judge.md").read_text(encoding="utf-8")
+    assert not re.search(r"request whose later work is unavailable", definition)
+    assert re.search(r"Unavailable later work does not undo Seen", definition)
+    assert re.search(r"Unavailable follow-up alone is not insufficient for Seen", judge)
+
+
+# F4: the guide states the 24-hour pairing window that neg-5 enforces.
+def test_hand_it_off_guide_states_the_24_hour_window():
+    assert "expect: none" in _scenario("hand-it-off", "neg-5")
+    guide = (PATTERNS / "hand-it-off" / "guide.md").read_text(encoding="utf-8")
+    assert "ideally soon" not in guide
+    assert len(re.findall(r"within 24 hours", guide)) >= 2

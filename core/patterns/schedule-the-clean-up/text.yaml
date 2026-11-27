@@ -10,8 +10,8 @@ report:
     A scheduled maintenance run produced output you used in {cases} of
     {applicable} maintained repositories.
   not_seen: >
-    {count} maintained repositories had recurring maintenance done by hand
-    with no scheduled run.
+    {count} maintained repositories had recurring maintenance done by hand,
+    without a scheduled run whose output was used.
   continuous: >
     Your scheduled maintenance ran on time through the window and its output
     was used.

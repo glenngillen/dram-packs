@@ -46,7 +46,8 @@ The brief completes Seen when it is sent. **Corroboration** is the later evidenc
 - **Cite** the person's request as the completing evidence for Seen: an exact quotation of the goal and the constraint or context.
 - **Retain** the later work that shows the context was used (the agent action or edit applying it) for Forming and Established; it is not required for Seen.
 - **Attribution**: the request is a person prompt in a main session. Text the agent wrote and the person accepted unread is not attributable as the person's brief.
-- A truncated or excluded session start, or a request whose later work is unavailable, is [insufficient](../../reference/evidence.md#insufficient-evidence): unassessed, not a miss.
+- A truncated or excluded session start is [insufficient](../../reference/evidence.md#insufficient-evidence): unassessed, not a miss.
+- Unavailable later work does not undo Seen. When the attributable brief and its task context are available, the brief is Seen; missing follow-up is insufficient only for the corroboration that Forming and Established need.
 - **Evidence the pinned CLI does not supply**: task boundaries inside sessions; a judgement of goal, constraint and relevance; linkage from a request to the later work that applied it; use of a saved command, skill or issue template.
 
 ## Progression

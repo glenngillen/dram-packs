@@ -20,13 +20,13 @@ Read it. Correct anything wrong or missing, especially decisions you do not want
 
 ## 3. Take the step: start fresh from it
 
-Start a **new** session in the same repository, ideally soon (within a day). Do not resume or continue the old session; that brings the long context back. Make your first prompt point at the handoff:
+Start a **new** session in the same repository within 24 hours of writing the handoff. Do not resume or continue the old session; that brings the long context back. Make your first prompt point at the handoff:
 
 > Read HANDOFF.md and continue from where it says we are.
 
 (Use your file's actual path.) If you are not sure how your tool starts a new session rather than resuming, ask your agent.
 
-**Done:** a fresh session in the same repository started from the handoff, and the agent continued the work from it. That is what this pattern recognizes once detection is available.
+**Done:** within 24 hours of the handoff, a fresh session in the same repository started from it, and the agent continued the work from it. A handoff picked up later can still be useful, but it does not count for this pattern. That is what this pattern recognizes once detection is available.
 
 **Not done yet:** if you wrote the handoff but never started a fresh session from it, or you resumed the old session instead, or you only read this guide, the pattern has not happened yet. That is fine. Nothing is recorded against you; the next step is to start a fresh session that reads the handoff.
 

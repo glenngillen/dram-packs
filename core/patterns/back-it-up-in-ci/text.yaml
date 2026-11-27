@@ -10,8 +10,8 @@ report:
     Agent changes reached the default branch through tested CI in {cases} of
     {applicable} cases.
   not_seen: >
-    {count} agent changes reached the default branch without a CI run that
-    tests them.
+    {count} agent changes reached the default branch before any CI run had
+    tested them.
   continuous: >
     Every agent change that reached the default branch went through CI that
     ran the tests.

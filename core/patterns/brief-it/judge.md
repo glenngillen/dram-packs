@@ -34,4 +34,5 @@ Report one only when a bare-goal request led to a wrong assumption that the pers
 
 - Recognition: the person's request quoted exactly with its evidence ID; the corroborating work's evidence ID and time, or `pending`.
 - Opportunity: the original request and the correcting prompt, quoted exactly, with the wrong assumption described.
-- Insufficient: a truncated, excluded or unavailable session or follow-up. Say so; never convert it to a miss.
+- Insufficient: a truncated, excluded or unavailable session start, so the brief or its task context cannot be read. Say so; never convert it to a miss.
+- Unavailable follow-up alone is not insufficient for Seen: if the brief and task context are available, report Seen and note that later-stage corroboration is unassessed.
