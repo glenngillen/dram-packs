@@ -407,6 +407,23 @@ def test_learn_from_production_owned_trigger_branches_in_judge_and_definition():
     assert re.search(r"merge|accept", opportunity, re.I)
 
 
+# Review F1 (round 3): the packaged YAML must carry the same owned-trigger
+# branch as the definition and judge (pos-3), and report.seen must not credit
+# only the person with supplying the signal.
+def test_learn_from_production_yaml_and_copy_cover_owned_triggers():
+    import yaml
+
+    assert "expect: seen" in _scenario("learn-from-production", "pos-3")
+    pattern = yaml.safe_load((PATTERNS / "learn-from-production" / "pattern.yaml").read_text(encoding="utf-8"))
+    when = " ".join(pattern["seen"]["when"].split())
+    assert re.search(r"owned trigger", when, re.I)
+    assert re.search(r"review|merg", when, re.I)
+    assert not re.search(r"signal they supplied", when, re.I)
+    seen_copy = " ".join(yaml.safe_load((PATTERNS / "learn-from-production" / "text.yaml").read_text(encoding="utf-8"))["report"]["seen"].split())
+    assert re.search(r"trigger you own", seen_copy, re.I)
+    assert not re.search(r"^You gave the agent", seen_copy)
+
+
 # Review F2 (learn-from-production): recurrence after a fix that did add a
 # regression check is not holding and cannot support Continuous.
 def test_learn_from_production_holding_requires_no_recurrence():

@@ -17,12 +17,14 @@ opportunities: true
 
 seen:
   when: >
-    On work for a production service, the person started the agent from an
-    actual production signal they supplied (an alert, error, log excerpt or
-    SLO breach), and the resulting fix included a new check, such as a
-    regression test, that would catch the problem next time. A generic bug
-    request without the signal, or a fix without a new preventive check, does
-    not count.
+    On work for a production service, the agent was started from an actual
+    production signal (an alert, error, log excerpt or SLO breach), either
+    supplied by the person in their request or delivered by an owned trigger
+    the person or their team configured, with the person reviewing or merging
+    the fix. The resulting fix included a new check, such as a regression
+    test, that would catch the problem next time. A generic bug request
+    without the signal, an agent starting itself, or a fix without a new
+    preventive check does not count.
 
 continuous:
   held:

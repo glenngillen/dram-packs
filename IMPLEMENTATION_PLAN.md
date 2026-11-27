@@ -163,6 +163,7 @@ Every following slice delivers complete pattern directories, their synthetic sce
 
 ## Notes
 
+- **Owner review after delivery (not a loop task):** once all 41 patterns are authored, the issue owner reviews final coaching copy and resolves applicable semantic decisions; private staff evaluation against the recorded stable-quality bars happens only when detectors are executable. Keep personal histories outside repository artifacts and retain only non-sensitive aggregate readiness evidence.
 - **Execution boundary:** all writes, tooling output, fixtures and generated artifacts must remain inside this worktree. The Dram CLI checkout at `/Volumes/Development/infracost/dram` is authorized read-only (plus a `go build` whose output goes to this worktree's `.tmp/`) as the compatibility source; no other adjacent checkout, global configuration, private histories, external infrastructure operations or source deletion is authorized. Build/test commands belong to building, not planning.
 - **Compatibility source:** the loader/schema/fixture sources and buildable CLI come from the read-only Dram checkout at `/Volumes/Development/infracost/dram` (pinned `bdea6f6`), with owenrumney/dram-packs as the layout reference. Nothing needs to be supplied by a human before the compatible-baseline slice. Do not fabricate a minimum version, maintainer, schema or successful check to advance the checklist.
 - **Established evidence:** `specs/requirements-evidence.md` contains the source/tool/query/date/identifier records and concrete findings. Its inspected CLI revision is `bdea6f678399b3684519d41cc65645b4a42d53ef`: only `tool_call_matches` and `tool_call_sequence` execute as fixed checks, only `tool_call_matches` gates, and disabled patterns still undergo block validation. Existing recommendations work but do not make arbitrary pack-authored judges execute. Preserve that distinction when verifying supplied compatibility inputs.
@@ -174,4 +175,3 @@ Every following slice delivers complete pattern directories, their synthetic sce
 ### Human follow-up
 
 - Maintainer identity confirmed by the issue owner: `glenngillen`. Use it wherever the schema needs maintainer metadata, without claiming official Infracost status.
-- Review final coaching copy and resolve applicable semantic decisions; undertake private staff evaluation against the recorded stable-quality bars only when detectors are executable. Keep personal histories outside repository artifacts and retain only non-sensitive aggregate readiness evidence.

@@ -7,8 +7,9 @@ preview_note: >
 
 report:
   seen: >
-    You gave the agent the production signal and kept a regression check with
-    the fix in {cases} of {applicable} production fixes.
+    A production signal started the agent's fix, from you or a trigger you
+    own, and a regression check shipped with it in {cases} of {applicable}
+    production fixes.
   not_seen: >
     {count} production fixes shipped without a check that would catch the
     problem again.
