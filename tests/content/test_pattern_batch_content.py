@@ -864,3 +864,32 @@ def test_right_cadence_neg_5_establishes_multiple_tiers():
     assert re.search(r"lighter", scenario)
     assert re.search(r"same (repository and )?window|in the same window", scenario)
     assert re.search(r"Gate each step|per-step checks", scenario)
+
+
+# instruction-guide-loading: an existing file only counts as "already doing
+# this" once the agent is confirmed to load it; filename existence is not enough.
+def test_give_it_instructions_guide_requires_confirmed_loading_before_stopping():
+    guide = (PATTERNS / "give-it-instructions" / "guide.md").read_text(encoding="utf-8")
+    step1 = guide.split("## 1.", 1)[1].split("## 2.", 1)[0]
+    exit_at = step1.index("you already do this")
+    before = step1[:exit_at]
+    assert re.search(r"(name|existence) alone is not enough", before, re.I)
+    assert re.search(r"confirm that your agent actually loads it", before)
+    assert re.search(r"names the file and quotes from it", before)
+    assert re.search(r"does not load the file", step1[exit_at:])
+
+
+# instruction-guide-applicability: the three-session boundary qualifies both the
+# repository choice and the Done branch; two sessions do not.
+def test_give_it_instructions_guide_states_the_three_session_boundary():
+    guide = (PATTERNS / "give-it-instructions" / "guide.md").read_text(encoding="utf-8")
+    assert "regularly" not in guide.split("## 2.", 1)[0].replace("../../reference", "")
+    step1 = guide.split("## 1.", 1)[1].split("## 2.", 1)[0]
+    assert re.search(r"at least three of your (main )?sessions", step1)
+    assert re.search(r"two sessions (alone )?do not", step1, re.I)
+    done = guide.split("**Done:**", 1)[1].split("\n\n", 1)[0]
+    assert re.search(r"at least three", done)
+    below = guide.split("**Not done yet:**", 1)[1].split("\n\n", 1)[0]
+    assert re.search(r"fewer than three", guide)
+    assert re.search(r"useful", guide.split("## 4.", 1)[1])
+    assert below

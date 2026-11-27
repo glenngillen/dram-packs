@@ -9,13 +9,14 @@ from __future__ import annotations
 import json
 
 import pytest
-from hypothesis import given
+from hypothesis import assume, given
 from hypothesis import strategies as st
 
 from dram_pack_tools.pack import (
     IMPLEMENTED_CHECKS,
     IMPLEMENTED_GATES,
     PLACEHOLDERS,
+    _check_params,
     _check_text,
     _schema_errors,
     _validator,
@@ -336,6 +337,85 @@ class TestProperties:
         p = pinned()
         valid = _validator(_json.dumps(p.schema, sort_keys=True), "packFile").is_valid(value)
         assert (_schema_errors(p, "packFile", value, "pack.yaml") == []) == valid
+
+
+    # _check_params transforms a registry block's params schema (adding the
+    # slot keys id/block/signal unless slot_keys is False) and turns validation
+    # failures into one diagnostic. Synthetic closed schemas shaped like the
+    # pinned registry's (type object, additionalProperties false).
+    SLOTS = ("id", "block", "signal")
+    param_name = st.from_regex(r"[a-z][a-z_]{0,8}", fullmatch=True).filter(lambda n: n not in ("id", "block", "signal"))
+    param_types = st.sampled_from(["string", "integer", "boolean"])
+    VALUES = {"string": st.text(max_size=6), "integer": st.integers(), "boolean": st.booleans()}
+    WRONG = {"string": 7, "integer": "seven", "boolean": "yes"}
+
+    @st.composite
+    def block_and_params(draw):
+        names = draw(st.lists(TestProperties.param_name, min_size=1, max_size=4, unique=True))
+        types = {n: draw(TestProperties.param_types) for n in names}
+        required = draw(st.lists(st.sampled_from(names), unique=True))
+        params_schema = {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {n: {"type": t} for n, t in types.items()},
+        }
+        if required:
+            params_schema["required"] = required
+        present = set(required) | set(draw(st.lists(st.sampled_from(names), unique=True)))
+        params = {n: draw(TestProperties.VALUES[types[n]]) for n in sorted(present)}
+        return {"kind": "check", "params": params_schema}, types, required, params
+
+    @given(block_and_params(), st.booleans(), st.dictionaries(st.sampled_from(SLOTS), st.text(max_size=6), max_size=3))
+    def test_check_params_accepts_valid_params_and_preserves_the_schema(self, drawn, slot_keys, slots):
+        import copy
+
+        block, _, _, params = drawn
+        before = copy.deepcopy(block)
+        if slot_keys:
+            params = {**params, **slots}
+        assert _check_params(block, "detection.code[0]", "blk", params, "pattern.yaml", slot_keys=slot_keys) == []
+        assert block == before
+
+    @given(block_and_params(), st.booleans(), param_name)
+    def test_check_params_rejects_unknown_keys(self, drawn, slot_keys, extra):
+        import copy
+
+        block, types, _, params = drawn
+        assume(extra not in types)
+        before = copy.deepcopy(block)
+        diags = _check_params(block, "detection.code[0]", "blk", {**params, extra: "x"}, "pattern.yaml", slot_keys=slot_keys)
+        assert [(d.path, d.code) for d in diags] == [("pattern.yaml", "block-params")]
+        assert diags[0].message.startswith("detection.code[0] (blk): ")
+        assert block == before
+
+    @given(block_and_params(), st.booleans(), st.data())
+    def test_check_params_rejects_missing_or_mistyped_required_values(self, drawn, slot_keys, data):
+        block, types, required, params = drawn
+        assume(required)
+        target = data.draw(st.sampled_from(required))
+        broken = dict(params)
+        if data.draw(st.booleans()):
+            del broken[target]
+        else:
+            broken[target] = TestProperties.WRONG[types[target]]
+        diags = _check_params(block, "f", "blk", broken, "p.yaml", slot_keys=slot_keys)
+        assert len(diags) == 1 and diags[0].code == "block-params"
+
+    @given(block_and_params(), st.sampled_from(SLOTS), st.text(max_size=6), st.booleans())
+    def test_check_params_slot_keys_follow_the_flag(self, drawn, slot, value, slot_keys):
+        block, _, _, params = drawn
+        diags = _check_params(block, "f", "blk", {**params, slot: value}, "p.yaml", slot_keys=slot_keys)
+        assert (diags == []) == slot_keys
+        if slot_keys:
+            bad = _check_params(block, "f", "blk", {**params, slot: 1}, "p.yaml", slot_keys=True)
+            assert [d.code for d in bad] == ["block-params"]
+
+    @given(st.sampled_from(SLOTS), st.sampled_from(["integer", "boolean"]))
+    def test_check_params_block_schema_overrides_a_slot_key(self, slot, typ):
+        block = {"kind": "check", "params": {"type": "object", "additionalProperties": False, "properties": {slot: {"type": typ}}}}
+        value = 3 if typ == "integer" else True
+        assert _check_params(block, "f", "blk", {slot: value}, "p.yaml") == []
+        assert block["params"]["properties"] == {slot: {"type": typ}}
 
 
 def test_schema_errors_report_a_missing_definition():
